@@ -1,2 +1,3 @@
-# Maps_Charts_Courses
+# Maps and Charts Courses
+
 Files created during Udemy.com maps and charts courses
