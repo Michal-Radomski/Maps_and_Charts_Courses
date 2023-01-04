@@ -23,7 +23,6 @@ const Map = (): JSX.Element => {
           </Popup>
         </Marker>
         <MarkerLayer data={cities} />
-        {/* @ts-ignore */}
         <MarkerLayerTooltips data={mountains} />
       </MapContainer>
     </React.Fragment>
