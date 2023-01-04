@@ -23,6 +23,7 @@ const MarkerLayerTooltips = ({ data }: { data: { features: Feature[] } }): JSX.E
             icon={mountainIcon}
             eventHandlers={{
               click: (event) => leafletMap.panTo(event.latlng),
+              dblclick: (event) => console.log({ event }),
             }}
           >
             <Tooltip permanent={true}>
