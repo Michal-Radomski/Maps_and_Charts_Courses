@@ -8,13 +8,25 @@ interface Feature {
   geometry: { coordinates: Array<number> };
 }
 
-const PopupStatistics = (): JSX.Element => {
+interface Feature2 {
+  properties: { name: string; adm0name: string; pop_max: string };
+}
+
+const PopupStatistics = ({ feature }: { feature: Feature2 }): JSX.Element => {
+  const { name, adm0name, pop_max } = feature.properties;
+
   return (
-    <Card type="inner" title="Name" style={{ marginTop: 16 }}>
-      <div style={{ color: "blue" }}>
-        Marker for a city. <br /> For a capital.
-      </div>
-    </Card>
+    <React.Fragment>
+      <Card type="inner" title="Name">
+        {name}
+      </Card>
+      <Card type="inner" title="Population">
+        {pop_max}
+      </Card>
+      <Card type="inner" title="Radius Filter">
+        {adm0name}
+      </Card>
+    </React.Fragment>
   );
 };
 
@@ -28,7 +40,7 @@ const MarkerLayer = ({ data }: { data: { features: Feature[] } }): JSX.Element =
           <Marker key={String(coordinates)} position={[coordinates[1], coordinates[0]]} icon={defaultIcon}>
             <Popup>
               {/* Marker for a city. <br /> For a capital. */}
-              <PopupStatistics />
+              <PopupStatistics feature={feature as any} />
             </Popup>
           </Marker>
         );
