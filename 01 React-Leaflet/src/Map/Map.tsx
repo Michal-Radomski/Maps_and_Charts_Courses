@@ -7,6 +7,10 @@ import defaultIcon from "../icons/defaultIcon";
 import MarkerLayer from "../layers/MarkerLayer";
 import MarkerLayerTooltips from "../layers/MarkerLayerTooltips";
 
+interface Data {
+  features: Feature[];
+}
+
 const Map = (): JSX.Element => {
   const position = [54.3475, 18.645278] as [number, number];
 
@@ -22,7 +26,7 @@ const Map = (): JSX.Element => {
             Gdansk. <br /> Beautiful Gdansk.
           </Popup>
         </Marker>
-        <MarkerLayer data={cities} />
+        <MarkerLayer data={cities as Data} />
         <MarkerLayerTooltips data={mountains} />
       </MapContainer>
     </React.Fragment>

@@ -4,15 +4,7 @@ import { Card } from "antd";
 
 import defaultIcon from "../icons/defaultIcon";
 
-interface Feature {
-  geometry: { coordinates: Array<number> };
-}
-
-interface Feature2 {
-  properties: { name: string; adm0name: string; pop_max: string };
-}
-
-const PopupStatistics = ({ feature }: { feature: Feature2 }): JSX.Element => {
+const PopupStatistics = ({ feature }: { feature: Feature }): JSX.Element => {
   const { name, adm0name, pop_max } = feature.properties;
 
   return (
@@ -40,7 +32,7 @@ const MarkerLayer = ({ data }: { data: { features: Feature[] } }): JSX.Element =
           <Marker key={String(coordinates)} position={[coordinates[1], coordinates[0]]} icon={defaultIcon}>
             <Popup>
               {/* Marker for a city. <br /> For a capital. */}
-              <PopupStatistics feature={feature as any} />
+              <PopupStatistics feature={feature} />
             </Popup>
           </Marker>
         );
