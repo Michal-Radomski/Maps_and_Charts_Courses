@@ -3,6 +3,7 @@ import { Marker, Popup } from "react-leaflet";
 import { Button, Card, InputNumber, Space } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import L from "leaflet";
+import { booleanPointInPolygon, Coord } from "@turf/turf";
 
 import defaultIcon from "../icons/defaultIcon";
 
@@ -15,13 +16,13 @@ const PopupStatistics = ({ feature, setRadiusFilter }: { feature: Feature; setRa
 
   return (
     <React.Fragment>
-      <Card type="inner" title="Name" style={{ marginTop: 16 }}>
+      <Card type="inner" title="Name" style={{ marginTop: 10 }}>
         <b>{`${name}, ${adm0name}`}</b>
       </Card>
-      <Card type="inner" title="Population" style={{ marginTop: 16 }}>
+      <Card type="inner" title="Population" style={{ marginTop: 10 }}>
         <b>{`${pop_max}`}</b>
       </Card>
-      <Card type="inner" title="Radius Filter" style={{ marginTop: 16 }}>
+      <Card type="inner" title="Radius Filter" style={{ marginTop: 10 }}>
         <Space>
           <InputNumber
             defaultValue={DEFAULT_RADIUS}
@@ -67,13 +68,18 @@ const MarkerLayer = ({
   data,
   setRadiusFilter,
   getRadiusFilter,
+  getGeoFilter,
 }: {
   data: { features: Feature[] };
   setRadiusFilter: Function;
   getRadiusFilter: Function;
+  getGeoFilter: Function;
 }): JSX.Element => {
   const radiusFilter = getRadiusFilter();
   // console.log({ radiusFilter });
+
+  const geoFilter = getGeoFilter();
+  // console.log({ geoFilter });
 
   let centerPoint: L.LatLng;
   if (radiusFilter) {
@@ -85,13 +91,29 @@ const MarkerLayer = ({
     <React.Fragment>
       {data.features
         .filter((currentFeature: Feature) => {
+          let filterByRadius = false || true;
+          let filterByGeo = false || true;
+
           if (centerPoint) {
             const { coordinates } = currentFeature.geometry;
             const currentPoint = L.latLng(coordinates[1], coordinates[0]);
-            return centerPoint.distanceTo(currentPoint) / 1000 < radiusFilter.radius;
-          } else {
-            return true;
+            filterByRadius = centerPoint.distanceTo(currentPoint) / 1000 < radiusFilter.radius;
           }
+
+          if (geoFilter) {
+            filterByGeo = booleanPointInPolygon(currentFeature as Coord, geoFilter);
+          }
+
+          let doFilter = true;
+          if (geoFilter && radiusFilter) {
+            // console.log({ filterByRadius, filterByGeo });
+            doFilter = (filterByGeo && filterByRadius) as boolean;
+          } else if (geoFilter && !radiusFilter) {
+            doFilter = filterByGeo as boolean;
+          } else if (radiusFilter && !geoFilter) {
+            doFilter = filterByRadius as boolean;
+          }
+          return doFilter;
         })
         .map((feature: Feature) => {
           const { coordinates } = feature.geometry;

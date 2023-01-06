@@ -38,7 +38,12 @@ const Map = (): JSX.Element => {
             Gdansk. <br /> Beautiful Gdansk.
           </Popup>
         </Marker>
-        <MarkerLayer data={cities as Data} setRadiusFilter={setRadiusFilter} getRadiusFilter={getRadiusFilter} />
+        <MarkerLayer
+          data={cities as Data}
+          setRadiusFilter={setRadiusFilter}
+          getRadiusFilter={getRadiusFilter}
+          getGeoFilter={getGeoFilter}
+        />
         <MarkerLayerTooltips data={mountains} />
         <RadiusFilter radiusFilter={radiusFilter!} setRadiusFilter={setRadiusFilter} />
         <ContinentsPolygonLayer data={continents as GeoJsonObject} setGeoFilter={setGeoFilter} getGeoFilter={getGeoFilter} />
