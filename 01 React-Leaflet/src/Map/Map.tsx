@@ -14,6 +14,10 @@ interface Data {
 const Map = (): JSX.Element => {
   const position = [54.3475, 18.645278] as [number, number];
 
+  const [radiusFilter, setRadiusFilter] = React.useState<object | null>(null);
+  // console.log({ radiusFilter });
+  const getRadiusFilter = () => radiusFilter;
+
   return (
     <React.Fragment>
       <MapContainer center={position} zoom={3} scrollWheelZoom={false} preferCanvas={false}>
@@ -26,7 +30,7 @@ const Map = (): JSX.Element => {
             Gdansk. <br /> Beautiful Gdansk.
           </Popup>
         </Marker>
-        <MarkerLayer data={cities as Data} />
+        <MarkerLayer data={cities as Data} setRadiusFilter={setRadiusFilter} getRadiusFilter={getRadiusFilter} />
         <MarkerLayerTooltips data={mountains} />
       </MapContainer>
     </React.Fragment>
