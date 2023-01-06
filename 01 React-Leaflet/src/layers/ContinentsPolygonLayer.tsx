@@ -1,6 +1,6 @@
 import { GeoJsonObject } from "geojson";
 import React from "react";
-import { GeoJSON } from "react-leaflet";
+import { GeoJSON, LayersControl } from "react-leaflet";
 
 const ContinentsPolygonLayer = ({
   data,
@@ -12,27 +12,36 @@ const ContinentsPolygonLayer = ({
   getGeoFilter: Function;
 }): JSX.Element => {
   const geoFilter = getGeoFilter();
+
+  const Layer = () => {
+    return (
+      <React.Fragment>
+        <GeoJSON
+          key="geo-json-layer"
+          data={data}
+          eventHandlers={{
+            click: (event) =>
+              setGeoFilter((prevState: GeoJsonObject) => {
+                const same = prevState === event.propagatedFrom.feature;
+                return same ? null : event.propagatedFrom.feature;
+              }),
+          }}
+          style={(feature) => {
+            return {
+              color: geoFilter === feature ? "red" : "blue",
+              weight: 0.5,
+              fillOpacity: 0.4,
+            };
+          }}
+        ></GeoJSON>
+      </React.Fragment>
+    );
+  };
+
   return (
-    <React.Fragment>
-      <GeoJSON
-        key="geo-json-layer"
-        data={data}
-        eventHandlers={{
-          click: (event) =>
-            setGeoFilter((prevState: GeoJsonObject) => {
-              const same = prevState === event.propagatedFrom.feature;
-              return same ? null : event.propagatedFrom.feature;
-            }),
-        }}
-        style={(feature) => {
-          return {
-            color: geoFilter === feature ? "red" : "blue",
-            weight: 0.5,
-            fillOpacity: 0.4,
-          };
-        }}
-      ></GeoJSON>
-    </React.Fragment>
+    <LayersControl.Overlay checked name="Continents">
+      <Layer />
+    </LayersControl.Overlay>
   );
 };
 

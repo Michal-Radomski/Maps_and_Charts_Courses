@@ -1,5 +1,5 @@
 import React from "react";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { LayersControl, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { GeoJsonObject } from "geojson";
 
 import { cities } from "../data/cities";
@@ -29,24 +29,33 @@ const Map = (): JSX.Element => {
   return (
     <React.Fragment>
       <MapContainer center={position} zoom={3} scrollWheelZoom={false} preferCanvas={false}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={position} icon={defaultIcon}>
-          <Popup>
-            Gdansk. <br /> Beautiful Gdansk.
-          </Popup>
-        </Marker>
-        <MarkerLayer
-          data={cities as Data}
-          setRadiusFilter={setRadiusFilter}
-          getRadiusFilter={getRadiusFilter}
-          getGeoFilter={getGeoFilter}
-        />
-        <MarkerLayerTooltips data={mountains} />
-        <RadiusFilter radiusFilter={radiusFilter!} setRadiusFilter={setRadiusFilter} />
-        <ContinentsPolygonLayer data={continents as GeoJsonObject} setGeoFilter={setGeoFilter} getGeoFilter={getGeoFilter} />
+        <LayersControl position="topright">
+          <LayersControl.BaseLayer checked name="OSM Streets">
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          </LayersControl.BaseLayer>
+
+          <Marker position={position} icon={defaultIcon}>
+            <Popup>
+              Gdansk. <br /> Beautiful Gdansk.
+            </Popup>
+          </Marker>
+          <MarkerLayer
+            data={cities as Data}
+            setRadiusFilter={setRadiusFilter}
+            getRadiusFilter={getRadiusFilter}
+            getGeoFilter={getGeoFilter}
+          />
+          <MarkerLayerTooltips data={mountains} />
+          <RadiusFilter radiusFilter={radiusFilter!} setRadiusFilter={setRadiusFilter} />
+          <ContinentsPolygonLayer
+            data={continents as GeoJsonObject}
+            setGeoFilter={setGeoFilter}
+            getGeoFilter={getGeoFilter}
+          />
+        </LayersControl>
       </MapContainer>
     </React.Fragment>
   );

@@ -1,6 +1,6 @@
 import { LeafletMouseEvent } from "leaflet";
 import React from "react";
-import { Circle } from "react-leaflet";
+import { Circle, LayersControl } from "react-leaflet";
 
 declare global {
   interface Window {
@@ -17,22 +17,31 @@ const RadiusFilter = ({
 }): JSX.Element => {
   if (radiusFilter) {
     const { coordinates } = radiusFilter.feature.geometry;
+
+    const layer = () => {
+      return (
+        <React.Fragment>
+          <Circle
+            center={[coordinates[1], coordinates[0]]}
+            radius={radiusFilter.radius * 1000}
+            eventHandlers={{
+              dblclick: (event) => {
+                event.originalEvent.view!.L.DomEvent.stopPropagation(event);
+                setRadiusFilter(null);
+              },
+            }}
+            color={"gray"}
+            weight={1}
+            fillOpacity={0.4}
+          />
+        </React.Fragment>
+      );
+    };
+
     return (
-      <React.Fragment>
-        <Circle
-          center={[coordinates[1], coordinates[0]]}
-          radius={radiusFilter.radius * 1000}
-          eventHandlers={{
-            dblclick: (event) => {
-              event.originalEvent.view!.L.DomEvent.stopPropagation(event);
-              setRadiusFilter(null);
-            },
-          }}
-          color={"gray"}
-          weight={1}
-          fillOpacity={0.4}
-        />
-      </React.Fragment>
+      <LayersControl.Overlay checked name="Radius Filter">
+        {layer()}
+      </LayersControl.Overlay>
     );
   } else {
     return null as any;

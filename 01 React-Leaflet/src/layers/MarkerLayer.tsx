@@ -1,5 +1,5 @@
 import React from "react";
-import { Marker, Popup } from "react-leaflet";
+import { LayersControl, Marker, Popup } from "react-leaflet";
 import { Button, Card, InputNumber, Space } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import L from "leaflet";
@@ -87,45 +87,47 @@ const MarkerLayer = ({
     centerPoint = L.latLng(coordinates[1], coordinates[0]);
   }
 
+  const layer = data.features
+    .filter((currentFeature: Feature) => {
+      let filterByRadius = false || true;
+      let filterByGeo = false || true;
+
+      if (centerPoint) {
+        const { coordinates } = currentFeature.geometry;
+        const currentPoint = L.latLng(coordinates[1], coordinates[0]);
+        filterByRadius = centerPoint.distanceTo(currentPoint) / 1000 < radiusFilter.radius;
+      }
+
+      if (geoFilter) {
+        filterByGeo = booleanPointInPolygon(currentFeature as Coord, geoFilter);
+      }
+
+      let doFilter = true;
+      if (geoFilter && radiusFilter) {
+        // console.log({ filterByRadius, filterByGeo });
+        doFilter = (filterByGeo && filterByRadius) as boolean;
+      } else if (geoFilter && !radiusFilter) {
+        doFilter = filterByGeo as boolean;
+      } else if (radiusFilter && !geoFilter) {
+        doFilter = filterByRadius as boolean;
+      }
+      return doFilter;
+    })
+    .map((feature: Feature) => {
+      const { coordinates } = feature.geometry;
+      return (
+        <Marker key={String(coordinates)} position={[coordinates[1], coordinates[0]]} icon={defaultIcon}>
+          <Popup>
+            <PopupStatistics feature={feature} setRadiusFilter={setRadiusFilter} />
+          </Popup>
+        </Marker>
+      );
+    });
+
   return (
-    <React.Fragment>
-      {data.features
-        .filter((currentFeature: Feature) => {
-          let filterByRadius = false || true;
-          let filterByGeo = false || true;
-
-          if (centerPoint) {
-            const { coordinates } = currentFeature.geometry;
-            const currentPoint = L.latLng(coordinates[1], coordinates[0]);
-            filterByRadius = centerPoint.distanceTo(currentPoint) / 1000 < radiusFilter.radius;
-          }
-
-          if (geoFilter) {
-            filterByGeo = booleanPointInPolygon(currentFeature as Coord, geoFilter);
-          }
-
-          let doFilter = true;
-          if (geoFilter && radiusFilter) {
-            // console.log({ filterByRadius, filterByGeo });
-            doFilter = (filterByGeo && filterByRadius) as boolean;
-          } else if (geoFilter && !radiusFilter) {
-            doFilter = filterByGeo as boolean;
-          } else if (radiusFilter && !geoFilter) {
-            doFilter = filterByRadius as boolean;
-          }
-          return doFilter;
-        })
-        .map((feature: Feature) => {
-          const { coordinates } = feature.geometry;
-          return (
-            <Marker key={String(coordinates)} position={[coordinates[1], coordinates[0]]} icon={defaultIcon}>
-              <Popup>
-                <PopupStatistics feature={feature} setRadiusFilter={setRadiusFilter} />
-              </Popup>
-            </Marker>
-          );
-        })}
-    </React.Fragment>
+    <LayersControl.Overlay checked name="World cities">
+      {layer}
+    </LayersControl.Overlay>
   );
 };
 
