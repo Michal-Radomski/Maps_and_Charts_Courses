@@ -1,12 +1,15 @@
 import React from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { GeoJsonObject } from "geojson";
 
 import { cities } from "../data/cities";
 import { mountains } from "../data/mountains";
+import { continents } from "../data/continents";
 import defaultIcon from "../icons/defaultIcon";
 import MarkerLayer from "../layers/MarkerLayer";
 import MarkerLayerTooltips from "../layers/MarkerLayerTooltips";
 import RadiusFilter from "../layers/RadiusFilter";
+import ContinentsPolygonLayer from "../layers/ContinentsPolygonLayer";
 
 interface Data {
   features: Feature[];
@@ -18,6 +21,10 @@ const Map = (): JSX.Element => {
   const [radiusFilter, setRadiusFilter] = React.useState<RadiusFilter | null>(null);
   // console.log({ radiusFilter });
   const getRadiusFilter = () => radiusFilter;
+
+  const [geoFilter, setGeoFilter] = React.useState<GeoJsonObject | null>(null);
+  // console.log({ geoFilter });
+  const getGeoFilter = () => geoFilter;
 
   return (
     <React.Fragment>
@@ -34,6 +41,7 @@ const Map = (): JSX.Element => {
         <MarkerLayer data={cities as Data} setRadiusFilter={setRadiusFilter} getRadiusFilter={getRadiusFilter} />
         <MarkerLayerTooltips data={mountains} />
         <RadiusFilter radiusFilter={radiusFilter!} setRadiusFilter={setRadiusFilter} />
+        <ContinentsPolygonLayer data={continents as GeoJsonObject} setGeoFilter={setGeoFilter} getGeoFilter={getGeoFilter} />
       </MapContainer>
     </React.Fragment>
   );
