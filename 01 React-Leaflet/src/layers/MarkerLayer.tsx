@@ -73,7 +73,7 @@ const MarkerLayer = ({
   getRadiusFilter: Function;
 }): JSX.Element => {
   const radiusFilter = getRadiusFilter();
-  console.log({ radiusFilter });
+  // console.log({ radiusFilter });
 
   let centerPoint: L.LatLng;
   if (radiusFilter) {
@@ -84,7 +84,7 @@ const MarkerLayer = ({
   return (
     <React.Fragment>
       {data.features
-        .filter((currentFeature) => {
+        .filter((currentFeature: Feature) => {
           if (centerPoint) {
             const { coordinates } = currentFeature.geometry;
             const currentPoint = L.latLng(coordinates[1], coordinates[0]);
@@ -93,7 +93,7 @@ const MarkerLayer = ({
             return true;
           }
         })
-        .map((feature) => {
+        .map((feature: Feature) => {
           const { coordinates } = feature.geometry;
           return (
             <Marker key={String(coordinates)} position={[coordinates[1], coordinates[0]]} icon={defaultIcon}>

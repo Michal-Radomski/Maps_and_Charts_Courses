@@ -16,3 +16,8 @@ interface Feature {
     coordinates: number[];
   };
 }
+
+interface RadiusFilter {
+  feature: Feature;
+  radius: number;
+}

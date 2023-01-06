@@ -6,6 +6,7 @@ import { mountains } from "../data/mountains";
 import defaultIcon from "../icons/defaultIcon";
 import MarkerLayer from "../layers/MarkerLayer";
 import MarkerLayerTooltips from "../layers/MarkerLayerTooltips";
+import RadiusFilter from "../layers/RadiusFilter";
 
 interface Data {
   features: Feature[];
@@ -14,7 +15,7 @@ interface Data {
 const Map = (): JSX.Element => {
   const position = [54.3475, 18.645278] as [number, number];
 
-  const [radiusFilter, setRadiusFilter] = React.useState<object | null>(null);
+  const [radiusFilter, setRadiusFilter] = React.useState<RadiusFilter | null>(null);
   // console.log({ radiusFilter });
   const getRadiusFilter = () => radiusFilter;
 
@@ -32,6 +33,7 @@ const Map = (): JSX.Element => {
         </Marker>
         <MarkerLayer data={cities as Data} setRadiusFilter={setRadiusFilter} getRadiusFilter={getRadiusFilter} />
         <MarkerLayerTooltips data={mountains} />
+        <RadiusFilter radiusFilter={radiusFilter!} setRadiusFilter={setRadiusFilter} />
       </MapContainer>
     </React.Fragment>
   );
