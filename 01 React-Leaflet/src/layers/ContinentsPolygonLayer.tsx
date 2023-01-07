@@ -22,8 +22,8 @@ const ContinentsPolygonLayer = ({
           eventHandlers={{
             click: (event) =>
               setGeoFilter((prevState: GeoJsonObject) => {
-                const same = prevState === event.propagatedFrom.feature;
-                return same ? null : event.propagatedFrom.feature;
+                const theSame = prevState === event.propagatedFrom.feature;
+                return theSame ? null : event.propagatedFrom.feature;
               }),
           }}
           style={(feature) => {

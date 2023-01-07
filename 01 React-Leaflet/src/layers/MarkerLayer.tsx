@@ -1,5 +1,5 @@
 import React from "react";
-import { LayersControl, Marker, Popup } from "react-leaflet";
+import { LayerGroup, LayersControl, Marker, Popup } from "react-leaflet";
 import { Button, Card, InputNumber, Space } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import L from "leaflet";
@@ -126,7 +126,7 @@ const MarkerLayer = ({
 
   return (
     <LayersControl.Overlay checked name="World cities">
-      {layer}
+      <LayerGroup>{layer}</LayerGroup>
     </LayersControl.Overlay>
   );
 };
