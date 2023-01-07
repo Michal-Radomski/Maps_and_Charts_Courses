@@ -16,8 +16,7 @@ interface CustomLayer extends Layer {
   options?: { doFitToBounds: () => void };
 }
 
-// @ts-ignore
-Control.Zoom = Control.extend({
+const CustomControl = Control.extend({
   options: {
     position: "topleft",
   },
@@ -70,7 +69,7 @@ Control.Zoom = Control.extend({
   // },
 });
 
-const FitDataToBounds = createControlComponent((props) => new Control.Zoom(props));
+const FitDataToBounds = createControlComponent((props) => new CustomControl(props));
 // console.log({ FitDataToBounds });
 
 export default FitDataToBounds;
