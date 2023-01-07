@@ -10,6 +10,7 @@ import MarkerLayer from "../layers/MarkerLayer";
 import MarkerLayerTooltips from "../layers/MarkerLayerTooltips";
 import RadiusFilter from "../layers/RadiusFilter";
 import ContinentsPolygonLayer from "../layers/ContinentsPolygonLayer";
+import FitDataToBounds from "../controls/FitDataToBounds";
 
 interface Data {
   features: Feature[];
@@ -56,6 +57,7 @@ const Map = (): JSX.Element => {
             getGeoFilter={getGeoFilter}
           />
         </LayersControl>
+        <FitDataToBounds />
       </MapContainer>
     </React.Fragment>
   );
