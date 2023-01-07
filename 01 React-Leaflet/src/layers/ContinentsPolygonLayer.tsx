@@ -39,7 +39,7 @@ const ContinentsPolygonLayer = ({
   };
 
   return (
-    <LayersControl.Overlay checked name="Continents">
+    <LayersControl.Overlay checked={false} name="Continents">
       <Layer />
     </LayersControl.Overlay>
   );

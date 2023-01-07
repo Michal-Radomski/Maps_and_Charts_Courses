@@ -125,7 +125,7 @@ const MarkerLayer = ({
     });
 
   return (
-    <LayersControl.Overlay checked name="World cities">
+    <LayersControl.Overlay checked={false} name="World cities">
       <LayerGroup>{layer}</LayerGroup>
     </LayersControl.Overlay>
   );

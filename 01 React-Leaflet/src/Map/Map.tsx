@@ -2,7 +2,7 @@ import React from "react";
 import { LayersControl, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { GeoJsonObject } from "geojson";
 
-import { cities } from "../data/cities";
+// import { cities } from "../data/cities";
 import { mountains } from "../data/mountains";
 import { continents } from "../data/continents";
 import defaultIcon from "../icons/defaultIcon";
@@ -13,9 +13,9 @@ import ContinentsPolygonLayer from "../layers/ContinentsPolygonLayer";
 import FitDataToBounds from "../controls/FitDataToBounds";
 import ShowActiveFiltersControl from "../controls/ShowActiveFiltersControl";
 
-interface Data {
-  features: Feature[];
-}
+// interface Data {
+//   features: Feature[];
+// }
 
 const Map = (): JSX.Element => {
   const position = [54.3475, 18.645278] as [number, number];
@@ -28,6 +28,19 @@ const Map = (): JSX.Element => {
   // console.log({ geoFilter });
   const getGeoFilter = () => geoFilter;
 
+  const [asyncCities, setAsyncCities] = React.useState<{ features: Feature[] }>({ features: [] });
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_populated_places_simple.geojson"
+      );
+      const cities = await response.json();
+      setAsyncCities(cities);
+    };
+    fetchData().catch((error) => console.error({ error }));
+  }, []);
+
   return (
     <React.Fragment>
       <MapContainer center={position} zoom={3} scrollWheelZoom={false} preferCanvas={false}>
@@ -39,13 +52,29 @@ const Map = (): JSX.Element => {
             />
           </LayersControl.BaseLayer>
 
+          <LayersControl.BaseLayer name="ESRI World Imagery">
+            <TileLayer
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+              attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+            />
+          </LayersControl.BaseLayer>
+
+          <LayersControl.BaseLayer name="OpenTopoMap">
+            <TileLayer
+              url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+              attribution='Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+              maxZoom={17}
+            />
+          </LayersControl.BaseLayer>
+
           <Marker position={position} icon={defaultIcon}>
             <Popup>
               Gdansk. <br /> Beautiful Gdansk.
             </Popup>
           </Marker>
           <MarkerLayer
-            data={cities as Data}
+            // data={cities as Data}
+            data={asyncCities}
             setRadiusFilter={setRadiusFilter}
             getRadiusFilter={getRadiusFilter}
             getGeoFilter={getGeoFilter}

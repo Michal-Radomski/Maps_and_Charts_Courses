@@ -35,7 +35,7 @@ const MarkerLayerTooltips = ({ data }: { data: { features: Feature[] } }): JSX.E
 
   return (
     <React.Fragment>
-      <LayersControl.Overlay checked name="Highest Points">
+      <LayersControl.Overlay checked={false} name="Highest Points">
         <LayerGroup>{layer}</LayerGroup>
       </LayersControl.Overlay>
     </React.Fragment>
