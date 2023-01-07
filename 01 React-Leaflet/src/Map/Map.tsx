@@ -11,6 +11,7 @@ import MarkerLayerTooltips from "../layers/MarkerLayerTooltips";
 import RadiusFilter from "../layers/RadiusFilter";
 import ContinentsPolygonLayer from "../layers/ContinentsPolygonLayer";
 import FitDataToBounds from "../controls/FitDataToBounds";
+import ShowActiveFiltersControl from "../controls/ShowActiveFiltersControl";
 
 interface Data {
   features: Feature[];
@@ -58,6 +59,7 @@ const Map = (): JSX.Element => {
           />
         </LayersControl>
         <FitDataToBounds />
+        <ShowActiveFiltersControl getFilters={() => ({ geoFilter, radiusFilter } as any)} />
       </MapContainer>
     </React.Fragment>
   );
