@@ -25,6 +25,16 @@ const RoutingMachine = (): JSX.Element => {
           icon: defaultIcon,
         });
       },
+      // @ts-ignore
+      lineOptions: {
+        styles: [
+          {
+            color: "blue",
+            opacity: 0.6,
+            weight: 4,
+          },
+        ],
+      },
       routeWhileDragging: true,
       show: true,
       addWaypoints: false,
