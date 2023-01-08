@@ -31,7 +31,7 @@ const MarkerLayerTooltipsCluster = ({ data }: { data: Data }): JSX.Element => {
     <React.Fragment>
       <LayersControl.Overlay checked={false} name="World Cities Cluster">
         {/* @ts-ignore */}
-        <MarkerClusterGroup>{layer}</MarkerClusterGroup>
+        <MarkerClusterGroup zoomToBoundsOnClick={false}>{layer}</MarkerClusterGroup>
       </LayersControl.Overlay>
     </React.Fragment>
   );

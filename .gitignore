@@ -13,6 +13,4 @@ node_modules/
 .vscode/
 build/
 dist/
-cities.ts
-mountains.ts
-continents.ts
+data/

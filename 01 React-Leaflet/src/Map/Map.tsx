@@ -13,6 +13,8 @@ import ContinentsPolygonLayer from "../layers/ContinentsPolygonLayer";
 import FitDataToBounds from "../controls/FitDataToBounds";
 import ShowActiveFiltersControl from "../controls/ShowActiveFiltersControl";
 import MarkerLayerTooltipsCluster from "../layers/MarkerLayerTooltipsCluster";
+import MarkerLayerTooltipsReProject from "../layers/MarkerLayerTooltipsReProject";
+import { irishCities2157 } from "../data/irish_cities_21157";
 
 const Map = (): JSX.Element => {
   const position = [54.3475, 18.645278] as [number, number];
@@ -77,7 +79,10 @@ const Map = (): JSX.Element => {
             getGeoFilter={getGeoFilter}
           />
           <MarkerLayerTooltips data={mountains} />
+
           <MarkerLayerTooltipsCluster data={cities as Data} />
+          <MarkerLayerTooltipsReProject data={irishCities2157 as unknown as Data} />
+
           <RadiusFilter radiusFilter={radiusFilter!} setRadiusFilter={setRadiusFilter} />
           <ContinentsPolygonLayer
             data={continents as GeoJsonObject}
