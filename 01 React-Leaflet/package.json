@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@changey/react-leaflet-markercluster": "^4.0.0-rc1",
     "@turf/turf": "^6.5.0",
     "@types/node": "^16.18.11",
     "@types/react": "^18.0.26",

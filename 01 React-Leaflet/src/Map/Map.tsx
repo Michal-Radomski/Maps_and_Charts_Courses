@@ -2,7 +2,7 @@ import React from "react";
 import { LayersControl, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { GeoJsonObject } from "geojson";
 
-// import { cities } from "../data/cities";
+import { cities } from "../data/cities";
 import { mountains } from "../data/mountains";
 import { continents } from "../data/continents";
 import defaultIcon from "../icons/defaultIcon";
@@ -12,10 +12,7 @@ import RadiusFilter from "../layers/RadiusFilter";
 import ContinentsPolygonLayer from "../layers/ContinentsPolygonLayer";
 import FitDataToBounds from "../controls/FitDataToBounds";
 import ShowActiveFiltersControl from "../controls/ShowActiveFiltersControl";
-
-// interface Data {
-//   features: Feature[];
-// }
+import MarkerLayerTooltipsCluster from "../layers/MarkerLayerTooltipsCluster";
 
 const Map = (): JSX.Element => {
   const position = [54.3475, 18.645278] as [number, number];
@@ -80,6 +77,7 @@ const Map = (): JSX.Element => {
             getGeoFilter={getGeoFilter}
           />
           <MarkerLayerTooltips data={mountains} />
+          <MarkerLayerTooltipsCluster data={cities as Data} />
           <RadiusFilter radiusFilter={radiusFilter!} setRadiusFilter={setRadiusFilter} />
           <ContinentsPolygonLayer
             data={continents as GeoJsonObject}

@@ -1,3 +1,7 @@
+declare module "@changey/react-leaflet-markercluster";
+
+// Types and Interfaces
+
 interface Feature {
   type: string;
   properties: {
@@ -20,4 +24,8 @@ interface Feature {
 interface RadiusFilter {
   feature: Feature;
   radius: number;
+}
+
+interface Data {
+  features: Feature[];
 }
