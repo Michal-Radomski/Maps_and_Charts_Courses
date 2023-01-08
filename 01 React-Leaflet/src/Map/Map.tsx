@@ -15,6 +15,7 @@ import ShowActiveFiltersControl from "../controls/ShowActiveFiltersControl";
 import MarkerLayerTooltipsCluster from "../layers/MarkerLayerTooltipsCluster";
 import MarkerLayerTooltipsReProject from "../layers/MarkerLayerTooltipsReProject";
 import { irishCities2157 } from "../data/irish_cities_21157";
+import RoutingMachine from "../controls/RoutingMachine";
 
 const Map = (): JSX.Element => {
   const position = [54.3475, 18.645278] as [number, number];
@@ -92,6 +93,8 @@ const Map = (): JSX.Element => {
         </LayersControl>
         <FitDataToBounds />
         <ShowActiveFiltersControl getFilters={() => ({ geoFilter, radiusFilter } as any)} />
+
+        <RoutingMachine />
       </MapContainer>
     </React.Fragment>
   );
