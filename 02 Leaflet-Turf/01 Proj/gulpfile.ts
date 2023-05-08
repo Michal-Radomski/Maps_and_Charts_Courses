@@ -79,6 +79,7 @@ function tsTask() {
 // Browser Sync
 function browser_Sync() {
   browserSync.init({
+    files: ["./dist/**/*."],
     notify: false,
     open: false,
     server: {
