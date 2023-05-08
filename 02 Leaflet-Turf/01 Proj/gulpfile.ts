@@ -4,6 +4,7 @@
 
 import { src, dest, watch, parallel } from "gulp";
 
+const gulpCopy = require("gulp-copy");
 const sourcemaps = require("gulp-sourcemaps");
 const sass = require("gulp-sass")(require("sass"));
 const uglify = require("gulp-uglify");
@@ -25,7 +26,10 @@ const files = {
 };
 
 function htmlTask() {
-  return src(files.htmlPath).pipe(dest("dist")).pipe(browserSync.stream());
+  return src(files.htmlPath)
+    .pipe(gulpCopy("dist", { prefix: 1 }))
+    .pipe(dest("dist"))
+    .pipe(browserSync.stream());
 }
 
 // Sass to CSS
