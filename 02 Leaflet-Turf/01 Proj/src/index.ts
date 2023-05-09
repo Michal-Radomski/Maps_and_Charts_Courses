@@ -5,8 +5,8 @@ const circle = L.circle([54.3475, 18.645278], {
   radius: 500,
 });
 
-let map;
-let lyrOSM;
+let map: L.Map;
+let lyrOSM: L.TileLayer;
 
 $(document).ready(function () {
   map = L.map("mapDiv", { center: [54.3475, 18.645278], zoom: 13 });
