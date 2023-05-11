@@ -34,7 +34,16 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-3 mainDiv">col-3</div>
+        <div class="col-3 mainDiv" id="side-bar">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button id="btnLocate" class="btn btn-primary">Locate</button>
+            <button id="btnZocalo" class="btn btn-secondary">ZoomTo Zocalo</button>
+          </div>
+
+          <h4>Zoom Level: <span id="zoom-level"></span></h4>
+          <h4>Map Center: <span id="map-center"></span></h4>
+          <h4>Mouse Location: <span id="mouse-location"></span></h4>
+        </div>
         <div class="col-9 mainDiv">
           <div id="mapDiv"></div>
         </div>

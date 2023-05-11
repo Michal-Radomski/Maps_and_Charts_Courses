@@ -68,4 +68,29 @@ $(document).ready(function () {
     console.log("event: ", event);
     alert("Location was not found");
   });
+
+  map.on("zoomend", function () {
+    $("#zoom-level").html(String(map.getZoom()));
+  });
+
+  map.on("moveend", function () {
+    $("#map-center").html(LatLngToArrayString(map.getCenter()));
+  });
+
+  map.on("mousemove", function (event: L.LeafletMouseEvent) {
+    $("#mouse-location").html(LatLngToArrayString(event.latlng));
+  });
+
+  $("#btnLocate").click(function () {
+    map.locate();
+  });
+
+  $("#btnZocalo").click(function () {
+    map.setView([19.43262, -99.13325], 17);
+  });
+
+  function LatLngToArrayString(latLan: L.LatLng) {
+    console.log("latLan:", latLan);
+    return "[" + latLan.lat.toFixed(5) + ", " + latLan.lng.toFixed(5) + "]";
+  }
 });
