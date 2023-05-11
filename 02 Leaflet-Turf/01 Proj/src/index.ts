@@ -90,7 +90,7 @@ $(document).ready(function () {
   });
 
   function LatLngToArrayString(latLan: L.LatLng) {
-    console.log("latLan:", latLan);
-    return "[" + latLan.lat.toFixed(5) + ", " + latLan.lng.toFixed(5) + "]";
+    // console.log("latLan:", latLan);
+    return "[" + latLan.lat.toFixed(3) + ", " + latLan.lng.toFixed(3) + "]";
   }
 });
