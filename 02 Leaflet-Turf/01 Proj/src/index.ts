@@ -11,6 +11,10 @@ let mrkCurrentLocation: L.Circle<any>;
 let popZocalo: L.Popup;
 let popExample: L.Popup;
 
+// let ctlZoom: L.Control;
+// let ctlAttribute: L.Control.Attribution;
+// let ctlScale: L.Control;
+
 $(document).ready(function () {
   map = L.map("mapDiv", {
     center: [54.3475, 18.645278],
@@ -19,6 +23,7 @@ $(document).ready(function () {
     dragging: true,
     minZoom: 4,
     maxZoom: 18,
+    attributionControl: true,
   });
 
   lyrOSM = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -32,6 +37,12 @@ $(document).ready(function () {
   // setInterval(function () {
   //   map.locate();
   // }, 5000);
+
+  // ctlZoom = L.control.zoom({ zoomInText: "In", zoomOutText: "Out", position: "bottomright" }).addTo(map);
+  // ctlAttribute = L.control.attribution({ position: "bottomleft" }).addTo(map);
+  // ctlAttribute.addAttribution("OSM");
+  // ctlAttribute.addAttribution("Test");
+  // ctlScale = L.control.scale({ position: "bottomleft", metric: true, maxWidth: 200 }).addTo(map);
 
   popZocalo = L.popup({ maxWidth: 200, keepInView: true });
   popZocalo.setLatLng([19.43262, -99.13325]);
