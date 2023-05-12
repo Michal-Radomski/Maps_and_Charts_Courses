@@ -24,10 +24,11 @@ const files = {
   tsPath: "src/**/*.ts",
   htmlPath: "src/index.html",
   favIcon: "src/favicon.svg",
+  images: "src/img/**",
 };
 
 function htmlTask() {
-  return src([files.htmlPath, files.favIcon])
+  return src([files.htmlPath, files.favIcon, files.images])
     .pipe(gulpCopy("dist", { prefix: 1 }))
     .pipe(dest("dist"))
     .pipe(browserSync.stream());
