@@ -49,6 +49,14 @@ $(document).ready(function () {
   // @ts-ignore
   ctlZoomSlider = L.control.zoomslider({ position: "topright" }).addTo(map);
 
+  L.control
+    // @ts-ignore
+    .polylineMeasure({
+      position: "topleft",
+      unit: "kilometres",
+    })
+    .addTo(map);
+
   popZocalo = L.popup({ maxWidth: 200, keepInView: true });
   popZocalo.setLatLng([19.43262, -99.13325]);
   popZocalo.setContent("<h2 style='text-align: center; color:blue'>Zocalo</h2><img src='img/zocalo.jpg' width='200px'>");
