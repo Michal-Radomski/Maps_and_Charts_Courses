@@ -24,14 +24,18 @@ const files = {
   tsPath: "src/**/*.ts",
   htmlPath: "src/index.html",
   favIcon: "src/favicon.svg",
-  images: "src/img/**",
+  images: "src/img/**/*",
 };
 
 function htmlTask() {
-  return src([files.htmlPath, files.favIcon, files.images])
+  return src([files.htmlPath, files.favIcon])
     .pipe(gulpCopy("dist", { prefix: 1 }))
     .pipe(dest("dist"))
     .pipe(browserSync.stream());
+}
+
+function imgTask() {
+  return src(files.images).pipe(dest("dist/img")).pipe(browserSync.stream());
 }
 
 // Sass to CSS
@@ -93,6 +97,7 @@ function browser_Sync() {
 // Watch files
 function watchFiles() {
   watch(files.htmlPath, htmlTask);
+  watch(files.images, imgTask);
   watch(files.sassPath, sassTask);
   // watch(files.jsPath, jsTask);
   watch(files.tsPath, tsTask);
