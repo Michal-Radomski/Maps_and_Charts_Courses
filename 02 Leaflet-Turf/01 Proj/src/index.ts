@@ -15,11 +15,13 @@ let popExample: L.Popup;
 // let ctlAttribute: L.Control.Attribution;
 // let ctlScale: L.Control;
 
+let ctlZoomSlider: L.Control;
+
 $(document).ready(function () {
   map = L.map("mapDiv", {
     center: [54.3475, 18.645278],
     zoom: 13,
-    zoomControl: true,
+    zoomControl: false,
     dragging: true,
     minZoom: 4,
     maxZoom: 18,
@@ -43,6 +45,9 @@ $(document).ready(function () {
   // ctlAttribute.addAttribution("OSM");
   // ctlAttribute.addAttribution("Test");
   // ctlScale = L.control.scale({ position: "bottomleft", metric: true, maxWidth: 200 }).addTo(map);
+
+  // @ts-ignore
+  ctlZoomSlider = L.control.zoomslider({ position: "topright" }).addTo(map);
 
   popZocalo = L.popup({ maxWidth: 200, keepInView: true });
   popZocalo.setLatLng([19.43262, -99.13325]);
