@@ -8,6 +8,8 @@ const circle = L.circle([54.3475, 18.645278], {
 let map: L.Map;
 let lyrOSM: L.TileLayer;
 let mrkCurrentLocation: L.Circle<any>;
+let popZocalo: L.Popup;
+let popExample: L.Popup;
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -30,6 +32,15 @@ $(document).ready(function () {
   // setInterval(function () {
   //   map.locate();
   // }, 5000);
+
+  popZocalo = L.popup({ maxWidth: 200, keepInView: true });
+  popZocalo.setLatLng([19.43262, -99.13325]);
+  popZocalo.setContent("<h2 style='text-align: center; color:blue'>Zocalo</h2><img src='img/zocalo.jpg' width='200px'>");
+
+  // popExample = L.popup();
+  // popExample.setLatLng([19.4132, -99.1859]);
+  // popExample.setContent($("#side-bar")[0]);
+  // popExample.openOn(map);
 
   map.on("click", function (event: L.LeafletMouseEvent) {
     // console.log("event:", event);
@@ -87,6 +98,7 @@ $(document).ready(function () {
 
   $("#btnZocalo").click(function () {
     map.setView([19.43262, -99.13325], 17);
+    map.openPopup(popZocalo);
   });
 
   function LatLngToArrayString(latLan: L.LatLng) {
