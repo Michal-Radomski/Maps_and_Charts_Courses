@@ -1,3 +1,7 @@
+(function IIFE() {
+  console.log("IIFE");
+})();
+
 const circle = L.circle([54.3475, 18.645278], {
   color: "red",
   fillColor: "#f03",
