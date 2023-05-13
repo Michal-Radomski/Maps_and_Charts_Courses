@@ -20,6 +20,7 @@ let popExample: L.Popup;
 // let ctlScale: L.Control;
 
 let ctlZoomSlider: L.Control;
+let ctlControlSidebar: { toggle: () => void };
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -52,6 +53,8 @@ $(document).ready(function () {
 
   // @ts-ignore
   ctlZoomSlider = L.control.zoomslider({ position: "topright" }).addTo(map);
+  // @ts-ignore
+  ctlControlSidebar = L.control.sidebar("side-bar").addTo(map);
 
   L.control
     // @ts-ignore
@@ -69,6 +72,11 @@ $(document).ready(function () {
       map.setView(Gdansk);
     }
   ).addTo(map);
+
+  // @ts-ignore
+  L.easyButton('<img src="./img/sidebar.svg" width="30" height="auto"/>', function () {
+    ctlControlSidebar.toggle();
+  }).addTo(map);
 
   popZocalo = L.popup({ maxWidth: 200, keepInView: true });
   popZocalo.setLatLng([19.43262, -99.13325]);
