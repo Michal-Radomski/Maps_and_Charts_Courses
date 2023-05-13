@@ -21,6 +21,7 @@ let popExample: L.Popup;
 
 let ctlZoomSlider: L.Control;
 let ctlControlSidebar: { toggle: () => void };
+let ctlSearch: L.Control;
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -77,6 +78,9 @@ $(document).ready(function () {
   L.easyButton('<img src="./img/sidebar.svg" width="30" height="auto"/>', function () {
     ctlControlSidebar.toggle();
   }).addTo(map);
+
+  //  @ts-ignore
+  ctlSearch = L.Control.geocoder().addTo(map);
 
   popZocalo = L.popup({ maxWidth: 200, keepInView: true });
   popZocalo.setLatLng([19.43262, -99.13325]);
