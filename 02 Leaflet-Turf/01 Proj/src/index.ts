@@ -1,6 +1,6 @@
-(function IIFE() {
-  console.log("IIFE");
-})();
+// (function IIFE() {
+//   console.log("IIFE");
+// })();
 
 const circle = L.circle([54.3475, 18.645278], {
   color: "red",
@@ -60,6 +60,15 @@ $(document).ready(function () {
       unit: "kilometres",
     })
     .addTo(map);
+
+  // @ts-ignore
+  L.easyButton(
+    '<img src="./img/penguin.png" width="30" height="auto"/>',
+    function (_btn: any, map: { setView: (arg0: number[]) => void }) {
+      const Gdansk = [54.3475, 18.645278];
+      map.setView(Gdansk);
+    }
+  ).addTo(map);
 
   popZocalo = L.popup({ maxWidth: 200, keepInView: true });
   popZocalo.setLatLng([19.43262, -99.13325]);
