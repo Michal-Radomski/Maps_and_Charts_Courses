@@ -193,6 +193,12 @@ $(document).ready(function () {
     map.openPopup(popZocalo);
   });
 
+  $("#sldOpacity").on("change", function () {
+    $("#image-opacity").html((this as HTMLInputElement).value);
+
+    lyrChapultepec.setOpacity((this as any).value);
+  });
+
   function LatLngToArrayString(latLan: L.LatLng) {
     // console.log("latLan:", latLan);
     return "[" + latLan.lat.toFixed(3) + ", " + latLan.lng.toFixed(3) + "]";
