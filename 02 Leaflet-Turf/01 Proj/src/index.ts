@@ -209,7 +209,7 @@ $(document).ready(function () {
   popZocalo.setContent("<h2 style='text-align: center; color:blue'>Zocalo</h2><img src='img/zocalo.jpg' width='200px'>");
 
   // @ts-ignore
-  // ctlStyle = L.control.styleEditor({ position: "topright" }).addTo(map);
+  ctlStyle = L.control.styleEditor({ position: "topright" }).addTo(map);
 
   // @ts-ignore
   ctlDraw = new L.Control.Draw({
