@@ -26,6 +26,7 @@ const files = {
   favIcon: "src/favicon.svg",
   images: "src/img/**/*",
   plugins: "src/plugins/**/*",
+  data: "src/data/**/*",
 };
 
 function htmlTask() {
@@ -41,6 +42,10 @@ function imgTask() {
 
 function pluginsTask() {
   return src(files.plugins).pipe(dest("dist/plugins")).pipe(browserSync.stream());
+}
+
+function dataTask() {
+  return src(files.data).pipe(dest("dist/data")).pipe(browserSync.stream());
 }
 
 // Sass to CSS
@@ -104,6 +109,7 @@ function watchFiles() {
   watch(files.htmlPath, htmlTask);
   watch(files.images, imgTask);
   watch(files.plugins, pluginsTask);
+  watch(files.data, dataTask);
   watch(files.sassPath, sassTask);
   // watch(files.jsPath, jsTask);
   watch(files.tsPath, tsTask);

@@ -96,8 +96,10 @@ let fgpDrawnItems: L.FeatureGroup<any>;
 // let ctlDraw;
 // let ctlStyle;
 
-const countriesDataURL =
-  "https://gist.githubusercontent.com/ThomasG77/c38e6b0ecfd014342aad/raw/ecaa086688859566f108b9630047a7110ad6eb94/countries.geojson";
+// const countriesDataURL =
+//   "https://gist.githubusercontent.com/ThomasG77/c38e6b0ecfd014342aad/raw/ecaa086688859566f108b9630047a7110ad6eb94/countries.geojson";
+
+let lyrEagleNests: L.GeoJSON;
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -147,6 +149,18 @@ $(document).ready(function () {
   fgpDrawnItems = new L.FeatureGroup();
   fgpDrawnItems.addTo(map);
 
+  lyrEagleNests = L.geoJSON
+    // @ts-ignore
+    .ajax("data/wildlife_eagle.geojson", {
+      pointToLayer: returnEagleMarker,
+      // filter: filterEagleNests
+    })
+    .addTo(map);
+
+  lyrEagleNests.on("data:loaded", function () {
+    map.fitBounds(lyrEagleNests.getBounds());
+  });
+
   objBaseMaps = {
     "Open Street Maps": lyrOSM,
     "Topo Maps": lyrTopo,
@@ -163,6 +177,7 @@ $(document).ready(function () {
     "Chapultepec Image": lyrChapultepec,
     "Chapultepec Vectors": fgpChapultepec,
     "Drawn Items": fgpDrawnItems,
+    "Eagle Nest": lyrEagleNests,
   };
 
   ctlLayers = L.control.layers(objBaseMaps, objOverlays).addTo(map);
@@ -236,11 +251,11 @@ $(document).ready(function () {
   //   alert("event.layer.toGeoJSON()):" + JSON.stringify(event.layer.toGeoJSON()));
   // });
 
-  fetch(countriesDataURL)
-    .then((res) => res.json())
-    .then((data) => {
-      L.geoJson(data).addTo(map);
-    });
+  // fetch(countriesDataURL)
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     L.geoJson(data).addTo(map);
+  //   });
 
   mrkMuseum.on("dragend", function () {
     mrkMuseum.setTooltipContent(
@@ -346,3 +361,25 @@ $(document).ready(function () {
     return "[" + latLan.lat.toFixed(3) + ", " + latLan.lng.toFixed(3) + "]";
   }
 });
+
+function returnEagleMarker(json: { properties: { status: string; nest_id: string } }, latlng: L.LatLngExpression) {
+  const att = json.properties;
+  let clrNest = "" as string;
+  if (att.status === "ACTIVE NEST") {
+    clrNest = "deepPink";
+  } else {
+    clrNest = "green";
+  }
+  return L.circle(latlng, { radius: 804, color: clrNest, fillColor: "yellow", fillOpacity: 0.5 }).bindTooltip(
+    "<h4>Eagle Nest: " + att.nest_id + "</h4>Status: " + att.status
+  );
+}
+
+// function filterEagleNests(json: { properties: { status: string; nest_id: string } }) {
+//   const att = json.properties;
+//   if (att.status === "ACTIVE NEST") {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
