@@ -64,7 +64,7 @@ const plnBikeRoute = L.polyline(
       [19.4246, -99.1843],
     ],
   ],
-  { color: "yellow" }
+  { color: "purple" }
 );
 
 let map: L.Map;
@@ -131,8 +131,8 @@ $(document).ready(function () {
   map.addLayer(circle);
   map.addLayer(polygon);
   map.addLayer(mrkMuseum);
-  map.addLayer(plnBikeRoute);
   map.addLayer(plyParks);
+  map.addLayer(plnBikeRoute);
 
   objBaseMaps = {
     "Open Street Maps": lyrOSM,
@@ -143,6 +143,9 @@ $(document).ready(function () {
 
   objOverlays = {
     "Chapultepec Image": lyrChapultepec,
+    "Museum of Anthropology": mrkMuseum,
+    "Bike Route to Museum": plnBikeRoute,
+    Parks: plyParks,
   };
 
   ctlLayers = L.control.layers(objBaseMaps, objOverlays).addTo(map);
