@@ -23,6 +23,14 @@ let ctlZoomSlider: L.Control;
 let ctlControlSidebar: { toggle: () => void };
 let ctlSearch: L.Control;
 
+let lyrWaterColor: L.TileLayer;
+let lyrTopo: L.TileLayer;
+let lyrImagery: L.TileLayer;
+
+let ctlLayers: L.Control;
+let objBaseMaps;
+let objOverlays;
+
 $(document).ready(function () {
   map = L.map("mapDiv", {
     center: [54.3475, 18.645278],
@@ -34,13 +42,36 @@ $(document).ready(function () {
     attributionControl: true,
   });
 
-  lyrOSM = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 18,
+  //* V1
+  // lyrOSM = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  //   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  // });
+
+  //* V2
+  // @ts-ignore
+  lyrOSM = L.tileLayer.provider("OpenStreetMap.Mapnik", {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   });
+  // @ts-ignore
+  lyrWaterColor = L.tileLayer.provider("Stamen.Watercolor");
+  // @ts-ignore
+  lyrTopo = L.tileLayer.provider("OpenTopoMap");
+  // @ts-ignore
+  lyrImagery = L.tileLayer.provider("Esri.WorldImagery");
 
   map.addLayer(lyrOSM);
   map.addLayer(circle);
+
+  objBaseMaps = {
+    "Open Street Maps": lyrOSM,
+    "Topo Maps": lyrTopo,
+    Imagery: lyrImagery,
+    Watercolor: lyrWaterColor,
+  };
+
+  objOverlays = {};
+
+  ctlLayers = L.control.layers(objBaseMaps, objOverlays).addTo(map);
 
   // setInterval(function () {
   //   map.locate();
