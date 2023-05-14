@@ -295,6 +295,10 @@ $(document).ready(function () {
     lyrChapultepec.setOpacity((this as any).value);
   });
 
+  $("#btnColor").click(function () {
+    fgpChapultepec.setStyle({ color: "purple", fillColor: "green", fillOpacity: 0.8 });
+  });
+
   $("#btnAddMuseum").click(function () {
     if (fgpChapultepec.hasLayer(mrkMuseum)) {
       fgpChapultepec.removeLayer(mrkMuseum);
