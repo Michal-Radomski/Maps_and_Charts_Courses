@@ -12,6 +12,26 @@ const circle = L.circle([54.3475, 18.645278], {
 const mrkMuseum = L.marker([19.42596, -99.1862], { draggable: true });
 mrkMuseum.bindTooltip("Anthropology Museum");
 
+const plnBikeRoute = L.polyline(
+  [
+    [
+      [19.4138, -99.1876],
+      [19.4167, -99.188],
+      [19.4165, -99.1873],
+      [19.4214, -99.1872],
+      [19.4215, -99.1841],
+      [19.4258, -99.1843],
+      [19.4259, -99.1852],
+    ],
+    [
+      [19.4215, -99.1865],
+      [19.4251, -99.1881],
+      [19.4246, -99.1843],
+    ],
+  ],
+  { color: "yellow" }
+);
+
 let map: L.Map;
 let lyrOSM: L.TileLayer;
 let mrkCurrentLocation: L.Circle<any>;
@@ -75,6 +95,7 @@ $(document).ready(function () {
   map.addLayer(lyrOSM);
   map.addLayer(circle);
   map.addLayer(mrkMuseum);
+  map.addLayer(plnBikeRoute);
 
   objBaseMaps = {
     "Open Street Maps": lyrOSM,
@@ -211,6 +232,10 @@ $(document).ready(function () {
     map.setView([19.42596, -99.1862], 17);
     mrkMuseum.setLatLng([19.42596, -99.1862]);
     mrkMuseum.setTooltipContent("Anthropology Museum");
+  });
+
+  $("#btnBikeRoute").click(function () {
+    map.fitBounds(plnBikeRoute.getBounds());
   });
 
   $("#sldOpacity").on("change", function () {
