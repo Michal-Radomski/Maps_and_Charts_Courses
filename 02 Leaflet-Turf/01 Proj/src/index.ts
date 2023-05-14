@@ -91,7 +91,10 @@ let objOverlays;
 let lyrChapultepec: L.ImageOverlay;
 
 let fgpChapultepec: L.FeatureGroup<any>;
-let fgpDrawnItems;
+let fgpDrawnItems: L.FeatureGroup<any>;
+
+let ctlDraw;
+let ctlStyle;
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -205,10 +208,30 @@ $(document).ready(function () {
   popZocalo.setLatLng([19.43262, -99.13325]);
   popZocalo.setContent("<h2 style='text-align: center; color:blue'>Zocalo</h2><img src='img/zocalo.jpg' width='200px'>");
 
+  // @ts-ignore
+  // ctlStyle = L.control.styleEditor({ position: "topright" }).addTo(map);
+
+  // @ts-ignore
+  ctlDraw = new L.Control.Draw({
+    draw: {
+      circle: false,
+    },
+    edit: {
+      featureGroup: fgpDrawnItems,
+    },
+  });
+  ctlDraw.addTo(map);
+
   // popExample = L.popup();
   // popExample.setLatLng([19.4132, -99.1859]);
   // popExample.setContent($("#side-bar")[0]);
   // popExample.openOn(map);
+
+  map.on("draw:created", function (event) {
+    console.log("event:", event);
+    fgpDrawnItems.addLayer(event.layer);
+    alert("event.layer.toGeoJSON()):" + JSON.stringify(event.layer.toGeoJSON()));
+  });
 
   mrkMuseum.on("dragend", function () {
     mrkMuseum.setTooltipContent(
