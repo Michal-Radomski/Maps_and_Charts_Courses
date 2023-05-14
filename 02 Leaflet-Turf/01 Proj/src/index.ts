@@ -30,6 +30,7 @@ let lyrImagery: L.TileLayer;
 let ctlLayers: L.Control;
 let objBaseMaps;
 let objOverlays;
+let lyrChapultepec: L.ImageOverlay;
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -59,6 +60,15 @@ $(document).ready(function () {
   // @ts-ignore
   lyrImagery = L.tileLayer.provider("Esri.WorldImagery");
 
+  lyrChapultepec = L.imageOverlay(
+    "img/chapultepec.png",
+    [
+      [19.42993, -99.20843],
+      [19.40621, -99.17453],
+    ],
+    { opacity: 0.5 }
+  ).addTo(map);
+
   map.addLayer(lyrOSM);
   map.addLayer(circle);
 
@@ -69,7 +79,9 @@ $(document).ready(function () {
     Watercolor: lyrWaterColor,
   };
 
-  objOverlays = {};
+  objOverlays = {
+    "Chapultepec Image": lyrChapultepec,
+  };
 
   ctlLayers = L.control.layers(objBaseMaps, objOverlays).addTo(map);
 
