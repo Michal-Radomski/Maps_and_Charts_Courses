@@ -90,6 +90,9 @@ let objBaseMaps;
 let objOverlays;
 let lyrChapultepec: L.ImageOverlay;
 
+let fgpChapultepec: L.FeatureGroup<any>;
+let fgpDrawnItems;
+
 $(document).ready(function () {
   map = L.map("mapDiv", {
     center: [54.3475, 18.645278],
@@ -131,8 +134,12 @@ $(document).ready(function () {
   map.addLayer(circle);
   map.addLayer(polygon);
   map.addLayer(mrkMuseum);
-  map.addLayer(plyParks);
-  map.addLayer(plnBikeRoute);
+  // map.addLayer(plyParks);
+  // map.addLayer(plnBikeRoute);
+
+  fgpChapultepec = L.featureGroup([plnBikeRoute, plyParks]).addTo(map);
+  fgpDrawnItems = new L.FeatureGroup();
+  fgpDrawnItems.addTo(map);
 
   objBaseMaps = {
     "Open Street Maps": lyrOSM,
@@ -142,10 +149,14 @@ $(document).ready(function () {
   };
 
   objOverlays = {
+    // "Chapultepec Image": lyrChapultepec,
+    // "Museum of Anthropology": mrkMuseum,
+    // "Bike Route to Museum": plnBikeRoute,
+    // Parks: plyParks,
+
     "Chapultepec Image": lyrChapultepec,
-    "Museum of Anthropology": mrkMuseum,
-    "Bike Route to Museum": plnBikeRoute,
-    Parks: plyParks,
+    "Chapultepec Vectors": fgpChapultepec,
+    "Drawn Items": fgpDrawnItems,
   };
 
   ctlLayers = L.control.layers(objBaseMaps, objOverlays).addTo(map);
@@ -282,6 +293,16 @@ $(document).ready(function () {
     $("#image-opacity").html((this as HTMLInputElement).value);
 
     lyrChapultepec.setOpacity((this as any).value);
+  });
+
+  $("#btnAddMuseum").click(function () {
+    if (fgpChapultepec.hasLayer(mrkMuseum)) {
+      fgpChapultepec.removeLayer(mrkMuseum);
+      $("#btnAddMuseum").html("Add Museum To Chapultepec Vectors");
+    } else {
+      fgpChapultepec.addLayer(mrkMuseum);
+      $("#btnAddMuseum").html("Remove Museum From Chapultepec Vectors");
+    }
   });
 
   function LatLngToArrayString(latLan: L.LatLng) {
