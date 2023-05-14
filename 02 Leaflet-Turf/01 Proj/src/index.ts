@@ -9,6 +9,9 @@ const circle = L.circle([54.3475, 18.645278], {
   radius: 500,
 });
 
+const mrkMuseum = L.marker([19.42596, -99.1862], { draggable: true });
+mrkMuseum.bindTooltip("Anthropology Museum");
+
 let map: L.Map;
 let lyrOSM: L.TileLayer;
 let mrkCurrentLocation: L.Circle<any>;
@@ -71,6 +74,7 @@ $(document).ready(function () {
 
   map.addLayer(lyrOSM);
   map.addLayer(circle);
+  map.addLayer(mrkMuseum);
 
   objBaseMaps = {
     "Open Street Maps": lyrOSM,
@@ -134,6 +138,16 @@ $(document).ready(function () {
   // popExample.setContent($("#side-bar")[0]);
   // popExample.openOn(map);
 
+  mrkMuseum.on("dragend", function () {
+    mrkMuseum.setTooltipContent(
+      "Current Location: " +
+        mrkMuseum.getLatLng().toString() +
+        "<br>" +
+        "Distance to Anthropology Museum: " +
+        mrkMuseum.getLatLng().distanceTo([19.42596, -99.1862]).toFixed(0)
+    );
+  });
+
   map.on("click", function (event: L.LeafletMouseEvent) {
     // console.log("event:", event);
     // console.log("event.latlng.toString():", event.latlng.toString());
@@ -191,6 +205,12 @@ $(document).ready(function () {
   $("#btnZocalo").click(function () {
     map.setView([19.43262, -99.13325], 17);
     map.openPopup(popZocalo);
+  });
+
+  $("#btnMuseum").click(function () {
+    map.setView([19.42596, -99.1862], 17);
+    mrkMuseum.setLatLng([19.42596, -99.1862]);
+    mrkMuseum.setTooltipContent("Anthropology Museum");
   });
 
   $("#sldOpacity").on("change", function () {
