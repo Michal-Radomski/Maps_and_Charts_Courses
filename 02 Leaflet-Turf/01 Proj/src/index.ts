@@ -96,6 +96,9 @@ let fgpDrawnItems: L.FeatureGroup<any>;
 // let ctlDraw;
 // let ctlStyle;
 
+const countriesDataURL =
+  "https://gist.githubusercontent.com/ThomasG77/c38e6b0ecfd014342aad/raw/ecaa086688859566f108b9630047a7110ad6eb94/countries.geojson";
+
 $(document).ready(function () {
   map = L.map("mapDiv", {
     center: [54.3475, 18.645278],
@@ -232,6 +235,12 @@ $(document).ready(function () {
   //   fgpDrawnItems.addLayer(event.layer);
   //   alert("event.layer.toGeoJSON()):" + JSON.stringify(event.layer.toGeoJSON()));
   // });
+
+  fetch(countriesDataURL)
+    .then((res) => res.json())
+    .then((data) => {
+      L.geoJson(data).addTo(map);
+    });
 
   mrkMuseum.on("dragend", function () {
     mrkMuseum.setTooltipContent(
