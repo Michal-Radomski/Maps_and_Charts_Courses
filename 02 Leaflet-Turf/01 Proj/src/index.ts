@@ -9,6 +9,41 @@ const circle = L.circle([54.3475, 18.645278], {
   radius: 500,
 });
 
+const polygon = L.polygon([
+  [51.509, -0.08],
+  [51.503, -0.06],
+  [51.51, -0.047],
+]);
+
+const plyParks = L.polygon(
+  [
+    [
+      [
+        [19.4068, -99.2015],
+        [19.4166, -99.1803],
+        [19.4299, -99.1825],
+        [19.4191, -99.2056],
+      ],
+      // Hole in the polygon
+      [
+        [19.4216, -99.1853],
+        [19.4217, -99.1843],
+        [19.4241, -99.1848],
+        [19.4245, -99.1872],
+      ],
+    ],
+    [
+      [
+        [19.4042, -99.1895],
+        [19.405, -99.1884],
+        [19.4076, -99.1898],
+        [19.4055, -99.1909],
+      ],
+    ],
+  ],
+  { color: "red", fillColor: "yellow", fillOpacity: 0.5 }
+);
+
 const mrkMuseum = L.marker([19.42596, -99.1862], { draggable: true });
 mrkMuseum.bindTooltip("Anthropology Museum");
 
@@ -94,8 +129,10 @@ $(document).ready(function () {
 
   map.addLayer(lyrOSM);
   map.addLayer(circle);
+  map.addLayer(polygon);
   map.addLayer(mrkMuseum);
   map.addLayer(plnBikeRoute);
+  map.addLayer(plyParks);
 
   objBaseMaps = {
     "Open Street Maps": lyrOSM,
