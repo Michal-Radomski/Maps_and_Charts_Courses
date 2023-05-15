@@ -100,6 +100,7 @@ let fgpDrawnItems: L.FeatureGroup<any>;
 //   "https://gist.githubusercontent.com/ThomasG77/c38e6b0ecfd014342aad/raw/ecaa086688859566f108b9630047a7110ad6eb94/countries.geojson";
 
 let lyrEagleNests: L.GeoJSON;
+let lyrRaptorNests: L.GeoJSON;
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -161,6 +162,15 @@ $(document).ready(function () {
     map.fitBounds(lyrEagleNests.getBounds());
   });
 
+  lyrRaptorNests = L.geoJSON
+    // @ts-ignore
+    .ajax("data/wildlife_raptor.geojson", { pointToLayer: returnRaptorMarker })
+    .addTo(map);
+
+  lyrRaptorNests.on("data:loaded", function () {
+    map.fitBounds(lyrEagleNests.getBounds());
+  });
+
   objBaseMaps = {
     "Open Street Maps": lyrOSM,
     "Topo Maps": lyrTopo,
@@ -178,6 +188,7 @@ $(document).ready(function () {
     "Chapultepec Vectors": fgpChapultepec,
     "Drawn Items": fgpDrawnItems,
     "Eagle Nest": lyrEagleNests,
+    "Raptor Nest": lyrRaptorNests,
   };
 
   ctlLayers = L.control.layers(objBaseMaps, objOverlays).addTo(map);
@@ -365,14 +376,29 @@ $(document).ready(function () {
 function returnEagleMarker(json: { properties: { status: string; nest_id: string } }, latlng: L.LatLngExpression) {
   const att = json.properties;
   let clrNest = "" as string;
+  let wgtNest: number = 0;
+  let opcNest: number = 0;
+  let dshNest = "";
   if (att.status === "ACTIVE NEST") {
-    clrNest = "deepPink";
+    clrNest = "darkGreen";
+    wgtNest = 5;
+    opcNest = 1;
+    dshNest = "";
   } else {
-    clrNest = "green";
+    clrNest = "lightGreen";
+    wgtNest = 5;
+    opcNest = 0.5;
+    dshNest = "2,8";
   }
-  return L.circle(latlng, { radius: 804, color: clrNest, fillColor: "yellow", fillOpacity: 0.5 }).bindTooltip(
-    "<h4>Eagle Nest: " + att.nest_id + "</h4>Status: " + att.status
-  );
+  return L.circle(latlng, {
+    radius: 804,
+    color: clrNest,
+    fillColor: "yellow",
+    fillOpacity: 0.5,
+    weight: wgtNest,
+    opacity: opcNest,
+    dashArray: dshNest,
+  }).bindTooltip("<h4>Eagle Nest: " + att.nest_id + "</h4>Status: " + att.status);
 }
 
 // function filterEagleNests(json: { properties: { status: string; nest_id: string } }) {
@@ -383,3 +409,46 @@ function returnEagleMarker(json: { properties: { status: string; nest_id: string
 //     return false;
 //   }
 // }
+
+function returnRaptorMarker(
+  json: { properties: { status: string; Nest_ID: string; recentspecies: string; recentstatus: string; lastsurvey: string } },
+  latlng: L.LatLngExpression
+) {
+  let att = json.properties;
+  let radRaptor: number;
+
+  switch (att.recentspecies) {
+    case "Red-tail Hawk":
+      radRaptor = 533;
+      break;
+    case "Swainsons Hawk":
+      radRaptor = 400;
+      break;
+    default:
+      radRaptor = 804;
+      break;
+  }
+
+  let optRaptor;
+  switch (att.recentstatus) {
+    case "ACTIVE NEST":
+      optRaptor = { radius: radRaptor, color: "deeppink", fillColor: "blue", fillOpacity: 0.5 };
+      break;
+    case "INACTIVE NEST":
+      optRaptor = { radius: radRaptor, color: "blue", fillColor: "blue", fillOpacity: 0.5 };
+      break;
+    case "FLEDGED NEST":
+      optRaptor = { radius: radRaptor, color: "deeppink", fillColor: "blue", fillOpacity: 0.5, dashArray: "2,8" };
+      break;
+  }
+  return L.circle(latlng, optRaptor).bindPopup(
+    "<h4>Raptor Nest: " +
+      att.Nest_ID +
+      "</h4>Status: " +
+      att.recentstatus +
+      "<br>Species: " +
+      att.recentspecies +
+      "<br>Last Survey: " +
+      att.lastsurvey
+  );
+}
