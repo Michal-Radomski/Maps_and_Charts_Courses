@@ -102,6 +102,23 @@ let fgpDrawnItems: L.FeatureGroup<any>;
 let lyrEagleNests: L.GeoJSON;
 let lyrRaptorNests: L.GeoJSON;
 
+const spriteMarker1 = new L.Marker([54, 18], {
+  // @ts-ignore
+  icon: L.spriteIcon(), // default blue
+});
+
+const spriteMarker2 = new L.Marker([54, 18.5], {
+  // @ts-ignore
+  icon: L.spriteIcon("violet"),
+});
+
+// @ts-ignore
+const redCoffeeMarker = L.AwesomeMarkers.icon({
+  icon: "coffee",
+  markerColor: "red",
+  prefix: "ion",
+});
+
 $(document).ready(function () {
   map = L.map("mapDiv", {
     center: [54.3475, 18.645278],
@@ -146,6 +163,10 @@ $(document).ready(function () {
   // map.addLayer(plyParks);
   // map.addLayer(plnBikeRoute);
 
+  spriteMarker1.addTo(map);
+  spriteMarker2.addTo(map);
+  L.marker([54.5, 18.5], { icon: redCoffeeMarker }).addTo(map);
+
   fgpChapultepec = L.featureGroup([plnBikeRoute, plyParks]).addTo(map);
   fgpDrawnItems = new L.FeatureGroup();
   fgpDrawnItems.addTo(map);
@@ -158,18 +179,18 @@ $(document).ready(function () {
     })
     .addTo(map);
 
-  lyrEagleNests.on("data:loaded", function () {
-    map.fitBounds(lyrEagleNests.getBounds());
-  });
+  // lyrEagleNests.on("data:loaded", function () {
+  //   map.fitBounds(lyrEagleNests.getBounds());
+  // });
 
   lyrRaptorNests = L.geoJSON
     // @ts-ignore
     .ajax("data/wildlife_raptor.geojson", { pointToLayer: returnRaptorMarker })
     .addTo(map);
 
-  lyrRaptorNests.on("data:loaded", function () {
-    map.fitBounds(lyrEagleNests.getBounds());
-  });
+  // lyrRaptorNests.on("data:loaded", function () {
+  //   map.fitBounds(lyrEagleNests.getBounds());
+  // });
 
   objBaseMaps = {
     "Open Street Maps": lyrOSM,
