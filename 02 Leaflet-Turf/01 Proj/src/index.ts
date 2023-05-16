@@ -102,6 +102,9 @@ let fgpDrawnItems: L.FeatureGroup<any>;
 let lyrEagleNests: L.GeoJSON;
 let lyrRaptorNests: L.GeoJSON;
 
+let icnEagleActive: L.Icon;
+let icnEagleInactive: L.Icon;
+
 const spriteMarker1 = new L.Marker([54, 18], {
   // @ts-ignore
   icon: L.spriteIcon(), // default blue
@@ -171,6 +174,9 @@ $(document).ready(function () {
   fgpChapultepec = L.featureGroup([plnBikeRoute, plyParks]).addTo(map);
   fgpDrawnItems = new L.FeatureGroup();
   fgpDrawnItems.addTo(map);
+
+  icnEagleActive = L.icon({ iconUrl: "img/nest2.png", iconSize: [40, 40], iconAnchor: [20, 24] });
+  icnEagleInactive = L.icon({ iconUrl: "img/nest.png", iconSize: [40, 40], iconAnchor: [20, 24] });
 
   lyrEagleNests = L.geoJSON
     // @ts-ignore
@@ -401,26 +407,34 @@ function returnEagleMarker(json: { properties: { status: string; nest_id: string
   let wgtNest: number = 0;
   let opcNest: number = 0;
   let dshNest = "";
+  // if (att.status === "ACTIVE NEST") {
+  //   clrNest = "darkGreen";
+  //   wgtNest = 5;
+  //   opcNest = 1;
+  //   dshNest = "";
+  // } else {
+  //   clrNest = "lightGreen";
+  //   wgtNest = 5;
+  //   opcNest = 0.5;
+  //   dshNest = "2,8";
+  // }
+  // return L.circle(latlng, {
+  //   radius: 804,
+  //   color: clrNest,
+  //   fillColor: "yellow",
+  //   fillOpacity: 0.5,
+  //   weight: wgtNest,
+  //   opacity: opcNest,
+  //   dashArray: dshNest,
+  // }).bindTooltip("<h4>Eagle Nest: " + att.nest_id + "</h4>Status: " + att.status);
+
+  let icnEagle;
   if (att.status === "ACTIVE NEST") {
-    clrNest = "darkGreen";
-    wgtNest = 5;
-    opcNest = 1;
-    dshNest = "";
+    icnEagle = icnEagleActive;
   } else {
-    clrNest = "lightGreen";
-    wgtNest = 5;
-    opcNest = 0.5;
-    dshNest = "2,8";
+    icnEagle = icnEagleInactive;
   }
-  return L.circle(latlng, {
-    radius: 804,
-    color: clrNest,
-    fillColor: "yellow",
-    fillOpacity: 0.5,
-    weight: wgtNest,
-    opacity: opcNest,
-    dashArray: dshNest,
-  }).bindTooltip("<h4>Eagle Nest: " + att.nest_id + "</h4>Status: " + att.status);
+  return L.marker(latlng, { icon: icnEagle }).bindTooltip("<h4>Eagle Nest: " + att.nest_id + "</h4>Status: " + att.status);
 }
 
 // function filterEagleNests(json: { properties: { status: string; nest_id: string } }) {
