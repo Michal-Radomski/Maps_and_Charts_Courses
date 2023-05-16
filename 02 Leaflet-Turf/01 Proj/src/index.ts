@@ -117,6 +117,7 @@ const redCoffeeMarker = L.AwesomeMarkers.icon({
   icon: "coffee",
   markerColor: "red",
   prefix: "ion",
+  spin: false,
 });
 
 $(document).ready(function () {
