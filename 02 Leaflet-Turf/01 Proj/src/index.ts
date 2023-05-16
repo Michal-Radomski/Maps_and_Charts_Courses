@@ -126,6 +126,7 @@ const redCoffeeMarker = L.AwesomeMarkers.icon({
 let lyrMarkerCluster: any;
 let lyrClientLines: L.GeoJSON;
 let lyrBUOWL: L.GeoJSON;
+let lyrGBH: L.GeoJSON;
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -215,6 +216,12 @@ $(document).ready(function () {
   //     });
   // });
 
+  lyrGBH = L.geoJSON
+    // @ts-ignore
+    .ajax("data/wildlife_gbh.geojson", { style: { color: "fuchsia" } })
+    .bindTooltip("GBH Nesting Area")
+    .addTo(map);
+
   // @ts-ignore
   lyrMarkerCluster = L.markerClusterGroup();
 
@@ -245,6 +252,7 @@ $(document).ready(function () {
     "Raptor Nest": lyrMarkerCluster,
     Client: lyrClientLines,
     "Burrowing Owl Habitat": lyrBUOWL,
+    "GBH Rookeries": lyrGBH,
   };
 
   ctlLayers = L.control.layers(objBaseMaps, objOverlays).addTo(map);
