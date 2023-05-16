@@ -105,8 +105,6 @@ let lyrRaptorNests: L.GeoJSON;
 // let icnEagleActive: L.Icon;
 // let icnEagleInactive: L.Icon;
 
-let lyrMarkerCluster: any;
-
 const spriteMarker1 = new L.Marker([54, 18], {
   // @ts-ignore
   icon: L.spriteIcon(), // default blue
@@ -124,6 +122,10 @@ const redCoffeeMarker = L.AwesomeMarkers.icon({
   prefix: "ion",
   spin: false,
 });
+
+let lyrMarkerCluster: any;
+let lyrClientLines: L.GeoJSON;
+let lyrBUOWL: L.GeoJSON;
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -197,6 +199,22 @@ $(document).ready(function () {
     .ajax("data/wildlife_raptor.geojson", { pointToLayer: returnRaptorMarker })
     .addTo(map);
 
+  lyrClientLines = L.geoJSON
+    // @ts-ignore
+    .ajax("data/client_lines.geojson", { style: styleClientLinears, onEachFeature: processClientLinears })
+    .addTo(map);
+
+  lyrBUOWL = L.geoJSON
+    // @ts-ignore
+    .ajax("data/wildlife_buowl.geojson", { style: styleBUOWL, onEachFeature: processBUOWL, filter: filterBUOWL })
+    .addTo(map);
+  // lyrBUOWL.on('data:loaded', function(){
+  //     arHabitatIDs.sort(function(a,b){return a-b});
+  //     $("#txtFindBUOWL").autocomplete({
+  //         source:arHabitatIDs
+  //     });
+  // });
+
   // @ts-ignore
   lyrMarkerCluster = L.markerClusterGroup();
 
@@ -225,6 +243,8 @@ $(document).ready(function () {
     "Eagle Nest": lyrEagleNests,
     // "Raptor Nest": lyrRaptorNests,
     "Raptor Nest": lyrMarkerCluster,
+    Client: lyrClientLines,
+    "Burrowing Owl Habitat": lyrBUOWL,
   };
 
   ctlLayers = L.control.layers(objBaseMaps, objOverlays).addTo(map);
@@ -495,4 +515,62 @@ function returnRaptorMarker(
       "<br>Last Survey: " +
       att.lastsurvey
   );
+}
+
+function styleClientLinears(json: { properties: { type: string } }) {
+  let att = json.properties;
+  switch (att.type) {
+    case "Pipeline":
+      return { color: "peru" };
+    case "Flowline":
+      return { color: "navy" };
+    case "Flowline, est.":
+      return { color: "navy", dashArray: "5,5" };
+    case "Electric Line":
+      return { color: "darkgreen" };
+    case "Access Road - Confirmed":
+      return { color: "darkred" };
+    case "Access Road - Estimated":
+      return { color: "darkred", dashArray: "5,5" };
+    case "Extraction":
+      return { color: "indigo" };
+    default:
+      return { color: "darkgoldenrod" };
+  }
+}
+
+function processClientLinears(
+  json: { properties: { type: string; Project: string; row_width: number } },
+  lyr: { bindTooltip: (arg0: string) => void }
+) {
+  let att = json.properties;
+  lyr.bindTooltip("<h4>Linear Project: " + att.Project + "</h4>Type: " + att.type + "<br>ROW Width: " + att.row_width);
+  // arProjectIDs.push(att.Project.toString());
+}
+
+function styleBUOWL(json: { properties: any }) {
+  let att = json.properties;
+  switch (att.hist_occup) {
+    case "Yes":
+      return { color: "deeppink", fillColor: "yellow" };
+    case "Undetermined":
+      return { color: "yellow" };
+  }
+}
+
+function processBUOWL(json: { properties: any }, lyr: { bindTooltip: (arg0: string) => void }) {
+  let att = json.properties;
+  lyr.bindTooltip(
+    "<h4>Habitat ID: " + att.habitat_id + "</h4>Historically Occupied: " + att.hist_occup + "<br>Status: " + att.recentstatus
+  );
+  // arHabitatIDs.push(att.habitat_id.toString())
+}
+
+function filterBUOWL(json: { properties: any }) {
+  let att = json.properties;
+  if (att.recentstatus == "REMOVED") {
+    return false;
+  } else {
+    return true;
+  }
 }
