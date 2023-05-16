@@ -102,8 +102,10 @@ let fgpDrawnItems: L.FeatureGroup<any>;
 let lyrEagleNests: L.GeoJSON;
 let lyrRaptorNests: L.GeoJSON;
 
-let icnEagleActive: L.Icon;
-let icnEagleInactive: L.Icon;
+// let icnEagleActive: L.Icon;
+// let icnEagleInactive: L.Icon;
+
+let lyrMarkerCluster: any;
 
 const spriteMarker1 = new L.Marker([54, 18], {
   // @ts-ignore
@@ -175,8 +177,8 @@ $(document).ready(function () {
   fgpDrawnItems = new L.FeatureGroup();
   fgpDrawnItems.addTo(map);
 
-  icnEagleActive = L.icon({ iconUrl: "img/nest2.png", iconSize: [40, 40], iconAnchor: [20, 24] });
-  icnEagleInactive = L.icon({ iconUrl: "img/nest.png", iconSize: [40, 40], iconAnchor: [20, 24] });
+  // icnEagleActive = L.icon({ iconUrl: "img/nest2.png", iconSize: [40, 40], iconAnchor: [20, 24] });
+  // icnEagleInactive = L.icon({ iconUrl: "img/nest.png", iconSize: [40, 40], iconAnchor: [20, 24] });
 
   lyrEagleNests = L.geoJSON
     // @ts-ignore
@@ -195,9 +197,14 @@ $(document).ready(function () {
     .ajax("data/wildlife_raptor.geojson", { pointToLayer: returnRaptorMarker })
     .addTo(map);
 
-  // lyrRaptorNests.on("data:loaded", function () {
-  //   map.fitBounds(lyrEagleNests.getBounds());
-  // });
+  // @ts-ignore
+  lyrMarkerCluster = L.markerClusterGroup();
+
+  lyrRaptorNests.on("data:loaded", function () {
+    map.fitBounds(lyrEagleNests.getBounds());
+    lyrMarkerCluster.addLayer(lyrRaptorNests);
+    lyrMarkerCluster.addTo(map);
+  });
 
   objBaseMaps = {
     "Open Street Maps": lyrOSM,
@@ -216,7 +223,8 @@ $(document).ready(function () {
     "Chapultepec Vectors": fgpChapultepec,
     "Drawn Items": fgpDrawnItems,
     "Eagle Nest": lyrEagleNests,
-    "Raptor Nest": lyrRaptorNests,
+    // "Raptor Nest": lyrRaptorNests,
+    "Raptor Nest": lyrMarkerCluster,
   };
 
   ctlLayers = L.control.layers(objBaseMaps, objOverlays).addTo(map);
@@ -407,34 +415,34 @@ function returnEagleMarker(json: { properties: { status: string; nest_id: string
   let wgtNest: number = 0;
   let opcNest: number = 0;
   let dshNest = "";
-  // if (att.status === "ACTIVE NEST") {
-  //   clrNest = "darkGreen";
-  //   wgtNest = 5;
-  //   opcNest = 1;
-  //   dshNest = "";
-  // } else {
-  //   clrNest = "lightGreen";
-  //   wgtNest = 5;
-  //   opcNest = 0.5;
-  //   dshNest = "2,8";
-  // }
-  // return L.circle(latlng, {
-  //   radius: 804,
-  //   color: clrNest,
-  //   fillColor: "yellow",
-  //   fillOpacity: 0.5,
-  //   weight: wgtNest,
-  //   opacity: opcNest,
-  //   dashArray: dshNest,
-  // }).bindTooltip("<h4>Eagle Nest: " + att.nest_id + "</h4>Status: " + att.status);
-
-  let icnEagle;
   if (att.status === "ACTIVE NEST") {
-    icnEagle = icnEagleActive;
+    clrNest = "darkGreen";
+    wgtNest = 5;
+    opcNest = 1;
+    dshNest = "";
   } else {
-    icnEagle = icnEagleInactive;
+    clrNest = "lightGreen";
+    wgtNest = 5;
+    opcNest = 0.5;
+    dshNest = "2,8";
   }
-  return L.marker(latlng, { icon: icnEagle }).bindTooltip("<h4>Eagle Nest: " + att.nest_id + "</h4>Status: " + att.status);
+  return L.circle(latlng, {
+    radius: 804,
+    color: clrNest,
+    fillColor: "yellow",
+    fillOpacity: 0.5,
+    weight: wgtNest,
+    opacity: opcNest,
+    dashArray: dshNest,
+  }).bindTooltip("<h4>Eagle Nest: " + att.nest_id + "</h4>Status: " + att.status);
+
+  // let icnEagle;
+  // if (att.status === "ACTIVE NEST") {
+  //   icnEagle = icnEagleActive;
+  // } else {
+  //   icnEagle = icnEagleInactive;
+  // }
+  // return L.marker(latlng, { icon: icnEagle }).bindTooltip("<h4>Eagle Nest: " + att.nest_id + "</h4>Status: " + att.status);
 }
 
 // function filterEagleNests(json: { properties: { status: string; nest_id: string } }) {
