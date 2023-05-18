@@ -132,7 +132,7 @@ $(document).ready(function () {
   map = L.map("mapDiv", {
     center: [54.3475, 18.645278],
     zoom: 13,
-    zoomControl: false,
+    zoomControl: true,
     dragging: true,
     minZoom: 4,
     maxZoom: 18,

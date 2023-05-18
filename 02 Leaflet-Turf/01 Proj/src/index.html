@@ -127,6 +127,76 @@
           <br />
           <h4>Image Opacity: <span id="image-opacity">0.5</span></h4>
           <input type="range" id="sldOpacity" min="0" max="1" step="0.1" value="0.5" />
+
+          <br /><br />
+          <hr />
+          <br /><br />
+
+          <!-- <button id="btnLocate" class="btn btn-primary">Locate</button><br /> -->
+
+          <div id="divProject" class="col-xs-12">
+            <div id="divProjectLabel" class="text-center col-xs-12">
+              <h4 id="lblProject">Linear Projects</h4>
+            </div>
+            <div id="divProjectError" class="errorMsg col-xs-12"></div>
+            <div id="divFindProject" class="form-group has-error">
+              <div class="col-xs-6">
+                <input type="text" id="txtFindProject" class="form-control" placeholder="Project ID" />
+              </div>
+              <div class="col-xs-6">
+                <button id="btnFindProject" class="btn btn-primary" disabled>Find Project</button>
+              </div>
+            </div>
+            <div class="" id="divProjectData"></div>
+          </div>
+
+          <div id="divBUOWL" class="col-xs-12">
+            <div id="divBUOWLLabel" class="text-center col-xs-12">
+              <h4 id="lblBUOWL">BUOWL Habitat</h4>
+            </div>
+            <div id="divBUOWLError" class="errorMsg col-xs-12"></div>
+            <div id="divFindBUOWL" class="form-group has-error">
+              <div class="col-xs-6">
+                <input type="text" id="txtFindBUOWL" class="form-control" placeholder="Habitat ID" />
+              </div>
+              <div class="col-xs-6">
+                <button id="btnFindBUOWL" class="btn btn-primary" disabled>Find BUOWL</button>
+              </div>
+            </div>
+            <div class="" id="divBUOWLData"></div>
+          </div>
+
+          <div id="divEagle" class="col-xs-12">
+            <div id="divEagleLabel" class="text-center col-xs-12">
+              <h4 id="lblEagle">Eagle Nests</h4>
+            </div>
+            <div id="divEagleError" class="errorMsg col-xs-12"></div>
+            <div id="divFindEagle" class="form-group has-error">
+              <div class="col-xs-6">
+                <input type="text" id="txtFindEagle" class="form-control" placeholder="Eagle Nest ID" />
+              </div>
+              <div class="col-xs-6">
+                <button id="btnFindEagle" class="btn btn-primary" disabled>Find Eagle Nest</button>
+              </div>
+            </div>
+            <div class="" id="divEagleData"></div>
+          </div>
+
+          <div id="divRaptor" class="col-xs-12">
+            <div id="divRaptorLabel" class="text-center col-xs-12">
+              <h4 id="lblRaptor">Raptor Nests</h4>
+            </div>
+            <div id="divRaptorError" class="errorMsg col-xs-12"></div>
+            <div id="divFindRaptor" class="form-group has-error">
+              <div class="col-xs-6">
+                <input type="text" id="txtFindRaptor" class="form-control" placeholder="Raptor Nest ID" />
+              </div>
+              <div class="col-xs-6">
+                <button id="btnFindRaptor" class="btn btn-primary" disabled>Find Raptor Nest</button>
+              </div>
+            </div>
+            <div class="" id="divRaptorData"></div>
+          </div>
         </div>
         <div class="col-12 mainDiv">
           <div id="mapDiv"></div>
