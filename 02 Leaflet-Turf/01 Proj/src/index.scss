@@ -49,3 +49,8 @@ div#mapDiv {
   text-align: center;
   background-color: darksalmon;
 }
+
+// jQuery UI
+.ui-front {
+  z-index: 2001 !important;
+}

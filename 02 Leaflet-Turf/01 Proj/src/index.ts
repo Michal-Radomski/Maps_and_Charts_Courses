@@ -129,6 +129,7 @@ let lyrBUOWL: L.GeoJSON;
 let lyrGBH: L.GeoJSON;
 
 let lyrSearch: L.GeoJSON;
+let arProjectIDs = [] as string[];
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -206,6 +207,16 @@ $(document).ready(function () {
     // @ts-ignore
     .ajax("data/client_lines.geojson", { style: styleClientLinears, onEachFeature: processClientLinears })
     .addTo(map);
+  lyrClientLines.on("data:loaded", function () {
+    // console.log({ arProjectIDs });
+    arProjectIDs.sort(function (a, b) {
+      return Number(a) - Number(b);
+    });
+    // @ts-ignore
+    $("#txtFindProject").autocomplete({
+      source: arProjectIDs,
+    });
+  });
 
   lyrBUOWL = L.geoJSON
     // @ts-ignore
@@ -446,6 +457,23 @@ $(document).ready(function () {
     return false;
   }
 
+  function testClientLineId(id: string) {
+    if (arProjectIDs.indexOf(id) < 0) {
+      $("#divFindProject").addClass("has-error");
+      $("#divFindError").html("Project ID not found");
+      $("#btnFindProject").prop("disabled", true);
+    } else {
+      $("#divFindProject").removeClass("has-error");
+      $("#divFindError").html("");
+      $("#btnFindProject").prop("disabled", false);
+    }
+  }
+
+  $("#txtFindProject").on("keyup paste", function () {
+    let id = $("#txtFindProject").val();
+    testClientLineId(id as string);
+  });
+
   $("#btnFindProject").click(function () {
     let id = $("#txtFindProject").val();
     let lyr = returnClientLineById(id as number) as L.GeoJSON;
@@ -588,7 +616,7 @@ function processClientLinears(
 ) {
   let att = json.properties;
   lyr.bindTooltip("<h4>Linear Project: " + att.Project + "</h4>Type: " + att.type + "<br>ROW Width: " + att.row_width);
-  // arProjectIDs.push(att.Project.toString());
+  arProjectIDs.push(att.Project.toString());
 }
 
 function styleBUOWL(json: { properties: any }) {
