@@ -123,10 +123,12 @@ const redCoffeeMarker = L.AwesomeMarkers.icon({
   spin: false,
 });
 
-let lyrMarkerCluster: any;
+let lyrMarkerCluster: L.LayerGroup;
 let lyrClientLines: L.GeoJSON;
 let lyrBUOWL: L.GeoJSON;
 let lyrGBH: L.GeoJSON;
+
+let lyrSearch: L.GeoJSON;
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -428,6 +430,39 @@ $(document).ready(function () {
     } else {
       fgpChapultepec.addLayer(mrkMuseum);
       $("#btnAddMuseum").html("Remove Museum From Chapultepec Vectors");
+    }
+  });
+
+  function returnClientLineById(id: number) {
+    let arLayers = lyrClientLines.getLayers();
+    for (let i = 0; i < arLayers.length; i++) {
+      // @ts-ignore
+      let featureId = arLayers[i].feature.properties.Project;
+      // console.log({ featureId });
+      if (featureId === Number(id)) {
+        return arLayers[i];
+      }
+    }
+    return false;
+  }
+
+  $("#btnFindProject").click(function () {
+    let id = $("#txtFindProject").val();
+    let lyr = returnClientLineById(id as number) as L.GeoJSON;
+    if (lyr) {
+      if (lyrSearch) {
+        lyrSearch.remove();
+      }
+      lyrSearch = L.geoJSON(lyr.toGeoJSON(), { style: { color: "red", weight: 10, opacity: 0.5 } }).addTo(map);
+      map.fitBounds(lyr.getBounds().pad(1));
+      // @ts-ignore
+      let att = lyr?.feature?.properties;
+      $("#divProjectData").html(
+        "<h4 class='text-center'>Attributes</h4><h5>Type: " + att.type + "</h5><h5>ROW width: " + att.row_width + "m </h5>"
+      );
+      $("#divProjectError").html("");
+    } else {
+      $("#divProjectError").html("Project ID not found");
     }
   });
 
