@@ -129,7 +129,6 @@ let lyrBUOWL: L.GeoJSON;
 let lyrGBH: L.GeoJSON;
 
 let lyrSearch: L.GeoJSON;
-let lyrSearch2: L.Circle;
 let arProjectIDs = [] as string[];
 let arHabitatIDs = [] as string[];
 let arEagleIDs = [] as string[];
@@ -195,11 +194,12 @@ $(document).ready(function () {
     .ajax("data/wildlife_eagle.geojson", {
       pointToLayer: returnEagleMarker,
       // filter: filterEagleNests
+      onEachFeature: processEagle,
     })
     .addTo(map);
 
   lyrEagleNests.on("data:loaded", function () {
-    // map.fitBounds(lyrEagleNests.getBounds());
+    map.fitBounds(lyrEagleNests.getBounds());
     arEagleIDs.sort(function (a, b) {
       return Number(a) - Number(b);
     });
@@ -211,7 +211,7 @@ $(document).ready(function () {
 
   lyrRaptorNests = L.geoJSON
     // @ts-ignore
-    .ajax("data/wildlife_raptor.geojson", { pointToLayer: returnRaptorMarker })
+    .ajax("data/wildlife_raptor.geojson", { pointToLayer: returnRaptorMarker, onEachFeature: processRaptor })
     .addTo(map);
 
   lyrClientLines = L.geoJSON
@@ -256,7 +256,7 @@ $(document).ready(function () {
   lyrMarkerCluster = L.markerClusterGroup();
 
   lyrRaptorNests.on("data:loaded", function () {
-    map.fitBounds(lyrEagleNests.getBounds());
+    map.fitBounds(lyrRaptorNests.getBounds());
 
     arRaptorIDs.sort(function (a, b) {
       return Number(a) - Number(b);
@@ -484,6 +484,7 @@ $(document).ready(function () {
   }
 
   function testClientLineId(id: string) {
+    // console.log(arProjectIDs);
     if (arProjectIDs.indexOf(id) < 0) {
       $("#divFindProject").addClass("has-error");
       $("#divFindError").html("Project ID not found");
@@ -730,14 +731,23 @@ function filterBUOWL(json: { properties: any }) {
   }
 }
 
-//- -------------------------------
+function processEagle(json: { properties: any }) {
+  let att = json.properties;
+  arEagleIDs.push(att.nest_id.toString());
+}
+
+function processRaptor(json: { properties: any }) {
+  let att = json.properties;
+  arRaptorIDs.push(att.Nest_ID.toString());
+}
 
 function returnEagleById(id: number) {
   let arLayers = lyrEagleNests.getLayers();
+  // console.log(arLayers);
   for (let i = 0; i < arLayers.length; i++) {
     // @ts-ignore
     let featureId = arLayers[i].feature.properties.nest_id;
-    // console.log({ featureId });
+    // console.log({ featureId, id });
     if (featureId === Number(id)) {
       return arLayers[i];
     }
@@ -746,6 +756,9 @@ function returnEagleById(id: number) {
 }
 
 function testEagleNestId(id: string) {
+  // console.log({ id });
+  // console.log(arEagleIDs.indexOf(id));
+  // console.log(arEagleIDs);
   if (arEagleIDs.indexOf(id) < 0) {
     $("#divFindEagle").addClass("has-error");
     $("#divEagleError").html("Project ID not found");
@@ -759,12 +772,15 @@ function testEagleNestId(id: string) {
 
 $("#txtFindEagle").on("keyup paste", function () {
   let id = $("#txtFindEagle").val();
+  // console.log({ id });
   testEagleNestId(id as string);
 });
 
 $("#btnFindEagle").click(function () {
   let id = $("#txtFindEagle").val();
+  // console.log({ id });
   let lyr = returnEagleById(id as number) as L.GeoJSON;
+  // console.log(lyr);
   if (lyr) {
     if (lyrSearch) {
       lyrSearch.remove();
@@ -773,18 +789,20 @@ $("#btnFindEagle").click(function () {
     map.fitBounds(lyr.getBounds().pad(1));
     // @ts-ignore
     let att = lyr?.feature?.properties;
+    // console.log({ att });
     $("#divEagleData").html("<h4 class='text-center'>Attributes</h4><h5>Status: " + att.status + "</h5>");
     $("#divEagleError").html("");
   } else {
     $("#divEagleError").html("Project ID not found");
   }
 });
+
 function returnRaptorById(id: number) {
   let arLayers = lyrRaptorNests.getLayers();
   for (let i = 0; i < arLayers.length; i++) {
     // @ts-ignore
     let featureId = arLayers[i].feature.properties.Nest_ID;
-    console.log({ featureId });
+    // console.log({ featureId, id });
     if (featureId === Number(id)) {
       return arLayers[i];
     }
@@ -806,11 +824,12 @@ function testRaptorId(id: string) {
 
 $("#txtFindRaptor").on("keyup paste", function () {
   let id = $("#txtFindRaptor").val();
+  // console.log(id);
   testRaptorId(id as string);
 });
 
-$("btnFindRaptor").click(function () {
-  let id = $("#txtFindProject").val();
+$("#btnFindRaptor").click(function () {
+  let id = $("#txtFindRaptor").val();
   let lyr = returnRaptorById(id as number) as L.GeoJSON;
   if (lyr) {
     if (lyrSearch) {
