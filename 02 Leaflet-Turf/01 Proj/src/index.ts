@@ -730,6 +730,7 @@ function filterBUOWL(json: { properties: any }) {
   }
 }
 
+//Todo: Fix Eagle and Raptor - they don't work
 $("#txtFindEagle").on("keyup paste", function () {
   let val = $("#txtFindEagle").val() as string;
   testLayerAttribute(arEagleIDs, val, "Eagle Nest ID", "#divFindEagle", "#divEagleError", "#btnFindEagle");
