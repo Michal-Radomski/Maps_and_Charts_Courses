@@ -130,6 +130,7 @@ let lyrGBH: L.GeoJSON;
 
 let lyrSearch: L.GeoJSON;
 let arProjectIDs = [] as string[];
+let arHabitatIDs = [] as string[];
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -207,6 +208,7 @@ $(document).ready(function () {
     // @ts-ignore
     .ajax("data/client_lines.geojson", { style: styleClientLinears, onEachFeature: processClientLinears })
     .addTo(map);
+
   lyrClientLines.on("data:loaded", function () {
     // console.log({ arProjectIDs });
     arProjectIDs.sort(function (a, b) {
@@ -222,12 +224,16 @@ $(document).ready(function () {
     // @ts-ignore
     .ajax("data/wildlife_buowl.geojson", { style: styleBUOWL, onEachFeature: processBUOWL, filter: filterBUOWL })
     .addTo(map);
-  // lyrBUOWL.on('data:loaded', function(){
-  //     arHabitatIDs.sort(function(a,b){return a-b});
-  //     $("#txtFindBUOWL").autocomplete({
-  //         source:arHabitatIDs
-  //     });
-  // });
+
+  lyrBUOWL.on("data:loaded", function () {
+    arHabitatIDs.sort(function (a, b) {
+      return Number(a) - Number(b);
+    });
+    // @ts-ignore
+    $("#txtFindBUOWL").autocomplete({
+      source: arHabitatIDs,
+    });
+  });
 
   lyrGBH = L.geoJSON
     // @ts-ignore
@@ -634,7 +640,7 @@ function processBUOWL(json: { properties: any }, lyr: { bindTooltip: (arg0: stri
   lyr.bindTooltip(
     "<h4>Habitat ID: " + att.habitat_id + "</h4>Historically Occupied: " + att.hist_occup + "<br>Status: " + att.recentstatus
   );
-  // arHabitatIDs.push(att.habitat_id.toString())
+  arHabitatIDs.push(att.habitat_id.toString());
 }
 
 function filterBUOWL(json: { properties: any }) {
@@ -645,3 +651,61 @@ function filterBUOWL(json: { properties: any }) {
     return true;
   }
 }
+
+function returnBUOWLId(id: number) {
+  let arLayers = lyrBUOWL.getLayers();
+  for (let i = 0; i < arLayers.length; i++) {
+    // @ts-ignore
+    let featureId = arLayers[i].feature.properties.habitat_id;
+    // console.log({ featureId });
+    if (featureId === Number(id)) {
+      return arLayers[i];
+    }
+  }
+  return false;
+}
+
+function testBUOWLId(id: string) {
+  if (arProjectIDs.indexOf(id) < 0) {
+    $("#divFindBUOWL").addClass("has-error");
+    $("#divBUOWLError").html("Project ID not found");
+    $("#btnFindBUOWL").prop("disabled", true);
+  } else {
+    $("#divFindBUOWL").removeClass("has-error");
+    $("#divBUOWLError").html("");
+    $("#btnFindBUOWL").prop("disabled", false);
+  }
+}
+
+$("#txtFindBUOWL").on("keyup paste", function () {
+  let id = $("#txtFindBUOWL").val();
+  testBUOWLId(id as string);
+});
+
+$("#btnFindBUOWL").click(function () {
+  let id = $("#txtFindBUOWL").val();
+  // console.log({ id });
+  let lyr = returnBUOWLId(id as number) as L.GeoJSON;
+  // console.log({ lyr });
+  if (lyr) {
+    if (lyrSearch) {
+      lyrSearch.remove();
+    }
+    lyrSearch = L.geoJSON(lyr.toGeoJSON(), { style: { color: "red", weight: 10, opacity: 0.5 } }).addTo(map);
+    map.fitBounds(lyr.getBounds().pad(1));
+    // @ts-ignore
+    let att = lyr?.feature?.properties;
+    $("#divBUOWLData").html(
+      "<h4 class='text-center'>Attributes</h4><h5>Habitat: " +
+        att.habitat +
+        "</h5><h5>Historically Occupied: " +
+        att.hist_occup +
+        "</h5><h5>Recent Status: " +
+        att.recentstatus +
+        "</h5>"
+    );
+    $("#divBUOWLError").html("");
+  } else {
+    $("#divBUOWLError").html("Project ID not found");
+  }
+});
