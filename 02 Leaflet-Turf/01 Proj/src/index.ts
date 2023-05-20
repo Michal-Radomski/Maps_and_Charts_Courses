@@ -730,6 +730,8 @@ function filterBUOWL(json: { properties: any }) {
   }
 }
 
+//- -------------------------------
+
 function returnEagleById(id: number) {
   let arLayers = lyrEagleNests.getLayers();
   for (let i = 0; i < arLayers.length; i++) {
@@ -775,5 +777,60 @@ $("#btnFindEagle").click(function () {
     $("#divEagleError").html("");
   } else {
     $("#divEagleError").html("Project ID not found");
+  }
+});
+function returnRaptorById(id: number) {
+  let arLayers = lyrRaptorNests.getLayers();
+  for (let i = 0; i < arLayers.length; i++) {
+    // @ts-ignore
+    let featureId = arLayers[i].feature.properties.Nest_ID;
+    console.log({ featureId });
+    if (featureId === Number(id)) {
+      return arLayers[i];
+    }
+  }
+  return false;
+}
+
+function testRaptorId(id: string) {
+  if (arRaptorIDs.indexOf(id) < 0) {
+    $("#divFindRaptor").addClass("has-error");
+    $("#divRaptorError").html("Project ID not found");
+    $("#btnFindRaptor").prop("disabled", true);
+  } else {
+    $("#divFindRaptor").removeClass("has-error");
+    $("#divRaptorError").html("");
+    $("#btnFindRaptor").prop("disabled", false);
+  }
+}
+
+$("#txtFindRaptor").on("keyup paste", function () {
+  let id = $("#txtFindRaptor").val();
+  testRaptorId(id as string);
+});
+
+$("btnFindRaptor").click(function () {
+  let id = $("#txtFindProject").val();
+  let lyr = returnRaptorById(id as number) as L.GeoJSON;
+  if (lyr) {
+    if (lyrSearch) {
+      lyrSearch.remove();
+    }
+    lyrSearch = L.geoJSON(lyr.toGeoJSON(), { style: { color: "red", weight: 10, opacity: 0.5 } }).addTo(map);
+    map.fitBounds(lyr.getBounds().pad(1));
+    // @ts-ignore
+    let att = lyr?.feature?.properties;
+    $("#divRaptorData").html(
+      "<h4 class='text-center'>Attributes</h4><h5>Status: " +
+        att.recentstatus +
+        "</h5><h5>Species: " +
+        att.recentspecies +
+        "</h5><h5>Last Survey: " +
+        att.lastsurvey +
+        "</h5>"
+    );
+    $("#divRaptorError").html("");
+  } else {
+    $("#divRaptorError").html("Project ID not found");
   }
 });
