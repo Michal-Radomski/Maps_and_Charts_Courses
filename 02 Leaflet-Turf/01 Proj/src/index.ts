@@ -730,106 +730,50 @@ function filterBUOWL(json: { properties: any }) {
   }
 }
 
-//Todo: Fix Eagle and Raptor - they don't work
-$("#txtFindEagle").on("keyup paste", function () {
-  let val = $("#txtFindEagle").val() as string;
-  testLayerAttribute(arEagleIDs, val, "Eagle Nest ID", "#divFindEagle", "#divEagleError", "#btnFindEagle");
-});
-
-$("#btnFindEagle").click(function () {
-  let val = $("#txtFindEagle").val() as string;
-  let lyr = returnLayerByAttribute(lyrEagleNests, "nest_id", val);
-  if (lyr) {
-    if (lyrSearch2) {
-      lyrSearch2.remove();
-    }
-    lyrSearch2 = L.circle(lyr.getLatLng(), { radius: 800, color: "red", weight: 10, opacity: 0.5, fillOpacity: 0 }).addTo(
-      map
-    );
-    map.setView(lyr.getLatLng(), 14);
-    let att = lyr.feature.properties;
-    $("#divEagleData").html("<h4 class='text-center'>Attributes</h4><h5>Status: " + att.status + "</h5>");
-    $("#divEagleError").html("");
-  } else {
-    $("#divEagleError").html("**** Eagle Nest ID not found ****");
-  }
-});
-
-$("#lblEagle").click(function () {
-  $("#divEagleData").toggle();
-});
-
-$("#txtFindRaptor").on("keyup paste", function () {
-  let val = $("#txtFindRaptor").val() as string;
-  testLayerAttribute(arRaptorIDs, val, "Raptor Nest ID", "#divFindRaptor", "#divRaptorError", "#btnFindRaptor");
-});
-
-$("#btnFindRaptor").click(function () {
-  let val = $("#txtFindRaptor").val() as string;
-  let lyr = returnLayerByAttribute(lyrRaptorNests, "Nest_ID", val);
-  if (lyr) {
-    if (lyrSearch2) {
-      lyrSearch2.remove();
-    }
-    let att = lyr.feature.properties;
-    let radRaptor: number;
-    switch (att.recentspecies) {
-      case "Red-tail Hawk":
-        radRaptor = 533;
-        break;
-      case "Swainsons Hawk":
-        radRaptor = 400;
-        break;
-      default:
-        radRaptor = 804;
-        break;
-    }
-    lyrSearch2 = L.circle(lyr.getLatLng(), {
-      radius: radRaptor,
-      color: "red",
-      weight: 10,
-      opacity: 0.5,
-      fillOpacity: 0,
-    }).addTo(map);
-    map.setView(lyr.getLatLng(), 14);
-    $("#divRaptorData").html(
-      "<h4 class='text-center'>Attributes</h4><h5>Status: " +
-        att.recentstatus +
-        "</h5><h5>Species: " +
-        att.recentspecies +
-        "</h5><h5>Last Survey: " +
-        att.lastsurvey +
-        "</h5>"
-    );
-    $("#divRaptorError").html("");
-  } else {
-    $("#divRaptorError").html("**** Raptor Nest ID not found ****");
-  }
-});
-
-$("#lblRaptor").click(function () {
-  $("#divRaptorData").toggle();
-});
-
-function returnLayerByAttribute(lyr: any, att: string, val: string) {
-  let arLayers = lyr.getLayers();
-  for (let i = 0; i < arLayers.length - 1; i++) {
-    let ftrVal = arLayers[i].feature.properties[att];
-    if (ftrVal == val) {
+function returnEagleById(id: number) {
+  let arLayers = lyrEagleNests.getLayers();
+  for (let i = 0; i < arLayers.length; i++) {
+    // @ts-ignore
+    let featureId = arLayers[i].feature.properties.nest_id;
+    // console.log({ featureId });
+    if (featureId === Number(id)) {
       return arLayers[i];
     }
   }
   return false;
 }
 
-function testLayerAttribute(ar: string[], val: string, att: string, fg: string, err: string, btn: string) {
-  if (ar.indexOf(val) < 0) {
-    $(fg).addClass("has-error");
-    $(err).html(att + " NOT FOUND ");
-    $(btn).prop("disabled", true);
+function testEagleNestId(id: string) {
+  if (arEagleIDs.indexOf(id) < 0) {
+    $("#divFindEagle").addClass("has-error");
+    $("#divEagleError").html("Project ID not found");
+    $("#btnFindEagle").prop("disabled", true);
   } else {
-    $(fg).removeClass("has-error");
-    $(err).html("");
-    $(btn).prop("disabled", false);
+    $("#divFindEagle").removeClass("has-error");
+    $("#divEagleError").html("");
+    $("#btnFindEagle").prop("disabled", false);
   }
 }
+
+$("#txtFindEagle").on("keyup paste", function () {
+  let id = $("#txtFindEagle").val();
+  testEagleNestId(id as string);
+});
+
+$("#btnFindEagle").click(function () {
+  let id = $("#txtFindEagle").val();
+  let lyr = returnEagleById(id as number) as L.GeoJSON;
+  if (lyr) {
+    if (lyrSearch) {
+      lyrSearch.remove();
+    }
+    lyrSearch = L.geoJSON(lyr.toGeoJSON(), { style: { color: "red", weight: 10, opacity: 0.5 } }).addTo(map);
+    map.fitBounds(lyr.getBounds().pad(1));
+    // @ts-ignore
+    let att = lyr?.feature?.properties;
+    $("#divEagleData").html("<h4 class='text-center'>Attributes</h4><h5>Status: " + att.status + "</h5>");
+    $("#divEagleError").html("");
+  } else {
+    $("#divEagleError").html("Project ID not found");
+  }
+});
