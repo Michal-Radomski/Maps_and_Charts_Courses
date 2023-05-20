@@ -733,8 +733,8 @@ function filterBUOWL(json: { properties: any }) {
 }
 
 function filterEagle(json: { properties: any }) {
-  var att = json.properties;
-  var optFilter = $("input[name=fltEagle]:checked").val();
+  let att = json.properties;
+  let optFilter = $("input[name=fltEagle]:checked").val();
   if (optFilter == "ALL") {
     return true;
   } else {
@@ -874,3 +874,45 @@ $("#btnFindRaptor").click(function () {
     $("#divRaptorError").html("Project ID not found");
   }
 });
+
+$("#btnProjectFilterAll").click(function () {
+  $("input[name=fltProject]").prop("checked", true);
+});
+
+$("#btnProjectFilterNone").click(function () {
+  $("input[name=fltProject]").prop("checked", false);
+});
+
+$("#btnProjectFilter").click(function () {
+  arProjectIDs = [];
+  // @ts-ignore
+  lyrClientLines.refresh();
+});
+
+function filterClientLines(json: { properties: any }) {
+  let arProjectFilter: string[] = [];
+  $("input[name=fltProject]").each(function () {
+    if ((this as any).checked) {
+      arProjectFilter.push((this as any).value);
+    }
+  });
+  let att = json.properties;
+  switch (att.type) {
+    case "Pipeline":
+      return arProjectFilter.indexOf("Pipeline") >= 0;
+    case "Flowline":
+      return arProjectFilter.indexOf("Flowline") >= 0;
+    case "Flowline, est.":
+      return arProjectFilter.indexOf("Flowline") >= 0;
+    case "Electric Line":
+      return arProjectFilter.indexOf("Electric") >= 0;
+    case "Access Road - Confirmed":
+      return arProjectFilter.indexOf("Road") >= 0;
+    case "Access Road - Estimated":
+      return arProjectFilter.indexOf("Road") >= 0;
+    case "Extraction":
+      return arProjectFilter.indexOf("Extraction") >= 0;
+    default:
+      return arProjectFilter.indexOf("Other") >= 0;
+  }
+}
