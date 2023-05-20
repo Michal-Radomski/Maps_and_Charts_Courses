@@ -504,6 +504,64 @@ $(document).ready(function () {
     // console.log("latLan:", latLan);
     return "[" + latLan.lat.toFixed(3) + ", " + latLan.lng.toFixed(3) + "]";
   }
+
+  function returnBUOWLId(id: number) {
+    let arLayers = lyrBUOWL.getLayers();
+    for (let i = 0; i < arLayers.length; i++) {
+      // @ts-ignore
+      let featureId = arLayers[i].feature.properties.habitat_id;
+      // console.log({ featureId });
+      if (featureId === Number(id)) {
+        return arLayers[i];
+      }
+    }
+    return false;
+  }
+
+  function testBUOWLId(id: string) {
+    if (arHabitatIDs.indexOf(id) < 0) {
+      $("#divFindBUOWL").addClass("has-error");
+      $("#divBUOWLError").html("Project ID not found");
+      $("#btnFindBUOWL").prop("disabled", true);
+    } else {
+      $("#divFindBUOWL").removeClass("has-error");
+      $("#divBUOWLError").html("");
+      $("#btnFindBUOWL").prop("disabled", false);
+    }
+  }
+
+  $("#txtFindBUOWL").on("keyup paste", function () {
+    let id = $("#txtFindBUOWL").val();
+    testBUOWLId(id as string);
+  });
+
+  $("#btnFindBUOWL").click(function () {
+    let id = $("#txtFindBUOWL").val();
+    // console.log({ id });
+    let lyr = returnBUOWLId(id as number) as L.GeoJSON;
+    // console.log({ lyr });
+    if (lyr) {
+      if (lyrSearch) {
+        lyrSearch.remove();
+      }
+      lyrSearch = L.geoJSON(lyr.toGeoJSON(), { style: { color: "red", weight: 10, opacity: 0.5 } }).addTo(map);
+      map.fitBounds(lyr.getBounds().pad(1));
+      // @ts-ignore
+      let att = lyr?.feature?.properties;
+      $("#divBUOWLData").html(
+        "<h4 class='text-center'>Attributes</h4><h5>Habitat: " +
+          att.habitat +
+          "</h5><h5>Historically Occupied: " +
+          att.hist_occup +
+          "</h5><h5>Recent Status: " +
+          att.recentstatus +
+          "</h5>"
+      );
+      $("#divBUOWLError").html("");
+    } else {
+      $("#divBUOWLError").html("Project ID not found");
+    }
+  });
 });
 
 function returnEagleMarker(json: { properties: { status: string; nest_id: string } }, latlng: L.LatLngExpression) {
@@ -651,61 +709,3 @@ function filterBUOWL(json: { properties: any }) {
     return true;
   }
 }
-
-function returnBUOWLId(id: number) {
-  let arLayers = lyrBUOWL.getLayers();
-  for (let i = 0; i < arLayers.length; i++) {
-    // @ts-ignore
-    let featureId = arLayers[i].feature.properties.habitat_id;
-    // console.log({ featureId });
-    if (featureId === Number(id)) {
-      return arLayers[i];
-    }
-  }
-  return false;
-}
-
-function testBUOWLId(id: string) {
-  if (arProjectIDs.indexOf(id) < 0) {
-    $("#divFindBUOWL").addClass("has-error");
-    $("#divBUOWLError").html("Project ID not found");
-    $("#btnFindBUOWL").prop("disabled", true);
-  } else {
-    $("#divFindBUOWL").removeClass("has-error");
-    $("#divBUOWLError").html("");
-    $("#btnFindBUOWL").prop("disabled", false);
-  }
-}
-
-$("#txtFindBUOWL").on("keyup paste", function () {
-  let id = $("#txtFindBUOWL").val();
-  testBUOWLId(id as string);
-});
-
-$("#btnFindBUOWL").click(function () {
-  let id = $("#txtFindBUOWL").val();
-  // console.log({ id });
-  let lyr = returnBUOWLId(id as number) as L.GeoJSON;
-  // console.log({ lyr });
-  if (lyr) {
-    if (lyrSearch) {
-      lyrSearch.remove();
-    }
-    lyrSearch = L.geoJSON(lyr.toGeoJSON(), { style: { color: "red", weight: 10, opacity: 0.5 } }).addTo(map);
-    map.fitBounds(lyr.getBounds().pad(1));
-    // @ts-ignore
-    let att = lyr?.feature?.properties;
-    $("#divBUOWLData").html(
-      "<h4 class='text-center'>Attributes</h4><h5>Habitat: " +
-        att.habitat +
-        "</h5><h5>Historically Occupied: " +
-        att.hist_occup +
-        "</h5><h5>Recent Status: " +
-        att.recentstatus +
-        "</h5>"
-    );
-    $("#divBUOWLError").html("");
-  } else {
-    $("#divBUOWLError").html("Project ID not found");
-  }
-});
