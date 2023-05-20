@@ -195,6 +195,7 @@ $(document).ready(function () {
       pointToLayer: returnEagleMarker,
       // filter: filterEagleNests
       onEachFeature: processEagle,
+      filter: filterEagle,
     })
     .addTo(map);
 
@@ -731,6 +732,16 @@ function filterBUOWL(json: { properties: any }) {
   }
 }
 
+function filterEagle(json: { properties: any }) {
+  var att = json.properties;
+  var optFilter = $("input[name=fltEagle]:checked").val();
+  if (optFilter == "ALL") {
+    return true;
+  } else {
+    return att.status == optFilter;
+  }
+}
+
 function processEagle(json: { properties: any }) {
   let att = json.properties;
   arEagleIDs.push(att.nest_id.toString());
@@ -795,6 +806,16 @@ $("#btnFindEagle").click(function () {
   } else {
     $("#divEagleError").html("Project ID not found");
   }
+});
+
+// $("#lblEagle").click(function () {
+//   $("#divEagleData").toggle();
+// });
+
+$("input[name=fltEagle]").click(function () {
+  arEagleIDs = [];
+  // @ts-ignore
+  lyrEagleNests.refresh();
 });
 
 function returnRaptorById(id: number) {
