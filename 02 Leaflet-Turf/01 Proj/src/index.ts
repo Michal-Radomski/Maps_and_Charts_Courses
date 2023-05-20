@@ -521,6 +521,9 @@ $(document).ready(function () {
         "<h4 class='text-center'>Attributes</h4><h5>Type: " + att.type + "</h5><h5>ROW width: " + att.row_width + "m </h5>"
       );
       $("#divProjectError").html("");
+
+      // fgpDrawnItems.clearLayers();
+      // fgpDrawnItems.addLayer(lyr);
     } else {
       $("#divProjectError").html("Project ID not found");
     }
@@ -584,6 +587,9 @@ $(document).ready(function () {
           "</h5>"
       );
       $("#divBUOWLError").html("");
+
+      // fgpDrawnItems.clearLayers();
+      // fgpDrawnItems.addLayer(lyr);
     } else {
       $("#divBUOWLError").html("Project ID not found");
     }
@@ -807,6 +813,9 @@ $("#btnFindEagle").click(function () {
     // console.log({ att });
     $("#divEagleData").html("<h4 class='text-center'>Attributes</h4><h5>Status: " + att.status + "</h5>");
     $("#divEagleError").html("");
+
+    // fgpDrawnItems.clearLayers();
+    // fgpDrawnItems.addLayer(lyr);
   } else {
     $("#divEagleError").html("Project ID not found");
   }
@@ -874,6 +883,9 @@ $("#btnFindRaptor").click(function () {
         "</h5>"
     );
     $("#divRaptorError").html("");
+
+    // fgpDrawnItems.clearLayers();
+    // fgpDrawnItems.addLayer(lyr);
   } else {
     $("#divRaptorError").html("Project ID not found");
   }
