@@ -217,7 +217,11 @@ $(document).ready(function () {
 
   lyrClientLines = L.geoJSON
     // @ts-ignore
-    .ajax("data/client_lines.geojson", { style: styleClientLinears, onEachFeature: processClientLinears })
+    .ajax("data/client_lines.geojson", {
+      style: styleClientLinears,
+      onEachFeature: processClientLinears,
+      filter: filterClientLines,
+    })
     .addTo(map);
 
   lyrClientLines.on("data:loaded", function () {
@@ -892,8 +896,8 @@ $("#btnProjectFilter").click(function () {
 function filterClientLines(json: { properties: any }) {
   let arProjectFilter: string[] = [];
   $("input[name=fltProject]").each(function () {
-    if ((this as any).checked) {
-      arProjectFilter.push((this as any).value);
+    if ((this as HTMLInputElement).checked) {
+      arProjectFilter.push((this as HTMLInputElement).value);
     }
   });
   let att = json.properties;
