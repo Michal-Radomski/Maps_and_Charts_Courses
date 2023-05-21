@@ -134,6 +134,7 @@ let arRaptorIDs = [] as string[];
 
 let lyrBUOWLbuffer;
 let jsnBUOWLbuffer;
+let lyrClientLinesBuffer: L.FeatureGroup<any>;
 
 $(document).ready(function () {
   map = L.map("mapDiv", {
@@ -216,6 +217,7 @@ $(document).ready(function () {
     .ajax("data/wildlife_raptor.geojson", { pointToLayer: returnRaptorMarker, onEachFeature: processRaptor })
     .addTo(map);
 
+  lyrClientLinesBuffer = L.featureGroup();
   lyrClientLines = L.geoJSON
     // @ts-ignore
     .ajax("data/client_lines.geojson", {
@@ -234,6 +236,8 @@ $(document).ready(function () {
     $("#txtFindProject").autocomplete({
       source: arProjectIDs,
     });
+    lyrClientLinesBuffer.addTo(map);
+    lyrClientLines.bringToFront();
   });
 
   lyrBUOWL = L.geoJSON
@@ -735,6 +739,9 @@ function processClientLinears(
       returnMultiLength(lyr.getLatLngs()).toFixed(0)
   );
   arProjectIDs.push(att.Project.toString());
+  let jsnBuffer = turf.buffer(json, att.row_width / 1000, "kilometers");
+  let lyrBuffer = L.geoJSON(jsnBuffer, { style: { color: "maroon", dashArray: "5,5" } });
+  lyrClientLinesBuffer.addLayer(lyrBuffer);
 }
 
 function styleBUOWL(json: { properties: any }) {
