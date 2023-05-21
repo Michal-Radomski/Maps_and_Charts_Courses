@@ -708,10 +708,23 @@ function styleClientLinears(json: { properties: { type: string } }) {
 
 function processClientLinears(
   json: { properties: { type: string; Project: string; row_width: number } },
-  lyr: { bindTooltip: (arg0: string) => void }
+  lyr: {
+    getLatLngs(): (arg0: { lat: number; lng: number }[]) => number;
+    bindTooltip: (arg0: string) => void;
+  }
 ) {
   let att = json.properties;
-  lyr.bindTooltip("<h4>Linear Project: " + att.Project + "</h4>Type: " + att.type + "<br>ROW Width: " + att.row_width);
+  lyr.bindTooltip(
+    "<h4>Linear Project: " +
+      att.Project +
+      "</h4>Type: " +
+      att.type +
+      "<br>ROW Width: " +
+      att.row_width +
+      "<br>Length: " +
+      //@ts-ignore
+      returnMultiLength(lyr.getLatLngs()).toFixed(0)
+  );
   arProjectIDs.push(att.Project.toString());
 }
 
@@ -931,4 +944,23 @@ function filterClientLines(json: { properties: any }) {
     default:
       return arProjectFilter.indexOf("Other") >= 0;
   }
+}
+
+function returnLength(arLL: { lat: number; lng: number }[]) {
+  let total = 0;
+  // console.log(arLL);
+  for (let i = 1; i < arLL.length; i++) {
+    // @ts-ignore
+    total = total + arLL[i - 1].distanceTo(arLL[i]);
+  }
+  return total;
+}
+
+function returnMultiLength(arArLL: { lat: number; lng: number }[]) {
+  let total = 0;
+  for (let i = 0; i < arArLL.length; i++) {
+    // @ts-ignore
+    total = total + returnLength(arArLL[i]);
+  }
+  return total;
 }
