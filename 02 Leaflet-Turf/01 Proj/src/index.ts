@@ -134,6 +134,9 @@ let arHabitatIDs = [] as string[];
 let arEagleIDs = [] as string[];
 let arRaptorIDs = [] as string[];
 
+let lyrBUOWLbuffer;
+let jsnBUOWLbuffer;
+
 $(document).ready(function () {
   map = L.map("mapDiv", {
     center: [54.3475, 18.645278],
@@ -248,6 +251,14 @@ $(document).ready(function () {
     $("#txtFindBUOWL").autocomplete({
       source: arHabitatIDs,
     });
+
+    // @ts-ignore
+    // console.log("turf:", turf);
+    //@ts-ignore
+    jsnBUOWLbuffer = turf.buffer(lyrBUOWL.toGeoJSON(), 0.3, "kilometers");
+    console.log(jsnBUOWLbuffer);
+    lyrBUOWLbuffer = L.geoJSON(jsnBUOWLbuffer, { style: { color: "yellow", dashArray: "5,5", fillOpacity: 0 } }).addTo(map);
+    lyrBUOWL.bringToFront();
   });
 
   lyrGBH = L.geoJSON
