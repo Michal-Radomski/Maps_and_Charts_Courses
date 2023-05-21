@@ -1,6 +1,4 @@
-// (function IIFE() {
-//   console.log("IIFE");
-// })();
+declare var turf: any;
 
 const circle = L.circle([54.3475, 18.645278], {
   color: "red",
@@ -252,12 +250,12 @@ $(document).ready(function () {
       source: arHabitatIDs,
     });
 
-    // @ts-ignore
     // console.log("turf:", turf);
-    //@ts-ignore
     jsnBUOWLbuffer = turf.buffer(lyrBUOWL.toGeoJSON(), 0.3, "kilometers");
-    console.log(jsnBUOWLbuffer);
-    lyrBUOWLbuffer = L.geoJSON(jsnBUOWLbuffer, { style: { color: "yellow", dashArray: "5,5", fillOpacity: 0 } }).addTo(map);
+    // console.log("jsnBUOWLbuffer:", jsnBUOWLbuffer);
+    lyrBUOWLbuffer = L.geoJSON(jsnBUOWLbuffer, { style: { color: "orange", dashArray: "5,5", fillOpacity: 0.3 } }).addTo(
+      map
+    );
     lyrBUOWL.bringToFront();
   });
 
