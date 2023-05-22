@@ -1,3 +1,5 @@
+//* Not done: Spatial analysis, diversity calculator
+
 declare var turf: any;
 
 const circle = L.circle([54.3475, 18.645278], {
@@ -202,7 +204,7 @@ $(document).ready(function () {
     .addTo(map);
 
   lyrEagleNests.on("data:loaded", function () {
-    map.fitBounds(lyrEagleNests.getBounds());
+    // map.fitBounds(lyrEagleNests.getBounds());
     arEagleIDs.sort(function (a, b) {
       return Number(a) - Number(b);
     });
@@ -274,7 +276,7 @@ $(document).ready(function () {
   lyrMarkerCluster = L.markerClusterGroup();
 
   lyrRaptorNests.on("data:loaded", function () {
-    map.fitBounds(lyrRaptorNests.getBounds());
+    // map.fitBounds(lyrRaptorNests.getBounds());
 
     arRaptorIDs.sort(function (a, b) {
       return Number(a) - Number(b);
@@ -465,7 +467,7 @@ $(document).ready(function () {
   });
 
   $("#btnBikeRoute").click(function () {
-    map.fitBounds(plnBikeRoute.getBounds());
+    // map.fitBounds(plnBikeRoute.getBounds());
   });
 
   $("#sldOpacity").on("change", function () {
