@@ -1,6 +1,5 @@
 //* Not done: Spatial analysis, diversity calculator
-
-declare var turf: any;
+declare const turf: any;
 
 const circle = L.circle([54.3475, 18.645278], {
   color: "red",
@@ -521,6 +520,18 @@ $(document).ready(function () {
   $(".legend-container").append($("#legend"));
   $(".legend-toggle").append($("<i class='legend-toggle-icon fa fa-server fa-2x' style='color:#000'></i>"));
 
+  map.on("overlayadd", function (event) {
+    // console.log("event:", event);
+    let strDiv = "#lgnd" + stripSpaces(event.name);
+    $(strDiv).show();
+  });
+
+  map.on("overlayremove", function (event) {
+    // console.log("event:", event);
+    let strDiv = "#lgnd" + stripSpaces(event.name);
+    $(strDiv).hide();
+  });
+
   function returnClientLineById(id: number) {
     let arLayers = lyrClientLines.getLayers();
     for (let i = 0; i < arLayers.length; i++) {
@@ -1012,4 +1023,8 @@ function returnMultiLength(arArLL: { lat: number; lng: number }[]) {
     total = total + returnLength(arArLL[i]);
   }
   return total;
+}
+
+function stripSpaces(str: string) {
+  return str.replace(/\s+/g, "");
 }
