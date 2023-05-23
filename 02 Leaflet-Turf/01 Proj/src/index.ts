@@ -982,3 +982,5 @@ function returnMultiLength(arArLL: { lat: number; lng: number }[]) {
   }
   return total;
 }
+
+//* Bonus Material
