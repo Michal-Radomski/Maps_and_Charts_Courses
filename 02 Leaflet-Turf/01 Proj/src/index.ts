@@ -494,6 +494,22 @@ $(document).ready(function () {
     $("#legend").toggle();
   });
 
+  $("#btnGBH").click(function () {
+    $("#lgndGBHDetail").toggle();
+  });
+  $("#btnEagle").click(function () {
+    $("#lgndEagleDetail").toggle();
+  });
+  $("#btnLinearProjects").click(function () {
+    $("#lgndLinearProjectsDetail").toggle();
+  });
+  $("#btnRaptor").click(function () {
+    $("#lgndRaptorDetail").toggle();
+  });
+  $("#btnBUOWL").click(function () {
+    $("#lgndBUOWLDetail").toggle();
+  });
+
   function returnClientLineById(id: number) {
     let arLayers = lyrClientLines.getLayers();
     for (let i = 0; i < arLayers.length; i++) {
@@ -986,5 +1002,3 @@ function returnMultiLength(arArLL: { lat: number; lng: number }[]) {
   }
   return total;
 }
-
-//* Bonus Material
