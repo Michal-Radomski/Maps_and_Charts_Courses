@@ -490,6 +490,10 @@ $(document).ready(function () {
     }
   });
 
+  $("#btnShowLegend").click(function () {
+    $("#legend").toggle();
+  });
+
   function returnClientLineById(id: number) {
     let arLayers = lyrClientLines.getLayers();
     for (let i = 0; i < arLayers.length; i++) {
