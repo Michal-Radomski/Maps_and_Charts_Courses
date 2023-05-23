@@ -138,6 +138,8 @@ let lyrBUOWLbuffer;
 let jsnBUOWLbuffer;
 let lyrClientLinesBuffer: L.FeatureGroup<any>;
 
+let ctlLegend: L.Control;
+
 $(document).ready(function () {
   map = L.map("mapDiv", {
     center: [54.3475, 18.645278],
@@ -509,6 +511,15 @@ $(document).ready(function () {
   $("#btnBUOWL").click(function () {
     $("#lgndBUOWLDetail").toggle();
   });
+
+  // @ts-ignore
+  ctlLegend = new L.Control.Legend({
+    position: "topright",
+    controlButton: { title: "Legend" },
+  }).addTo(map);
+
+  $(".legend-container").append($("#legend"));
+  $(".legend-toggle").append($("<i class='legend-toggle-icon fa fa-server fa-2x' style='color:#000'></i>"));
 
   function returnClientLineById(id: number) {
     let arLayers = lyrClientLines.getLayers();
