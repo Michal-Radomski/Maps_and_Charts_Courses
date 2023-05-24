@@ -651,6 +651,52 @@ $(document).ready(function () {
       $("#divBUOWLError").html("Project ID not found");
     }
   });
+
+  //* Bonus Material
+  // @ts-ignore
+  let ctlFile = L.Control.fileLayerLoad({
+    position: "topright",
+    layer: L.geoJson,
+    layerOptions: {
+      pointToLayer: function (_feature: L.GeoJSON, latlng: L.LatLngExpression) {
+        return L.circleMarker(latlng, { radius: 7 });
+      },
+    },
+    addToMap: true,
+    // File size limit in kb (default: 1024) ?
+    fileSizeLimit: 4096,
+    // Restrict accepted file formats (default: .geojson, .kml, and .gpx) ?
+    formats: [".geojson"],
+  }).addTo(map);
+
+  ctlFile.loader.on("data:loaded", function (event: any) {
+    // Set a random color for the layer and add to the overlay control
+    event.layer.setStyle({ color: returnRandomColor(), fillColor: returnRandomColor() });
+
+    // @ts-ignore
+    ctlLayers.addOverlay(event.layer, event.filename);
+  });
+
+  function returnRandomColor() {
+    let arrColors = [
+      "red",
+      "darkred",
+      "orange",
+      "yellow",
+      "green",
+      "darkgreen",
+      "chartreuse",
+      "blue",
+      "darkblue",
+      "cyan",
+      "indigo",
+      "violet",
+      "black",
+      "gray",
+    ];
+    let idx = Math.floor(Math.random() * 14);
+    return arrColors[idx];
+  }
 });
 
 function returnEagleMarker(json: { properties: { status: string; nest_id: string } }, latlng: L.LatLngExpression) {
