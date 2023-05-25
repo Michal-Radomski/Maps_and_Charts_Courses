@@ -1,4 +1,4 @@
-//* Not done: Spatial analysis, diversity calculator
+//* Not done: Spatial analysis
 declare const turf: any;
 
 const circle = L.circle([54.3475, 18.645278], {
@@ -697,6 +697,41 @@ $(document).ready(function () {
     let idx = Math.floor(Math.random() * 14);
     return arrColors[idx];
   }
+
+  function LLBtoMB(llb: L.LatLngBounds) {
+    // Convert a leaflet LatLngBounds object to a turf compatible bbox array
+    return [llb.getWest(), llb.getSouth(), llb.getEast(), llb.getNorth()];
+  }
+
+  function processGrid(json: { properties: { ID: string } }, lyr: L.Layer) {
+    // Add popup with ID to grid layer
+    lyr.bindPopup("ID: " + json.properties.ID);
+  }
+
+  $("#btnGrid").click(function () {
+    let lyrGrid;
+    // Set the initial size for the grid based on current map view
+    let size = (map.getBounds().getNorth() - map.getBounds().getSouth()) * 10;
+
+    let jsnGrid = turf.hexGrid(LLBtoMB(map.getBounds()), size, "kilometres");
+    // Loop through all the hex polygons and add a unique ID property
+    for (let i = 0; i < jsnGrid.features.length; i++) {
+      jsnGrid.features[i].properties.ID = i + 1;
+    }
+    // If an existing grid exists, remove it from the layer control and the map.
+    if (lyrGrid) {
+      // @ts-ignore
+      ctlLayers.removeLayer(lyrGrid);
+      // @ts-ignore
+      lyrGrid.remove();
+    }
+    // Convert the geoJSON feature collection to a leaflet map layer
+    lyrGrid = L.geoJSON(jsnGrid, { style: { color: returnRandomColor() }, onEachFeature: processGrid }).addTo(map);
+    // Add the grid layer to the layer control
+    // @ts-ignore
+    ctlLayers.addOverlay(lyrGrid, "Grid");
+    // Refresh the layer selection controls to reflect the grid availability
+  });
 });
 
 function returnEagleMarker(json: { properties: { status: string; nest_id: string } }, latlng: L.LatLngExpression) {
