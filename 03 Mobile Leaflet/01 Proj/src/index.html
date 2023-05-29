@@ -5,7 +5,7 @@
     <meta name="description" content="Mobile Leaflet Course" />
     <meta name="keywords" content="Mobile Leaflet" />
     <meta name="author" content="np. MichRad" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Mobile Leaflet Course</title>
 
     <!-- Favicon -->
@@ -20,23 +20,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/js/all.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
 
-    <!-- jQuery + jQuery UI -->
+    <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" />
 
     <!-- Leaflet -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.js"></script>
-
-    <!-- Old version used in the course! -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/6.5.0/turf.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Turf.js/4.7.3/turf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.js" defer></script>
 
     <!-- My Styles + script -->
     <link rel="stylesheet" type="text/css" href="index.min.css" />
     <script src="index.min.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div id="mapDiv"></div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
