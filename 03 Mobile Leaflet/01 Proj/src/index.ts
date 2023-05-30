@@ -9,8 +9,6 @@ const map = L.map("mapDiv", {
   attributionControl: true,
 });
 
-new L.Control.Zoom({ position: "topright" }).addTo(map);
-
 // Map Providers
 //* V1
 // L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -40,6 +38,7 @@ const objBaseMaps = {
 };
 
 L.control.layers(objBaseMaps).addTo(map);
+new L.Control.Zoom({ position: "topright" }).addTo(map);
 
 // Location
 // map.locate({ setView: true, maxZoom: 16 });
@@ -68,3 +67,6 @@ if (map) {
   // @ts-ignore
   L.control.polylineMeasure(measureOptions).addTo(map);
 }
+
+// @ts-ignore
+L.control.sidebar("sidebar").addTo(map);
