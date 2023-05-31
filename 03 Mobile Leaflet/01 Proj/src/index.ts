@@ -70,3 +70,16 @@ if (map) {
 
 // @ts-ignore
 L.control.sidebar("sidebar").addTo(map);
+
+if (map) {
+  L.control
+    // @ts-ignore
+    .sidepanel("sidePanelRight", {
+      panelPosition: "right",
+      tabsPosition: "top",
+      pushControls: true,
+      darkMode: false,
+      startTab: "tab-1",
+    })
+    .addTo(map);
+}
