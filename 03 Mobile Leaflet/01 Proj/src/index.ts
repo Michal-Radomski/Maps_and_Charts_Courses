@@ -1,4 +1,6 @@
 const GdanskPosition = [54.3475, 18.645278] as L.LatLngExpression;
+// const countriesDataURL =
+//   "https://gist.githubusercontent.com/ThomasG77/c38e6b0ecfd014342aad/raw/ecaa086688859566f108b9630047a7110ad6eb94/countries.geojson";
 
 // Initialize map
 const map = L.map("mapDiv", {
@@ -93,3 +95,9 @@ L.easyButton("fas fa-globe-europe fa-lg", function (_btn, map) {
 })
   .setPosition("topright")
   .addTo(map);
+
+// fetch(countriesDataURL)
+//   .then((res) => res.json())
+//   .then((data) => {
+//     L.geoJson(data).addTo(map);
+//   });
