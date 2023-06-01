@@ -1,11 +1,13 @@
 const GdanskPosition = [54.3475, 18.645278] as L.LatLngExpression;
-// const countriesDataURL =
-//   "https://gist.githubusercontent.com/ThomasG77/c38e6b0ecfd014342aad/raw/ecaa086688859566f108b9630047a7110ad6eb94/countries.geojson";
+const initialZoom = 13;
+
+const countriesDataURL =
+  "https://gist.githubusercontent.com/ThomasG77/c38e6b0ecfd014342aad/raw/ecaa086688859566f108b9630047a7110ad6eb94/countries.geojson";
 
 // Initialize map
 const map = L.map("mapDiv", {
   center: GdanskPosition,
-  zoom: 13,
+  zoom: initialZoom,
   zoomControl: false,
   dragging: true,
   minZoom: 4,
@@ -41,7 +43,21 @@ const objBaseMaps = {
   Watercolor: lyrWaterColor,
 };
 
-L.control.layers(objBaseMaps).addTo(map);
+let lyrWorld = L.geoJSON
+  // @ts-ignore
+  .ajax(countriesDataURL, {}) as L.GeoJSON;
+
+let polishVoivodeship = L.geoJSON
+  // @ts-ignore
+  .ajax("data/poland.geojson", {}) as L.GeoJSON;
+
+const objOverlays = {
+  Poland: polishVoivodeship,
+  World: lyrWorld,
+};
+
+L.control.layers(objBaseMaps, objOverlays).addTo(map);
+
 new L.Control.Zoom({ position: "topright" }).addTo(map);
 
 // Location
@@ -91,13 +107,7 @@ if (map) {
 // @ts-ignore
 L.easyButton("fas fa-globe-europe fa-lg", function (_btn, map) {
   // console.log({_btn});
-  map.setView(GdanskPosition);
+  map.setZoom(initialZoom).setView(GdanskPosition);
 })
   .setPosition("topright")
   .addTo(map);
-
-// fetch(countriesDataURL)
-//   .then((res) => res.json())
-//   .then((data) => {
-//     L.geoJson(data).addTo(map);
-//   });
