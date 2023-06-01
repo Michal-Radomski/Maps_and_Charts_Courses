@@ -111,3 +111,22 @@ L.easyButton("fas fa-globe-europe fa-lg", function (_btn, map) {
 })
   .setPosition("topright")
   .addTo(map);
+
+function isMobile() {
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function isOnline() {
+  return navigator.onLine;
+}
+
+console.log("isMobile():", isMobile());
+console.log("isOnline():", isOnline());
