@@ -1,6 +1,8 @@
+const GdanskPosition = [54.3475, 18.645278] as L.LatLngExpression;
+
 // Initialize map
 const map = L.map("mapDiv", {
-  center: [54.3475, 18.645278],
+  center: GdanskPosition,
   zoom: 13,
   zoomControl: false,
   dragging: true,
@@ -83,3 +85,11 @@ if (map) {
     })
     .addTo(map);
 }
+
+// @ts-ignore
+L.easyButton("fas fa-globe-europe fa-lg", function (_btn, map) {
+  // console.log({_btn});
+  map.setView(GdanskPosition);
+})
+  .setPosition("topright")
+  .addTo(map);
