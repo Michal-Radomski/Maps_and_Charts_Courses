@@ -20,3 +20,17 @@ div#mapDiv {
   min-height: 100vh;
   width: calc(100vw - 24px);
 }
+
+div.leaflet-control-zoom.leaflet-bar.leaflet-control {
+  width: 44px;
+  height: 84px;
+  a {
+    width: 100%;
+    height: 50%;
+    span {
+      vertical-align: middle;
+      font-size: 30px;
+      line-height: 40px;
+    }
+  }
+}
