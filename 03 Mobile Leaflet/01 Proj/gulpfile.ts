@@ -24,7 +24,7 @@ const files = {
   tsPath: "src/**/*.ts",
   htmlPath: "src/index.html",
   favIcon: "src/favicon.svg",
-  images: "src/img/**/*",
+  // images: "src/img/**/*",
   plugins: "src/plugins/**/*",
   data: "src/data/**/*",
 };
@@ -36,9 +36,9 @@ function htmlTask() {
     .pipe(browserSync.stream());
 }
 
-function imgTask() {
-  return src(files.images).pipe(dest("dist/img")).pipe(browserSync.stream());
-}
+// function imgTask() {
+//   return src(files.images).pipe(dest("dist/img")).pipe(browserSync.stream());
+// }
 
 function pluginsTask() {
   return src(files.plugins).pipe(dest("dist/plugins")).pipe(browserSync.stream());
@@ -107,7 +107,7 @@ function browser_Sync() {
 // Watch files
 function watchFiles() {
   watch(files.htmlPath, htmlTask);
-  watch(files.images, imgTask);
+  // watch(files.images, imgTask);
   watch(files.plugins, pluginsTask);
   watch(files.data, dataTask);
   watch(files.sassPath, sassTask);
