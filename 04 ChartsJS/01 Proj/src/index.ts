@@ -1,4 +1,8 @@
-import { Chart, ChartConfiguration } from "../node_modules/chart.js/types/index.esm";
+import { ChartConfiguration } from "chart.js";
+
+const { Chart } = window;
+// console.log("Chart:", Chart);
+// console.log({ window });
 
 // Data block
 const data = {
@@ -42,5 +46,8 @@ const config = {
 };
 
 // Init render block
-const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
-// console.log("myChart:", myChart);
+const myChart: Chart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+console.log("myChart:", myChart);
+
+// const ctx = (document.getElementById("myChart") as HTMLCanvasElement)?.getContext("2d");
+// console.log("ctx:", ctx);
