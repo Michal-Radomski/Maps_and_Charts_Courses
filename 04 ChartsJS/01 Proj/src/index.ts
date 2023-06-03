@@ -5,8 +5,15 @@ const { Chart } = window;
 // console.log({ window });
 
 // Data block
+const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+labels.shift();
+labels.unshift("Red2");
+
+labels.pop();
+labels.push("Orange2");
+
 const data = {
-  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  labels: labels,
   datasets: [
     {
       label: "# of Votes",
