@@ -155,46 +155,86 @@ const { Chart } = window;
 // };
 
 //* Doughnut Chart
-const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 3,
+//       borderRadius: 5,
+//       offset: 10,
+//       hoverOffset: 20,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "doughnut",
+//   // type: "pie",
+//   data: data,
+//   options: {
+//     cutout: "90%",
+//     layout: {
+//       padding: { bottom: 10 },
+//     },
+//   },
+// };
+
+//* Scatter Chart
 const data = {
-  labels: labels,
   datasets: [
     {
       label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
+      data: [
+        { x: 3, y: 12 },
+        { x: 6, y: 19 },
+        { x: 21, y: 3 },
+        { x: 11, y: 14 },
+        { x: 10, y: 10 },
+        { x: 22, y: 15 },
       ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
+      backgroundColor: "rgba(54, 162, 235, 0.5)",
+      borderColor: "rgba(54, 162, 235, 1)",
       borderWidth: 3,
       borderRadius: 5,
       offset: 10,
       hoverOffset: 20,
+      showLine: true,
+      tension: 0.5,
     },
   ],
 };
 
 const config = {
-  type: "doughnut",
-  // type: "pie",
+  type: "scatter",
   data: data,
   options: {
-    cutout: "90%",
-    layout: {
-      padding: { bottom: 10 },
+    scales: {
+      x: {
+        beginAtZero: true,
+      },
+      y: {
+        beginAtZero: true,
+      },
     },
   },
 };
