@@ -289,28 +289,76 @@ const { Chart } = window;
 // };
 
 //* Bar-Line Combo Chart
+// const labels = ["January", "February", "March", "April", "May", "June"];
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       type: "bar",
+//       label: "# of Bar Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: ["rgba(255, 99, 132, 0.6)"],
+//       borderColor: ["rgba(255, 99, 132, 1)"],
+//       borderWidth: 3,
+//       order: 2, //* at the bottom
+//     },
+//     {
+//       type: "line",
+//       label: "# of Line Votes",
+//       data: [10, 20, 30, 40, 30, 20],
+//       backgroundColor: ["rgba(153, 102, 255, 0.6)"],
+//       borderColor: ["rgba(153, 102, 255, 1)"],
+//       borderWidth: 3,
+//       tension: 0.4,
+//       order: 1, //* at the top
+//     },
+//   ],
+// };
+
+// const config = {
+//   data: data,
+//   options: {
+//     plugins: {
+//       tooltip: {
+//         yAlign: "bottom",
+//       },
+//     },
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+//* Stacked Bar Chart
 const labels = ["January", "February", "March", "April", "May", "June"];
 const data = {
   labels: labels,
   datasets: [
     {
       type: "bar",
-      label: "# of Bar Votes",
+      label: "# of Red Votes",
       data: [12, 19, 3, 5, 2, 3],
       backgroundColor: ["rgba(255, 99, 132, 0.6)"],
       borderColor: ["rgba(255, 99, 132, 1)"],
       borderWidth: 3,
-      order: 2, //* at the bottom
     },
     {
-      type: "line",
-      label: "# of Line Votes",
+      type: "bar",
+      label: "# of Violet Votes",
       data: [10, 20, 30, 40, 30, 20],
       backgroundColor: ["rgba(153, 102, 255, 0.6)"],
       borderColor: ["rgba(153, 102, 255, 1)"],
       borderWidth: 3,
-      tension: 0.4,
-      order: 1, //* at the top
+    },
+    {
+      type: "bar",
+      label: "# of Teal Votes",
+      data: [5, 6, 7, 8, 9, 0],
+      backgroundColor: ["rgba(75, 192, 192, 0.6)"],
+      borderColor: ["rgba(75, 192, 192, 1)"],
+      borderWidth: 3,
     },
   ],
 };
@@ -324,7 +372,11 @@ const config = {
       },
     },
     scales: {
+      x: {
+        stacked: true,
+      },
       y: {
+        stacked: true,
         beginAtZero: true,
       },
     },
