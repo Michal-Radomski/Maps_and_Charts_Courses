@@ -366,11 +366,7 @@ const data = {
 const config = {
   data: data,
   options: {
-    plugins: {
-      tooltip: {
-        yAlign: "bottom",
-      },
-    },
+    borderRadius: 10,
     scales: {
       x: {
         stacked: true,
