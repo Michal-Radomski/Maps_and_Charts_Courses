@@ -332,47 +332,75 @@ const { Chart } = window;
 // };
 
 //* Stacked Bar Chart
-const labels = ["January", "February", "March", "April", "May", "June"];
+// const labels = ["January", "February", "March", "April", "May", "June"];
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       type: "bar",
+//       label: "# of Red Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: ["rgba(255, 99, 132, 0.6)"],
+//       borderColor: ["rgba(255, 99, 132, 1)"],
+//       borderWidth: 3,
+//     },
+//     {
+//       type: "bar",
+//       label: "# of Violet Votes",
+//       data: [10, 20, 30, 40, 30, 20],
+//       backgroundColor: ["rgba(153, 102, 255, 0.6)"],
+//       borderColor: ["rgba(153, 102, 255, 1)"],
+//       borderWidth: 3,
+//     },
+//     {
+//       type: "bar",
+//       label: "# of Teal Votes",
+//       data: [5, 6, 7, 8, 9, 0],
+//       backgroundColor: ["rgba(75, 192, 192, 0.6)"],
+//       borderColor: ["rgba(75, 192, 192, 1)"],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const config = {
+//   data: data,
+//   options: {
+//     borderRadius: 10,
+//     scales: {
+//       x: {
+//         stacked: true,
+//       },
+//       y: {
+//         stacked: true,
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+//* Radar Area Chart
+const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+
 const data = {
   labels: labels,
   datasets: [
     {
-      type: "bar",
-      label: "# of Red Votes",
+      label: "# of Votes",
       data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: ["rgba(255, 99, 132, 0.6)"],
-      borderColor: ["rgba(255, 99, 132, 1)"],
-      borderWidth: 3,
-    },
-    {
-      type: "bar",
-      label: "# of Violet Votes",
-      data: [10, 20, 30, 40, 30, 20],
-      backgroundColor: ["rgba(153, 102, 255, 0.6)"],
-      borderColor: ["rgba(153, 102, 255, 1)"],
-      borderWidth: 3,
-    },
-    {
-      type: "bar",
-      label: "# of Teal Votes",
-      data: [5, 6, 7, 8, 9, 0],
-      backgroundColor: ["rgba(75, 192, 192, 0.6)"],
-      borderColor: ["rgba(75, 192, 192, 1)"],
-      borderWidth: 3,
+      backgroundColor: ["rgba(54, 162, 235, 0.2)", ,],
+      borderColor: ["rgba(54, 162, 235, 1)"],
+      borderWidth: 5,
     },
   ],
 };
 
 const config = {
+  type: "radar",
   data: data,
   options: {
-    borderRadius: 10,
     scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true,
+      r: {
         beginAtZero: true,
       },
     },
