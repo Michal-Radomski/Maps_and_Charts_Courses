@@ -239,48 +239,88 @@ const { Chart } = window;
 //   },
 // };
 
-//* Buble Chart
+// //* Buble Chart
+// const data = {
+//   datasets: [
+//     {
+//       label: "# of Blue Votes",
+//       data: [
+//         { x: 3, y: 12, r: 4 },
+//         { x: 6, y: 19, r: 6 },
+//         { x: 21, y: 3, r: 2 },
+//         { x: 11, y: 14, r: 9 },
+//         { x: 10, y: 10, r: 10 },
+//         { x: 22, y: 15, r: 7 },
+//       ],
+//       backgroundColor: "rgba(54, 162, 235, 0.5)",
+//       borderColor: "rgba(54, 162, 235, 1)",
+//       borderWidth: 3,
+//     },
+//     {
+//       label: "# of Violet Votes2",
+//       data: [
+//         { x: 5, y: 9, r: 3 },
+//         { x: 8, y: 12, r: 4 },
+//         { x: 16, y: 0, r: 2 },
+//         { x: 21, y: 7, r: 5 },
+//         { x: 16, y: 7, r: 5 },
+//         { x: 12, y: 3, r: 10 },
+//       ],
+//       backgroundColor: "rgba(153, 102, 255, 0.5)",
+//       borderColor: "rgba(153, 102, 255, 1)",
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "bubble",
+//   data: data,
+//   options: {
+//     scales: {
+//       x: {
+//         beginAtZero: true,
+//       },
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+//* Bar-Line Combo Chart
+const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 const data = {
+  labels: labels,
   datasets: [
     {
-      label: "# of Blue Votes",
-      data: [
-        { x: 3, y: 12, r: 4 },
-        { x: 6, y: 19, r: 6 },
-        { x: 21, y: 3, r: 2 },
-        { x: 11, y: 14, r: 9 },
-        { x: 10, y: 10, r: 10 },
-        { x: 22, y: 15, r: 7 },
-      ],
-      backgroundColor: "rgba(54, 162, 235, 0.5)",
-      borderColor: "rgba(54, 162, 235, 1)",
+      type: "bar",
+      label: "# of Bar Votes",
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+      borderColor: ["rgba(255, 99, 132, 1)"],
       borderWidth: 3,
     },
     {
-      label: "# of Violet Votes2",
-      data: [
-        { x: 5, y: 9, r: 3 },
-        { x: 8, y: 12, r: 4 },
-        { x: 16, y: 0, r: 2 },
-        { x: 21, y: 7, r: 5 },
-        { x: 16, y: 7, r: 5 },
-        { x: 12, y: 3, r: 10 },
-      ],
-      backgroundColor: "rgba(153, 102, 255, 0.5)",
-      borderColor: "rgba(153, 102, 255, 1)",
+      type: "line",
+      label: "# of Line Votes",
+      data: [10, 20, 30, 40, 30, 20],
+      backgroundColor: ["rgba(153, 102, 255, 0.2)"],
+      borderColor: ["rgba(153, 102, 255, 1)"],
       borderWidth: 3,
     },
   ],
 };
 
 const config = {
-  type: "bubble",
   data: data,
   options: {
-    scales: {
-      x: {
-        beginAtZero: true,
+    plugins: {
+      tooltip: {
+        yAlign: "bottom",
       },
+    },
+    scales: {
       y: {
         beginAtZero: true,
       },
