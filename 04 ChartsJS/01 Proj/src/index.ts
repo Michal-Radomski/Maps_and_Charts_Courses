@@ -289,7 +289,7 @@ const { Chart } = window;
 // };
 
 //* Bar-Line Combo Chart
-const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+const labels = ["January", "February", "March", "April", "May", "June"];
 const data = {
   labels: labels,
   datasets: [
@@ -308,6 +308,7 @@ const data = {
       backgroundColor: ["rgba(153, 102, 255, 0.2)"],
       borderColor: ["rgba(153, 102, 255, 1)"],
       borderWidth: 3,
+      tension: 0.4,
     },
   ],
 };
