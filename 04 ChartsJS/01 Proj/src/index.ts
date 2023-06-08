@@ -723,6 +723,12 @@ const data = {
       backgroundColor: "rgba(153, 102, 255, 0.2)",
       borderColor: "rgba(153, 102, 255, 1)",
     },
+    {
+      label: "Changeable",
+      data: departmentInfo,
+      backgroundColor: "rgba(255, 206, 86, 0.2)",
+      borderColor: "rgba(255, 206, 86, 1)",
+    },
   ],
 };
 
@@ -734,7 +740,7 @@ const config = {
     indexAxis: "y",
     parsing: {
       yAxisKey: "department",
-      xAxisKey: ["financial.cost", "financial.budget", "financial.tax"],
+      xAxisKey: ["financial.cost", "financial.budget", "financial.tax", "financial.cost"],
     },
     scales: {
       y: {
@@ -744,4 +750,10 @@ const config = {
   },
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+function changeFinancial(financial: string) {
+  // @ts-ignore
+  myChart!.config!.options!.parsing!.xAxisKey[3] = `financial.${financial}`;
+  myChart.update();
+}
+
+const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
