@@ -515,40 +515,83 @@ const { Chart } = window;
 //   },
 // };
 
-// //* Chart
+//* Chart with inputs
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+// const dataPoints = [12, 19, 3, 5, 2, 3];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: dataPoints,
+//       fill: false,
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+// function addValue() {
+//   const valueId = document.getElementById("valueId") as HTMLInputElement;
+//   // console.log(valueId.value);
+//   const labelId = document.getElementById("labelId") as HTMLInputElement;
+//   labels.push(String(labelId.value));
+//   dataPoints.push(Number(valueId.value));
+//   myChart.config.data!.datasets![0].data = dataPoints;
+//   myChart.config.data!.labels = labels;
+//   myChart.update();
+// }
+
+// const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+
+//* Line Chart - change color
 const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-const dataPoints = [12, 19, 3, 5, 2, 3];
 
 const data = {
   labels: labels,
   datasets: [
     {
       label: "# of Votes",
-      data: dataPoints,
+      data: [12, 19, 3, 5, 2, 3],
       fill: false,
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
-      borderWidth: 3,
+      backgroundColor: ["rgba(54, 162, 235, 0.2)"],
+      borderColor: ["rgba(54, 162, 235, 1)"],
+      tension: 0.4,
+      borderWidth: 4,
     },
   ],
 };
 
 const config = {
-  type: "bar",
+  type: "line",
   data: data,
   options: {
     scales: {
@@ -559,15 +602,4 @@ const config = {
   },
 };
 
-function addValue() {
-  const valueId = document.getElementById("valueId") as HTMLInputElement;
-  // console.log(valueId.value);
-  const labelId = document.getElementById("labelId") as HTMLInputElement;
-  labels.push(String(labelId.value));
-  dataPoints.push(Number(valueId.value));
-  myChart.config.data!.datasets![0].data = dataPoints;
-  myChart.config.data!.labels = labels;
-  myChart.update();
-}
-
-const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
