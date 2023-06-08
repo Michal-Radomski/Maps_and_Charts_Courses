@@ -757,39 +757,44 @@ const { Chart } = window;
 // }
 
 //* Bar Chart
-const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+const label = ["Red", "Blue", "Yellow"];
+const dataPoints = [
+  [12, 19, 3, 5, 3, 30],
+  [12, 19, 3, 5, 6, 15],
+  [12, 19, 3, 5, 9, 9],
+];
+
+const bgc = ["rgba(255, 99, 132, 0.2)", "rgba(0, 162, 0, 0.2)", "rgba(255, 206, 86, 0.2)"];
+const bc = ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)"];
+
+interface ColorDataSet {
+  label: string;
+  data: number[];
+  backgroundColor: string;
+  borderColor: string;
+}
+
+const colorDatasets = label.map((color, index) => {
+  let colorObject = {} as ColorDataSet;
+  colorObject.label = color;
+  colorObject.data = dataPoints[index];
+  colorObject.backgroundColor = bgc[index];
+  colorObject.borderColor = bc[index];
+  return colorObject;
+});
+
+// console.log("colorDatasets:", colorDatasets);
 
 const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
-      borderWidth: 3,
-    },
-  ],
+  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  datasets: [colorDatasets[2], colorDatasets[1], colorDatasets[0]],
 };
 
 const config = {
   type: "bar",
   data: data,
   options: {
+    borderWidth: 3,
     scales: {
       y: {
         beginAtZero: true,
