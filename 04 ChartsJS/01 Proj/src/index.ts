@@ -572,28 +572,97 @@ const { Chart } = window;
 
 // const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
-//* Line Chart - change color
-const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+// //* Line Chart - change color
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       fill: false,
+//       backgroundColor: "rgba(255, 99, 132, 0.2)",
+//       borderColor: "rgba(255, 99, 132, 1)",
+//       tension: 0.4,
+//       borderWidth: 4,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "line",
+//   data: data,
+//   options: {
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+// const changeColor = (color: { value: string }) => {
+//   // console.log(color.value);
+//   // console.log("this:", this);
+//   myChart!.config!.data!.datasets![0].backgroundColor! = color.value;
+//   myChart!.config!.data!.datasets![0].borderColor! = color.value;
+//   myChart.update();
+// };
+
+// const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+
+//* Line Chart - data structures
 const data = {
-  labels: labels,
   datasets: [
     {
       label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      fill: false,
+      data: [
+        {
+          department: "Sales Department",
+          financial: {
+            cost: 2000,
+            budget: 2500,
+          },
+        },
+        {
+          department: "Marketing Department",
+          financial: {
+            cost: 10000,
+            budget: 12500,
+          },
+        },
+        {
+          department: "HR Department",
+          financial: {
+            cost: 5000,
+            budget: 6000,
+          },
+        },
+        {
+          department: "IT Department",
+          financial: {
+            cost: 9000,
+            budget: 12000,
+          },
+        },
+      ],
       backgroundColor: "rgba(255, 99, 132, 0.2)",
       borderColor: "rgba(255, 99, 132, 1)",
-      tension: 0.4,
-      borderWidth: 4,
+      borderWidth: 1,
     },
   ],
 };
 
 const config = {
-  type: "line",
+  type: "bar",
   data: data,
   options: {
+    indexAxis: "y",
+    parsing: {
+      yAxisKey: "department",
+      xAxisKey: "financial.budget",
+    },
     scales: {
       y: {
         beginAtZero: true,
@@ -602,12 +671,4 @@ const config = {
   },
 };
 
-const changeColor = (color: { value: string }) => {
-  // console.log(color.value);
-  // console.log("this:", this);
-  myChart!.config!.data!.datasets![0].backgroundColor! = color.value;
-  myChart!.config!.data!.datasets![0].borderColor! = color.value;
-  myChart.update();
-};
-
-const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
