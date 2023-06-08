@@ -810,46 +810,110 @@ const { Chart } = window;
 // };
 
 //* Scatter Chart - data structures_4
-const color = "rgba(75, 192, 192, 1)";
+// const color = "rgba(75, 192, 192, 1)";
+
+// const data = {
+//   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [
+//         { x: 3, y: 3 },
+//         { x: 6, y: 3 },
+//         { x: 9, y: 4.5 },
+//         { x: 12, y: 6 },
+//         { x: 15, y: 6 },
+//         { x: 9, y: 4.5 },
+//         { x: 6, y: 3 },
+//       ],
+//       backgroundColor: "rgba(255, 99, 132, 0.2)",
+//       borderColor: color,
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "scatter",
+//   data: data,
+//   options: {
+//     scales: {
+//       x: {
+//         title: {
+//           display: true,
+//           text: "Total Sales",
+//           color: color,
+//         },
+//       },
+//       y: {
+//         beginAtZero: true,
+//         title: {
+//           display: true,
+//           text: "Total Sales Agents",
+//         },
+//       },
+//     },
+//   },
+// };
+
+//* Bar Chart - change color of single grid line
+const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
 const data = {
-  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  labels: labels,
   datasets: [
     {
       label: "# of Votes",
-      data: [
-        { x: 3, y: 3 },
-        { x: 6, y: 3 },
-        { x: 9, y: 4.5 },
-        { x: 12, y: 6 },
-        { x: 15, y: 6 },
-        { x: 9, y: 4.5 },
-        { x: 6, y: 3 },
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
       ],
-      backgroundColor: "rgba(255, 99, 132, 0.2)",
-      borderColor: color,
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
       borderWidth: 3,
     },
   ],
 };
 
 const config = {
-  type: "scatter",
+  type: "bar",
   data: data,
   options: {
     scales: {
       x: {
-        title: {
-          display: true,
-          text: "Total Sales",
-          color: color,
+        grid: {
+          color: (context: { index: number }) => {
+            // console.log(context.index);
+            if (context.index === 3) {
+              return "rgba(75, 192, 192, 1)";
+            } else {
+              return "rgba(0, 0, 0, 0.1)";
+            }
+          },
         },
       },
       y: {
         beginAtZero: true,
-        title: {
-          display: true,
-          text: "Total Sales Agents",
+        grid: {
+          color: (context: { index: number }) => {
+            // console.log(context.index);
+            if (context.index === 5) {
+              return "rgba(75, 192, 192, 1)";
+            } else {
+              return "rgba(0, 0, 0, 0.1)";
+            }
+          },
         },
       },
     },
