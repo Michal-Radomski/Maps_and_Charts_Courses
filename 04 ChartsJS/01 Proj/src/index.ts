@@ -757,52 +757,99 @@ const { Chart } = window;
 // }
 
 //* Bar Chart - data structures_3
-const label = ["Red", "Blue", "Yellow"];
-const dataPoints = [
-  [12, 19, 3, 1, 3, 30],
-  [10, 9, 5, 3, 6, 15],
-  [14, 29, 7, 5, 9, 9],
-];
+// const label = ["Red", "Blue", "Yellow"];
+// const dataPoints = [
+//   [12, 19, 3, 1, 3, 30],
+//   [10, 9, 5, 3, 6, 15],
+//   [14, 29, 7, 5, 9, 9],
+// ];
 
-const bgc = ["rgba(255, 99, 132, 0.2)", "rgba(0, 162, 0, 0.2)", "rgba(255, 206, 86, 0.2)"];
-const bc = ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)"];
+// const bgc = ["rgba(255, 99, 132, 0.2)", "rgba(0, 162, 0, 0.2)", "rgba(255, 206, 86, 0.2)"];
+// const bc = ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)"];
 
-interface ColorDataSet {
-  label: string;
-  data: number[];
-  backgroundColor: string;
-  borderColor: string;
-}
+// interface ColorDataSet {
+//   label: string;
+//   data: number[];
+//   backgroundColor: string;
+//   borderColor: string;
+// }
 
-const colorDatasets = label.map((color: string, index: number) => {
-  let colorObject = {} as ColorDataSet;
-  colorObject.label = color;
-  colorObject.data = dataPoints[index];
-  colorObject.backgroundColor = bgc[index];
-  colorObject.borderColor = bc[index];
-  return colorObject;
-});
+// const colorDatasets = label.map((color: string, index: number) => {
+//   let colorObject = {} as ColorDataSet;
+//   colorObject.label = color;
+//   colorObject.data = dataPoints[index];
+//   colorObject.backgroundColor = bgc[index];
+//   colorObject.borderColor = bc[index];
+//   return colorObject;
+// });
 
-// console.log("colorDatasets:", colorDatasets);
+// // console.log("colorDatasets:", colorDatasets);
+
+// const data = {
+//   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+//   datasets: [colorDatasets[2], colorDatasets[1], colorDatasets[0]],
+// };
+
+// const config = {
+//   // type: "bar",
+//   type: "line",
+//   data: data,
+//   options: {
+//     borderWidth: 3,
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//         min: 0,
+//         max: 100,
+//         ticks: {
+//           stepSize: 20,
+//         },
+//       },
+//     },
+//   },
+// };
+
+//* Scatter Chart - data structures_4
+const color = "rgba(75, 192, 192, 1)";
 
 const data = {
   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-  datasets: [colorDatasets[2], colorDatasets[1], colorDatasets[0]],
+  datasets: [
+    {
+      label: "# of Votes",
+      data: [
+        { x: 3, y: 3 },
+        { x: 6, y: 3 },
+        { x: 9, y: 4.5 },
+        { x: 12, y: 6 },
+        { x: 15, y: 6 },
+        { x: 9, y: 4.5 },
+        { x: 6, y: 3 },
+      ],
+      backgroundColor: "rgba(255, 99, 132, 0.2)",
+      borderColor: color,
+      borderWidth: 3,
+    },
+  ],
 };
 
 const config = {
-  // type: "bar",
-  type: "line",
+  type: "scatter",
   data: data,
   options: {
-    borderWidth: 3,
     scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Total Sales",
+          color: color,
+        },
+      },
       y: {
         beginAtZero: true,
-        min: 0,
-        max: 100,
-        ticks: {
-          stepSize: 20,
+        title: {
+          display: true,
+          text: "Total Sales Agents",
         },
       },
     },
