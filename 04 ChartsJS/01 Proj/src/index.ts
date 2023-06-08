@@ -740,7 +740,7 @@ const config = {
     indexAxis: "y",
     parsing: {
       yAxisKey: "department",
-      xAxisKey: ["financial.cost", "financial.budget", "financial.tax", "financial.cost"],
+      xAxisKey: ["financial.cost", "financial.budget", "financial.tax", ""],
     },
     scales: {
       y: {
