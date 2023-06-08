@@ -895,6 +895,7 @@ const config = {
         grid: {
           color: (context: { index: number }) => {
             // console.log(context.index);
+            // console.log({ context });
             if (context.index === 3) {
               return "rgba(75, 192, 192, 1)";
             } else if (context.index === 4) {
@@ -910,6 +911,7 @@ const config = {
         grid: {
           color: (context: { index: number }) => {
             // console.log(context.index);
+            // console.log({ context });
             if (context.index === 5) {
               return "rgba(75, 192, 192, 1)";
             } else if (context.index === 4) {
