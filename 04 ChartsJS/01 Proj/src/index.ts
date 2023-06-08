@@ -791,7 +791,8 @@ const data = {
 };
 
 const config = {
-  type: "bar",
+  // type: "bar",
+  type: "line",
   data: data,
   options: {
     borderWidth: 3,
