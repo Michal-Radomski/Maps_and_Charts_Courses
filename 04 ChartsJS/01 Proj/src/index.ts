@@ -5,7 +5,7 @@ const { Chart } = window;
 // console.log({ window });
 
 // //* Bar Chart
-// // Data block
+// Data block
 // const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 // labels.shift();
 // labels.unshift("Red2");
@@ -53,8 +53,9 @@ const { Chart } = window;
 //   },
 // };
 
-// // Init render block
+// // // Init render block
 // const myChart: Chart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+// console.log("myChart.data.datasets![0].data![0]:", myChart.data.datasets![0].data![0]);
 // console.log("myChart:", myChart);
 
 // const ctx = (document.getElementById("myChart") as HTMLCanvasElement)?.getContext("2d");
@@ -449,15 +450,81 @@ const { Chart } = window;
 //   },
 // };
 
-//* Chart
+//* Double Chart
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       fill: false,
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 3,
+//     },
+//     {
+//       label: "# of Votes2",
+//       data: [12, 19, 3, 5, 2, 3],
+//       fill: false,
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "pink",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "deepPink",
+//       ],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+// //* Chart
 const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+const dataPoints = [12, 19, 3, 5, 2, 3];
 
 const data = {
   labels: labels,
   datasets: [
     {
       label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
+      data: dataPoints,
       fill: false,
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)",
@@ -477,28 +544,6 @@ const data = {
       ],
       borderWidth: 3,
     },
-    {
-      label: "# of Votes2",
-      data: [12, 19, 3, 5, 2, 3],
-      fill: false,
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "pink",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "deepPink",
-      ],
-      borderWidth: 3,
-    },
   ],
 };
 
@@ -515,7 +560,16 @@ const config = {
 };
 
 const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
-console.log("myChart.data.datasets![0].data![0]:", myChart.data.datasets![0].data![0]);
+
+function addValue() {
+  const valueId = document.getElementById("valueId") as HTMLInputElement;
+  // console.log(valueId.value);
+  labels.push("test");
+  dataPoints.push(Number(valueId.value));
+  myChart.config.data!.datasets![0].data = dataPoints;
+  myChart.config.data!.labels = labels;
+  myChart.update();
+}
 
 //+ -----------------
 // //* Chart
