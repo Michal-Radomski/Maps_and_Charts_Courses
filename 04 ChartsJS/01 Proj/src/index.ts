@@ -408,6 +408,48 @@ const { Chart } = window;
 // };
 
 //* Polar Area Chart
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 5,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "polarArea",
+//   data: data,
+//   options: {
+//     scales: {
+//       r: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+//* Chart
 const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
 const data = {
@@ -416,6 +458,7 @@ const data = {
     {
       label: "# of Votes",
       data: [12, 19, 3, 5, 2, 3],
+      fill: false,
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)",
         "rgba(54, 162, 235, 0.2)",
@@ -432,21 +475,88 @@ const data = {
         "rgba(153, 102, 255, 1)",
         "rgba(255, 159, 64, 1)",
       ],
-      borderWidth: 5,
+      borderWidth: 3,
+    },
+    {
+      label: "# of Votes2",
+      data: [12, 19, 3, 5, 2, 3],
+      fill: false,
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+      ],
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
+      borderWidth: 3,
     },
   ],
 };
 
 const config = {
-  type: "polarArea",
+  type: "bar",
   data: data,
   options: {
     scales: {
-      r: {
+      y: {
         beginAtZero: true,
       },
     },
   },
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+console.log("myChart.data.datasets![0].data![0]:", myChart.data.datasets![0].data![0]);
+
+//+ -----------------
+// //* Chart
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       fill: false,
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
