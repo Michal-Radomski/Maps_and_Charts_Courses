@@ -710,21 +710,18 @@ const data = {
       data: departmentInfo,
       backgroundColor: "rgba(255, 99, 132, 0.2)",
       borderColor: "rgba(255, 99, 132, 1)",
-      borderWidth: 3,
     },
     {
       label: "Budget",
       data: departmentInfo,
       backgroundColor: "rgba(54, 162, 235, 0.2)",
       borderColor: "rgba(54, 162, 235, 1)",
-      borderWidth: 3,
     },
     {
       label: "Tax",
       data: departmentInfo,
       backgroundColor: "rgba(153, 102, 255, 0.2)",
       borderColor: "rgba(153, 102, 255, 1)",
-      borderWidth: 3,
     },
   ],
 };
@@ -733,6 +730,7 @@ const config = {
   type: "bar",
   data: data,
   options: {
+    borderWidth: 3,
     indexAxis: "y",
     parsing: {
       yAxisKey: "department",
