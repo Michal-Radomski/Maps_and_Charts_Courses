@@ -674,60 +674,114 @@ const { Chart } = window;
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
 //* Bar Chart - data structures_2
-const departmentDatasets = ["Sales Department", "Marketing Department", "HR Department", "IT Department"];
-const cost = [999, 666, 333, 999];
-const budget = [3000, 4000, 5000, 10000];
-const tax = [1000, 1000, 1000, 1000];
+// const departmentDatasets = ["Sales Department", "Marketing Department", "HR Department", "IT Department"];
+// const cost = [999, 666, 333, 999];
+// const budget = [3000, 4000, 5000, 10000];
+// const tax = [1000, 1000, 1000, 1000];
 
-interface Financial {
-  cost: number;
-  budget: number;
-  tax: number;
-}
+// interface Financial {
+//   cost: number;
+//   budget: number;
+//   tax: number;
+// }
 
-interface DepartmentData {
-  department: string;
-  financial: Financial;
-}
+// interface DepartmentData {
+//   department: string;
+//   financial: Financial;
+// }
 
-const departmentInfo = departmentDatasets.map((department, index) => {
-  let departmentDataset = {} as DepartmentData;
-  departmentDataset.department = department;
-  departmentDataset.financial = {} as Financial;
-  departmentDataset.financial.cost = cost[index] as number;
-  departmentDataset.financial.budget = budget[index] as number;
-  departmentDataset.financial.tax = tax[index] as number;
-  // console.log({ department });
-  // console.log({ index });
-  return departmentDataset;
-});
-// console.log({ departmentInfo });
+// const departmentInfo = departmentDatasets.map((department, index) => {
+//   let departmentDataset = {} as DepartmentData;
+//   departmentDataset.department = department;
+//   departmentDataset.financial = {} as Financial;
+//   departmentDataset.financial.cost = cost[index] as number;
+//   departmentDataset.financial.budget = budget[index] as number;
+//   departmentDataset.financial.tax = tax[index] as number;
+//   // console.log({ department });
+//   // console.log({ index });
+//   return departmentDataset;
+// });
+// // console.log({ departmentInfo });
+
+// const data = {
+//   datasets: [
+//     {
+//       label: "Cost",
+//       data: departmentInfo,
+//       backgroundColor: "rgba(255, 99, 132, 0.2)",
+//       borderColor: "rgba(255, 99, 132, 1)",
+//     },
+//     {
+//       label: "Budget",
+//       data: departmentInfo,
+//       backgroundColor: "rgba(54, 162, 235, 0.2)",
+//       borderColor: "rgba(54, 162, 235, 1)",
+//     },
+//     {
+//       label: "Tax",
+//       data: departmentInfo,
+//       backgroundColor: "rgba(153, 102, 255, 0.2)",
+//       borderColor: "rgba(153, 102, 255, 1)",
+//     },
+//     {
+//       label: "Changeable",
+//       data: departmentInfo,
+//       backgroundColor: "rgba(255, 206, 86, 0.2)",
+//       borderColor: "rgba(255, 206, 86, 1)",
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     borderWidth: 3,
+//     indexAxis: "y",
+//     parsing: {
+//       yAxisKey: "department",
+//       xAxisKey: ["financial.cost", "financial.budget", "financial.tax", ""],
+//     },
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+// function changeFinancial(financial: string) {
+//   // @ts-ignore
+//   myChart!.config!.options!.parsing!.xAxisKey[3] = `financial.${financial}`;
+//   myChart.update();
+// }
+
+//* Bar Chart
+const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
 const data = {
+  labels: labels,
   datasets: [
     {
-      label: "Cost",
-      data: departmentInfo,
-      backgroundColor: "rgba(255, 99, 132, 0.2)",
-      borderColor: "rgba(255, 99, 132, 1)",
-    },
-    {
-      label: "Budget",
-      data: departmentInfo,
-      backgroundColor: "rgba(54, 162, 235, 0.2)",
-      borderColor: "rgba(54, 162, 235, 1)",
-    },
-    {
-      label: "Tax",
-      data: departmentInfo,
-      backgroundColor: "rgba(153, 102, 255, 0.2)",
-      borderColor: "rgba(153, 102, 255, 1)",
-    },
-    {
-      label: "Changeable",
-      data: departmentInfo,
-      backgroundColor: "rgba(255, 206, 86, 0.2)",
-      borderColor: "rgba(255, 206, 86, 1)",
+      label: "# of Votes",
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+      ],
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
+      borderWidth: 3,
     },
   ],
 };
@@ -736,12 +790,6 @@ const config = {
   type: "bar",
   data: data,
   options: {
-    borderWidth: 3,
-    indexAxis: "y",
-    parsing: {
-      yAxisKey: "department",
-      xAxisKey: ["financial.cost", "financial.budget", "financial.tax", ""],
-    },
     scales: {
       y: {
         beginAtZero: true,
@@ -750,10 +798,49 @@ const config = {
   },
 };
 
-function changeFinancial(financial: string) {
-  // @ts-ignore
-  myChart!.config!.options!.parsing!.xAxisKey[3] = `financial.${financial}`;
-  myChart.update();
-}
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
-const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+//- ------------------------------
+//* Default Code
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+// new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
