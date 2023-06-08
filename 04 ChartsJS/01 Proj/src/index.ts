@@ -582,8 +582,8 @@ const data = {
       label: "# of Votes",
       data: [12, 19, 3, 5, 2, 3],
       fill: false,
-      backgroundColor: ["rgba(54, 162, 235, 0.2)"],
-      borderColor: ["rgba(54, 162, 235, 1)"],
+      backgroundColor: "rgba(255, 99, 132, 0.2)",
+      borderColor: "rgba(255, 99, 132, 1)",
       tension: 0.4,
       borderWidth: 4,
     },
@@ -602,4 +602,12 @@ const config = {
   },
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+const changeColor = (color: { value: string }) => {
+  // console.log(color.value);
+  // console.log("this:", this);
+  myChart!.config!.data!.datasets![0].backgroundColor! = color.value;
+  myChart!.config!.data!.datasets![0].borderColor! = color.value;
+  myChart.update();
+};
+
+const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
