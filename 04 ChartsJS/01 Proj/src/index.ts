@@ -799,6 +799,11 @@ const config = {
     scales: {
       y: {
         beginAtZero: true,
+        min: 0,
+        max: 100,
+        ticks: {
+          stepSize: 20,
+        },
       },
     },
   },
