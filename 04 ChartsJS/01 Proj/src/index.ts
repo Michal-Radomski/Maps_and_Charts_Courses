@@ -673,22 +673,30 @@ const { Chart } = window;
 
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
-// *Bar Chart - data structures_2
+//* Bar Chart - data structures_2
 const departmentDatasets = ["Sales Department", "Marketing Department", "HR Department", "IT Department"];
 const cost = [999, 666, 333, 999];
 const budget = [3000, 4000, 5000, 10000];
 const tax = [1000, 1000, 1000, 1000];
 
+interface Financial {
+  cost: number;
+  budget: number;
+  tax: number;
+}
+
+interface DepartmentData {
+  department: string;
+  financial: Financial;
+}
+
 const departmentInfo = departmentDatasets.map((department, index) => {
-  let departmentDataset = {
-    department: "",
-    financial: { cost: [] as number[], budget: [] as number[], tax: [] as number[] },
-  };
+  let departmentDataset = {} as DepartmentData;
   departmentDataset.department = department;
-  departmentDataset.financial = { cost: [] as number[], budget: [] as number[], tax: [] as number[] };
-  departmentDataset.financial.cost = cost[index] as any;
-  departmentDataset.financial.budget = budget[index] as any;
-  departmentDataset.financial.tax = tax[index] as any;
+  departmentDataset.financial = {} as Financial;
+  departmentDataset.financial.cost = cost[index] as number;
+  departmentDataset.financial.budget = budget[index] as number;
+  departmentDataset.financial.tax = tax[index] as number;
   // console.log({ department });
   // console.log({ index });
   return departmentDataset;
@@ -702,7 +710,7 @@ const data = {
       data: departmentInfo,
       backgroundColor: "rgba(255, 99, 132, 0.2)",
       borderColor: "rgba(255, 99, 132, 1)",
-      borderWidth: 1,
+      borderWidth: 3,
     },
   ],
 };
