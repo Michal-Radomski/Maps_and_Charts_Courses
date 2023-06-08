@@ -897,6 +897,8 @@ const config = {
             // console.log(context.index);
             if (context.index === 3) {
               return "rgba(75, 192, 192, 1)";
+            } else if (context.index === 4) {
+              return "darkMagenta";
             } else {
               return "rgba(0, 0, 0, 0.1)";
             }
@@ -910,6 +912,8 @@ const config = {
             // console.log(context.index);
             if (context.index === 5) {
               return "rgba(75, 192, 192, 1)";
+            } else if (context.index === 4) {
+              return "darkMagenta";
             } else {
               return "rgba(0, 0, 0, 0.1)";
             }
