@@ -756,7 +756,7 @@ const { Chart } = window;
 //   myChart.update();
 // }
 
-//* Bar Chart
+//* Bar Chart - data structures_3
 const label = ["Red", "Blue", "Yellow"];
 const dataPoints = [
   [12, 19, 3, 1, 3, 30],
@@ -774,7 +774,7 @@ interface ColorDataSet {
   borderColor: string;
 }
 
-const colorDatasets = label.map((color, index) => {
+const colorDatasets = label.map((color: string, index: number) => {
   let colorObject = {} as ColorDataSet;
   colorObject.label = color;
   colorObject.data = dataPoints[index];
