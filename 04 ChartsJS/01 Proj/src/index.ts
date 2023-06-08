@@ -612,41 +612,94 @@ const { Chart } = window;
 
 // const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
-//* Line Chart - data structures
+//* Line Bar - data structures_1
+// const data = {
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [
+//         {
+//           department: "Sales Department",
+//           financial: {
+//             cost: 2000,
+//             budget: 2500,
+//           },
+//         },
+//         {
+//           department: "Marketing Department",
+//           financial: {
+//             cost: 10000,
+//             budget: 12500,
+//           },
+//         },
+//         {
+//           department: "HR Department",
+//           financial: {
+//             cost: 5000,
+//             budget: 6000,
+//           },
+//         },
+//         {
+//           department: "IT Department",
+//           financial: {
+//             cost: 9000,
+//             budget: 12000,
+//           },
+//         },
+//       ],
+//       backgroundColor: "rgba(255, 99, 132, 0.2)",
+//       borderColor: "rgba(255, 99, 132, 1)",
+//       borderWidth: 1,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     indexAxis: "y",
+//     parsing: {
+//       yAxisKey: "department",
+//       xAxisKey: "financial.budget",
+//     },
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+// new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+
+// *Bar Chart - data structures_2
+const departmentDatasets = ["Sales Department", "Marketing Department", "HR Department", "IT Department"];
+const cost = [999, 666, 333, 999];
+const budget = [3000, 4000, 5000, 10000];
+const tax = [1000, 1000, 1000, 1000];
+
+const departmentInfo = departmentDatasets.map((department, index) => {
+  let departmentDataset = {
+    department: "",
+    financial: { cost: [] as number[], budget: [] as number[], tax: [] as number[] },
+  };
+  departmentDataset.department = department;
+  departmentDataset.financial = { cost: [] as number[], budget: [] as number[], tax: [] as number[] };
+  departmentDataset.financial.cost = cost[index] as any;
+  departmentDataset.financial.budget = budget[index] as any;
+  departmentDataset.financial.tax = tax[index] as any;
+  // console.log({ department });
+  // console.log({ index });
+  return departmentDataset;
+});
+// console.log({ departmentInfo });
+
 const data = {
   datasets: [
     {
       label: "# of Votes",
-      data: [
-        {
-          department: "Sales Department",
-          financial: {
-            cost: 2000,
-            budget: 2500,
-          },
-        },
-        {
-          department: "Marketing Department",
-          financial: {
-            cost: 10000,
-            budget: 12500,
-          },
-        },
-        {
-          department: "HR Department",
-          financial: {
-            cost: 5000,
-            budget: 6000,
-          },
-        },
-        {
-          department: "IT Department",
-          financial: {
-            cost: 9000,
-            budget: 12000,
-          },
-        },
-      ],
+      data: departmentInfo,
       backgroundColor: "rgba(255, 99, 132, 0.2)",
       borderColor: "rgba(255, 99, 132, 1)",
       borderWidth: 1,
