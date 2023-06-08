@@ -564,7 +564,8 @@ const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElemen
 function addValue() {
   const valueId = document.getElementById("valueId") as HTMLInputElement;
   // console.log(valueId.value);
-  labels.push("test");
+  const labelId = document.getElementById("labelId") as HTMLInputElement;
+  labels.push(String(labelId.value));
   dataPoints.push(Number(valueId.value));
   myChart.config.data!.datasets![0].data = dataPoints;
   myChart.config.data!.labels = labels;
