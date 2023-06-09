@@ -1000,9 +1000,9 @@ const config = {
     },
     plugins: {
       labels: {
-        render: (args: { label: string; percentage: string }) => {
+        render: (args: { label: string; percentage: string; value: number }) => {
           // console.log({ args });
-          return `${args.label}: ${args.percentage}%`;
+          return `${args.label}: ${args.percentage}%, ${args.value}`;
         },
         position: "outside",
         textMargin: 10,
