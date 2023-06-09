@@ -1054,15 +1054,53 @@ const { Chart } = window;
 // };
 
 //* Segment Styling in Line Chart
-const down = (ctx: { p0: { parsed: { y: number } }; p1: { parsed: { y: number } } }, value: string | number[]) => {
-  // console.log("ctx:", ctx, typeof ctx);
-  // console.log(ctx.p0.parsed.y);
-  // console.log(ctx.p1.parsed.y);
-  const toReturn = ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
-  // console.log({ toReturn });
-  return toReturn;
-};
+// const down = (ctx: { p0: { parsed: { y: number } }; p1: { parsed: { y: number } } }, value: string | number[]) => {
+//   // console.log("ctx:", ctx, typeof ctx);
+//   // console.log(ctx.p0.parsed.y);
+//   // console.log(ctx.p1.parsed.y);
+//   const toReturn = ctx.p0.parsed.y > ctx.p1.parsed.y ? value : undefined;
+//   // console.log({ toReturn });
+//   return toReturn;
+// };
 
+// const data = {
+//   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: ["rgba(255, 99, 132, 1)"],
+//       tension: 0.4,
+//       segment: {
+//         borderColor: (ctx: { p0: { parsed: { y: number } }; p1: { parsed: { y: number } } }) =>
+//           down(ctx, "rgba(255, 99, 132, 1)") || "rgba(75, 192, 192, 1)",
+//         borderDash: (ctx: { p0: { parsed: { y: number } }; p1: { parsed: { y: number } } }) => down(ctx, [6, 6]),
+//       },
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "line",
+//   data: data,
+//   options: {
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+//* Customizing Tooltip Labels
 const data = {
   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
   datasets: [
@@ -1077,21 +1115,33 @@ const data = {
         "rgba(153, 102, 255, 0.2)",
         "rgba(255, 159, 64, 0.2)",
       ],
-      borderColor: ["rgba(255, 99, 132, 1)"],
-      tension: 0.4,
-      segment: {
-        borderColor: (ctx: { p0: { parsed: { y: number } }; p1: { parsed: { y: number } } }) =>
-          down(ctx, "rgba(255, 99, 132, 1)") || "rgba(75, 192, 192, 1)",
-        borderDash: (ctx: { p0: { parsed: { y: number } }; p1: { parsed: { y: number } } }) => down(ctx, [6, 6]),
-      },
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
+      borderWidth: 3,
     },
   ],
 };
 
 const config = {
-  type: "line",
+  type: "bar",
   data: data,
   options: {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (context: { dataset: { label: string }; raw: number }) => {
+            // console.log("context:", context);
+            return `${context.raw} -> ${context.dataset.label}`;
+          },
+        },
+      },
+    },
     scales: {
       y: {
         beginAtZero: true,
