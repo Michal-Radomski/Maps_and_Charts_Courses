@@ -927,37 +927,83 @@ const { Chart } = window;
 // };
 
 //* Bar Chart - floating / range chart
-const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "Temperature in C",
+//       data: [
+//         [8, 12],
+//         [9, 16],
+//         [6, 9],
+//         [4, 10],
+//         [3, 12],
+//         [9, 2],
+//       ],
+//       backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+//       borderColor: ["rgba(255, 99, 132, 1)"],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     borderSkipped: false,
+//     indexAxis: "y",
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+//* Label on Pie Chart
 const data = {
-  labels: labels,
+  labels: ["Red 1", "Red 2", "Red 3", "Green"],
   datasets: [
     {
-      label: "Temperature in C",
-      data: [
-        [8, 12],
-        [9, 16],
-        [6, 9],
-        [4, 10],
-        [3, 12],
-        [9, 2],
+      label: "# of Votes",
+      data: [12, 19, 15, 5],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
       ],
-      backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-      borderColor: ["rgba(255, 99, 132, 1)"],
-      borderWidth: 3,
+      borderColor: ["rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 1)", "rgba(75, 192, 192, 1)"],
+      borderWidth: 1,
+      offset: [20, 20, 20, 0],
     },
   ],
 };
 
 const config = {
-  type: "bar",
+  type: "pie",
   data: data,
   options: {
-    borderSkipped: false,
-    indexAxis: "y",
-    scales: {
-      y: {
-        beginAtZero: true,
+    layout: {
+      padding: {
+        left: 50,
+        right: 20,
+        top: 30,
+        bottom: 30,
+      },
+    },
+    plugins: {
+      labels: {
+        // @ts-ignore
+        render: (arguments) => {
+          console.log(arguments.label);
+          return `${arguments.label}: ${arguments.percentage}%`;
+        },
+        position: "outside",
+        textMargin: 10,
       },
     },
   },
