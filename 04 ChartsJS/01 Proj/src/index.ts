@@ -967,47 +967,87 @@ const { Chart } = window;
 // };
 
 //* Label on Pie Chart
+// const data = {
+//   labels: ["Red 1", "Red 2", "Red 3", "Green"],
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 15, 5],
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//       ],
+//       borderColor: ["rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 1)", "rgba(75, 192, 192, 1)"],
+//       borderWidth: 1,
+//       offset: [20, 20, 20, 0],
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "pie",
+//   data: data,
+//   options: {
+//     layout: {
+//       padding: {
+//         left: 50,
+//         right: 20,
+//         top: 30,
+//         bottom: 30,
+//       },
+//     },
+//     plugins: {
+//       labels: {
+//         render: (args: { label: string; percentage: string; value: number }) => {
+//           // console.log({ args });
+//           return `${args.label}: ${args.percentage}%, ${args.value}`;
+//         },
+//         position: "outside",
+//         textMargin: 10,
+//         fontColor: "darkMagenta",
+//         arc: true,
+//       },
+//     },
+//   },
+// };
+
+//* Overlapping Bar Chart
 const data = {
-  labels: ["Red 1", "Red 2", "Red 3", "Green"],
+  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
   datasets: [
     {
-      label: "# of Votes",
-      data: [12, 19, 15, 5],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-      ],
-      borderColor: ["rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 1)", "rgba(75, 192, 192, 1)"],
-      borderWidth: 1,
-      offset: [20, 20, 20, 0],
+      label: "Red Bar",
+      data: [6, 19, 13, 15, 12, 13],
+      backgroundColor: ["rgba(255, 99, 132, 0.5)"],
+      borderColor: ["rgba(255, 99, 132, 1)"],
+      borderWidth: 3,
+      categoryPercentage: 0.5,
+      order: 0,
+    },
+    {
+      label: "Orange Bar",
+      data: [5, 15, 3, 5, 2, 3],
+      backgroundColor: ["rgba(255, 159, 64, 0.5)"],
+      borderColor: ["rgba(255, 159, 64, 1)"],
+      borderWidth: 3,
+      order: 1,
+      categoryPercentage: 1,
     },
   ],
 };
 
 const config = {
-  type: "pie",
+  type: "bar",
   data: data,
   options: {
-    layout: {
-      padding: {
-        left: 50,
-        right: 20,
-        top: 30,
-        bottom: 30,
+    scales: {
+      x: {
+        stacked: true,
       },
-    },
-    plugins: {
-      labels: {
-        render: (args: { label: string; percentage: string; value: number }) => {
-          // console.log({ args });
-          return `${args.label}: ${args.percentage}%, ${args.value}`;
-        },
-        position: "outside",
-        textMargin: 10,
-        fontColor: "darkMagenta",
-        arc: true,
+      y: {
+        beginAtZero: true,
       },
     },
   },
