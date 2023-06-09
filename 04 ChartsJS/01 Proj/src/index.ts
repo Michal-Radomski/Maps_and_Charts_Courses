@@ -4,6 +4,9 @@ const { Chart } = window;
 // console.log("Chart:", Chart);
 // console.log({ window });
 
+// const {helpers} = Chart
+// console.log(helpers)
+
 // //* Bar Chart
 // Data block
 // const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
@@ -997,13 +1000,14 @@ const config = {
     },
     plugins: {
       labels: {
-        // @ts-ignore
-        render: (arguments) => {
-          console.log(arguments.label);
-          return `${arguments.label}: ${arguments.percentage}%`;
+        render: (args: { label: string; percentage: string }) => {
+          // console.log({ args });
+          return `${args.label}: ${args.percentage}%`;
         },
         position: "outside",
         textMargin: 10,
+        fontColor: "darkMagenta",
+        arc: true,
       },
     },
   },
