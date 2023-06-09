@@ -1082,7 +1082,7 @@ const data = {
       segment: {
         borderColor: (ctx: { p0: { parsed: { y: number } }; p1: { parsed: { y: number } } }) =>
           down(ctx, "rgba(255, 99, 132, 1)") || "rgba(75, 192, 192, 1)",
-        borderDash: (ctx: { p0: { parsed: { y: number } }; p1: { parsed: { y: number } } }) => down(ctx, [2, 10]),
+        borderDash: (ctx: { p0: { parsed: { y: number } }; p1: { parsed: { y: number } } }) => down(ctx, [6, 6]),
       },
     },
   ],
