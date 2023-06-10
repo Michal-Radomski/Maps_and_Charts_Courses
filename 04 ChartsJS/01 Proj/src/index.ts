@@ -1310,8 +1310,8 @@ const { Chart } = window;
 // ctx.onclick = pieChartCanvas;
 
 //* Previous and next button in the chart
-const week = [];
-const weekDataPoints = [];
+const week = [] as string[];
+const weekDataPoints = [] as number[];
 
 for (let i = 1; i <= 52; i++) {
   week.push(`Week ${i}`);
@@ -1326,7 +1326,7 @@ const data = {
       data: weekDataPoints,
       backgroundColor: "rgba(54, 162, 235, 0.2)",
       borderColor: "rgba(54, 162, 235, 1)",
-      borderWidth: 1,
+      borderWidth: 3,
     },
   ],
 };
