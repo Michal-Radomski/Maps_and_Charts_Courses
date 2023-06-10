@@ -1153,8 +1153,10 @@ const { Chart } = window;
 //*  Dotted Dashed Line Chart
 const color = "Yellow";
 const colorLabels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-const dash = (ctx: { p0DataIndex: number }, value: number[]) =>
-  ctx.p0DataIndex < colorLabels.indexOf(color) ? value : [6, 0];
+const dash = (ctx: { p0DataIndex: number }, value: number[]) => {
+  // console.log({ ctx, value });
+  return ctx.p0DataIndex < colorLabels.indexOf(color) ? value : [6, 0];
+};
 
 const data = {
   labels: colorLabels,
@@ -1182,7 +1184,7 @@ const data = {
       borderWidth: 5,
       segment: {
         //borderDash: [6, 6]
-        borderDash: (ctx: { p0DataIndex: number }) => dash(ctx, [6, 6]) || [6, 0],
+        borderDash: (ctx: { p0DataIndex: number }) => dash(ctx, [10, 6]) || [6, 0], //* 10px line, 6px break!!!
       },
     },
   ],
