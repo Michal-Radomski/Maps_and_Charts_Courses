@@ -1243,71 +1243,82 @@ const { Chart } = window;
 //   },
 // };
 
-//* Clickable Pie and Doughnut Slices with Link in Chart
-// const data = {
-//   labels: ["Sales", "Cost", "Profit", "ABC"],
-//   datasets: [
-//     {
-//       label: "# of Votes",
-//       data: [
-//         { financial: "Sales", url: "https://www.google.com", amount: { usd: 900, eur: 600 } },
-//         { financial: "Cost", url: "https://www.chartjs.org", amount: { usd: 600, eur: 450 } },
-//         { Financial: "Profit", url: "https://www.amazon.com", amount: { usd: 450, eur: 300 } },
-//         { financial: "ABC", url: "https://www.flipkart.com", amount: { usd: 450, eur: 300 } },
-//       ],
-//       backgroundColor: [
-//         "rgba(255, 99, 132, 0.2)",
-//         "rgba(54, 162, 235, 0.2)",
-//         "rgba(255, 206, 86, 0.2)",
-//         "rgba(75, 192, 192, 0.2)",
-//         "rgba(153, 102, 255, 0.2)",
-//         "rgba(255, 159, 64, 0.2)",
-//       ],
-//       borderColor: [
-//         "rgba(255, 99, 132, 1)",
-//         "rgba(54, 162, 235, 1)",
-//         "rgba(255, 206, 86, 1)",
-//         "rgba(75, 192, 192, 1)",
-//         "rgba(153, 102, 255, 1)",
-//         "rgba(255, 159, 64, 1)",
-//       ],
-//       borderWidth: 3,
-//     },
-//   ],
-// };
+//* Clickable Pie and Doughnut Slices with Link in Chart + Create OnHover Effect
+const data = {
+  labels: ["Sales", "Cost", "Profit", "ABC"],
+  datasets: [
+    {
+      label: "# of Votes",
+      data: [
+        { financial: "Sales", url: "https://www.google.com", amount: { usd: 900, eur: 600 } },
+        { financial: "Cost", url: "https://www.chartjs.org", amount: { usd: 600, eur: 450 } },
+        { Financial: "Profit", url: "https://www.amazon.com", amount: { usd: 450, eur: 300 } },
+        { financial: "ABC", url: "https://www.flipkart.com", amount: { usd: 450, eur: 300 } },
+      ],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+      ],
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
+      borderWidth: 3,
+    },
+  ],
+};
 
-// const config = {
-//   type: "pie",
-//   data: data,
-//   options: {
-//     parsing: {
-//       key: "amount.usd",
-//     },
-//   },
-// };
+const config = {
+  type: "pie",
+  data: data,
+  options: {
+    onHover: (event: any, chartElement: any[]) => {
+      event.native.target.style.cursor = chartElement[0] ? "pointer" : "default";
+      // console.log({ event, chartElement });
 
-// const ctx = document.getElementById("myChart") as HTMLCanvasElement;
-// const myChart = new Chart(ctx, config as ChartConfiguration);
-// // console.log({ myChart });
+      // if(chartElement.length === 1) {
+      //   event.native.target.style.cursor = 'pointer';
+      // };
+      // if(chartElement.length === 0) {
+      //   event.native.target.style.cursor = 'default';
+      // };
+    },
+    parsing: {
+      key: "amount.usd",
+    },
+  },
+};
 
-// function pieChartCanvas(click: MouseEvent) {
-//   // console.log({ click });
-//   // @ts-ignore
-//   const clickedSlice = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
-//   // console.log(clickedSlice);
-//   if (clickedSlice.length) {
-//     const pieSlice = clickedSlice[0];
-//     // console.log(clickedSlice[0].datasetIndex);
-//     // console.log(clickedSlice[0].index);
-//     // @ts-ignore
-//     const link = myChart.data.datasets![clickedSlice[0].datasetIndex].data![clickedSlice![0]!.index]!.url as string;
-//     console.log({ link });
-//     // location.href = link;
-//     // window.open(link);
-//   }
-// }
+const ctx = document.getElementById("myChart") as HTMLCanvasElement;
+const myChart = new Chart(ctx, config as ChartConfiguration);
+// console.log({ myChart });
 
-// ctx.onclick = pieChartCanvas;
+function pieChartCanvas(click: MouseEvent) {
+  // console.log({ click });
+  // @ts-ignore
+  const clickedSlice = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
+  // console.log(clickedSlice);
+  if (clickedSlice.length) {
+    const pieSlice = clickedSlice[0];
+    // console.log(clickedSlice[0].datasetIndex);
+    // console.log(clickedSlice[0].index);
+    // @ts-ignore
+    const link = myChart.data.datasets![clickedSlice[0].datasetIndex].data![clickedSlice![0]!.index]!.url as string;
+    console.log({ link });
+    // location.href = link;
+    // window.open(link);
+  }
+}
+
+ctx.onclick = pieChartCanvas;
 
 //* Previous and next button in the chart
 // const week = [] as string[];
@@ -1388,81 +1399,81 @@ const { Chart } = window;
 // }
 
 //* Doughnut chart with text label in the center
-const data = {
-  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-  datasets: [
-    {
-      label: "# of Votes",
-      data: [75, 25, 25, 25],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
-      borderWidth: 3,
-      cutout: "90%",
-    },
-  ],
-};
+// const data = {
+//   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [75, 25, 25, 25],
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 3,
+//       cutout: "90%",
+//     },
+//   ],
+// };
 
-const doughnutLabel = {
-  id: "doughnutLabel",
-  beforeDraw(
-    chart: {
-      data: { datasets: { data: number[] }[] };
-      ctx: CanvasRenderingContext2D;
-      chartArea: any;
-    },
-    _args: any,
-    options: { fontSize: number; fontColor: string }
-  ) {
-    const {
-      ctx,
-      chartArea: { top, bottom, left, right, width, height },
-    } = chart;
-    ctx.save();
+// const doughnutLabel = {
+//   id: "doughnutLabel",
+//   beforeDraw(
+//     chart: {
+//       data: { datasets: { data: number[] }[] };
+//       ctx: CanvasRenderingContext2D;
+//       chartArea: any;
+//     },
+//     _args: any,
+//     options: { fontSize: number; fontColor: string }
+//   ) {
+//     const {
+//       ctx,
+//       chartArea: { top, bottom, left, right, width, height },
+//     } = chart;
+//     ctx.save();
 
-    // console.log({ _args, ctx });
-    // console.log({ top, bottom, left, right, width, height });
+//     // console.log({ _args, ctx });
+//     // console.log({ top, bottom, left, right, width, height });
 
-    ctx.font = `${options.fontSize}px Arial`;
-    ctx.textAlign = "center";
-    ctx.fillStyle = options.fontColor;
-    ctx.textBaseline = "middle";
-    ctx.fillText(`${chart.data.datasets[0].data[0]}%`, width / 2, height / 2 + top + options.fontSize / 20);
-    ctx.restore();
-  },
-};
+//     ctx.font = `${options.fontSize}px Arial`;
+//     ctx.textAlign = "center";
+//     ctx.fillStyle = options.fontColor;
+//     ctx.textBaseline = "middle";
+//     ctx.fillText(`${chart.data.datasets[0].data[0]}%`, width / 2, height / 2 + top + options.fontSize / 20);
+//     ctx.restore();
+//   },
+// };
 
-const config = {
-  type: "doughnut",
-  data: data,
-  options: {
-    plugins: {
-      legend: {
-        display: false,
-      },
-      doughnutLabel: {
-        fontSize: 100,
-        fontColor: "blue",
-      },
-    },
-  },
-  plugins: [doughnutLabel],
-};
+// const config = {
+//   type: "doughnut",
+//   data: data,
+//   options: {
+//     plugins: {
+//       legend: {
+//         display: false,
+//       },
+//       doughnutLabel: {
+//         fontSize: 100,
+//         fontColor: "blue",
+//       },
+//     },
+//   },
+//   plugins: [doughnutLabel],
+// };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+// new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
 //- ------------------------------
 //* Default Code
