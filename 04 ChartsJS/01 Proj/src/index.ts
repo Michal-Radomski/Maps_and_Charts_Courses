@@ -1244,70 +1244,148 @@ const { Chart } = window;
 // };
 
 //* Clickable Pie and Doughnut Slices with Link in Chart
+// const data = {
+//   labels: ["Sales", "Cost", "Profit", "ABC"],
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [
+//         { financial: "Sales", url: "https://www.google.com", amount: { usd: 900, eur: 600 } },
+//         { financial: "Cost", url: "https://www.chartjs.org", amount: { usd: 600, eur: 450 } },
+//         { Financial: "Profit", url: "https://www.amazon.com", amount: { usd: 450, eur: 300 } },
+//         { financial: "ABC", url: "https://www.flipkart.com", amount: { usd: 450, eur: 300 } },
+//       ],
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "pie",
+//   data: data,
+//   options: {
+//     parsing: {
+//       key: "amount.usd",
+//     },
+//   },
+// };
+
+// const ctx = document.getElementById("myChart") as HTMLCanvasElement;
+// const myChart = new Chart(ctx, config as ChartConfiguration);
+// // console.log({ myChart });
+
+// function pieChartCanvas(click: MouseEvent) {
+//   // console.log({ click });
+//   // @ts-ignore
+//   const clickedSlice = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
+//   // console.log(clickedSlice);
+//   if (clickedSlice.length) {
+//     const pieSlice = clickedSlice[0];
+//     // console.log(clickedSlice[0].datasetIndex);
+//     // console.log(clickedSlice[0].index);
+//     // @ts-ignore
+//     const link = myChart.data.datasets![clickedSlice[0].datasetIndex].data![clickedSlice![0]!.index]!.url as string;
+//     console.log({ link });
+//     // location.href = link;
+//     // window.open(link);
+//   }
+// }
+
+// ctx.onclick = pieChartCanvas;
+
+//* Previous and next button in the chart
+const week = [];
+const weekDataPoints = [];
+
+for (let i = 1; i <= 52; i++) {
+  week.push(`Week ${i}`);
+  weekDataPoints.push(i);
+}
+
 const data = {
-  labels: ["Sales", "Cost", "Profit", "ABC"],
+  labels: week,
   datasets: [
     {
-      label: "# of Votes",
-      data: [
-        { financial: "Sales", url: "https://www.google.com", amount: { usd: 900, eur: 600 } },
-        { financial: "Cost", url: "https://www.chartjs.org", amount: { usd: 600, eur: 450 } },
-        { Financial: "Profit", url: "https://www.amazon.com", amount: { usd: 450, eur: 300 } },
-        { financial: "ABC", url: "https://www.flipkart.com", amount: { usd: 450, eur: 300 } },
-      ],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
-      borderWidth: 3,
+      label: "Weekly Data",
+      data: weekDataPoints,
+      backgroundColor: "rgba(54, 162, 235, 0.2)",
+      borderColor: "rgba(54, 162, 235, 1)",
+      borderWidth: 1,
     },
   ],
 };
 
 const config = {
-  type: "pie",
+  type: "bar",
   data: data,
   options: {
-    parsing: {
-      key: "amount.usd",
+    scales: {
+      x: {
+        min: 8,
+        max: 14,
+      },
+      y: {
+        beginAtZero: true,
+      },
     },
   },
 };
 
-const ctx = document.getElementById("myChart") as HTMLCanvasElement;
-const myChart = new Chart(ctx, config as ChartConfiguration);
-// console.log({ myChart });
+const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
-function pieChartCanvas(click: MouseEvent) {
-  // console.log({ click });
+function weekData(start: 6, end: 6) {
+  // console.log({ start, end });
   // @ts-ignore
-  const clickedSlice = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
-  // console.log(clickedSlice);
-  if (clickedSlice.length) {
-    const pieSlice = clickedSlice[0];
-    // console.log(clickedSlice[0].datasetIndex);
-    // console.log(clickedSlice[0].index);
-    // @ts-ignore
-    const link = myChart.data.datasets![clickedSlice[0].datasetIndex].data![clickedSlice![0]!.index]!.url as string;
-    console.log({ link });
-    // location.href = link;
-    // window.open(link);
-  }
-}
+  const startScale = myChart.config.options!.scales!.x.min + start;
+  // @ts-ignore
+  const endScale = myChart.config.options!.scales!.x.max + end;
+  // console.log({ startScale, endScale });
 
-ctx.onclick = pieChartCanvas;
+  const previousButton = document.getElementById("previousButton") as HTMLButtonElement;
+  const nextButton = document.getElementById("nextButton") as HTMLButtonElement;
+
+  // @ts-ignore
+  myChart.config.options!.scales!.x.min = startScale;
+  // @ts-ignore
+  myChart.config.options!.scales!.x.max = endScale;
+
+  previousButton!.disabled = false;
+  nextButton.disabled = false;
+
+  if (startScale < 0) {
+    // @ts-ignore
+    myChart.config.options!.scales!.x.min = 0;
+    // @ts-ignore
+    myChart.config.options!.scales!.x.max = 6;
+    previousButton.disabled = true;
+  }
+
+  if (endScale > week.length) {
+    // @ts-ignore
+    myChart.config.options!.scales!.x.min = week.length - 6;
+    // @ts-ignore
+    myChart.config.options!.scales!.x.max = week.length - 1;
+    nextButton.disabled = true;
+  }
+
+  myChart.update();
+}
 
 //- ------------------------------
 //* Default Code
