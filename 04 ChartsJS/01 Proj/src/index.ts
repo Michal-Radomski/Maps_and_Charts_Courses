@@ -1434,10 +1434,7 @@ const doughnutLabel = {
     ctx.save();
 
     // console.log({ _args, ctx });
-
     // console.log({ top, bottom, left, right, width, height });
-    // ctx.fillRect(width / 2, height / 2 + top - 5, 250, 10);
-    // ctx.restore();
 
     ctx.font = `${options.fontSize}px Arial`;
     ctx.textAlign = "center";
