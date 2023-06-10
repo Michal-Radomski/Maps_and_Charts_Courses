@@ -1203,47 +1203,111 @@ const { Chart } = window;
 // };
 
 //* Bar Chart - remove spaces
+// const data = {
+//   labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: ["rgba(255, 159, 64, 0.2)"],
+//       borderColor: ["rgba(255, 159, 64, 1)"],
+//       borderWidth: 3,
+//     },
+//     {
+//       label: "# of Votes2",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+//       borderColor: ["rgba(255, 99, 132, 1)"],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     // categoryPercentage: 0.8, // default
+//     categoryPercentage: 1, // default
+//     barPercentage: 1,
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//     plugins: {
+//       tooltip: {
+//         enabled: false,
+//       },
+//     },
+//   },
+// };
+
+//* Clickable Pie and Doughnut Slices with Link in Chart
 const data = {
-  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  labels: ["Sales", "Cost", "Profit", "ABC"],
   datasets: [
     {
       label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: ["rgba(255, 159, 64, 0.2)"],
-      borderColor: ["rgba(255, 159, 64, 1)"],
-      borderWidth: 3,
-    },
-    {
-      label: "# of Votes2",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-      borderColor: ["rgba(255, 99, 132, 1)"],
+      data: [
+        { financial: "Sales", url: "https://www.google.com", amount: { usd: 900, eur: 600 } },
+        { financial: "Cost", url: "https://www.chartjs.org", amount: { usd: 600, eur: 450 } },
+        { Financial: "Profit", url: "https://www.amazon.com", amount: { usd: 450, eur: 300 } },
+        { financial: "ABC", url: "https://www.flipkart.com", amount: { usd: 450, eur: 300 } },
+      ],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+      ],
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
       borderWidth: 3,
     },
   ],
 };
 
 const config = {
-  type: "bar",
+  type: "pie",
   data: data,
   options: {
-    // categoryPercentage: 0.8, // default
-    categoryPercentage: 1, // default
-    barPercentage: 1,
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-    plugins: {
-      tooltip: {
-        enabled: false,
-      },
+    parsing: {
+      key: "amount.usd",
     },
   },
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+const ctx = document.getElementById("myChart") as HTMLCanvasElement;
+const myChart = new Chart(ctx, config as ChartConfiguration);
+// console.log({ myChart });
+
+function pieChartCanvas(click: MouseEvent) {
+  // console.log({ click });
+  // @ts-ignore
+  const clickedSlice = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
+  // console.log(clickedSlice);
+  if (clickedSlice.length) {
+    const pieSlice = clickedSlice[0];
+    // console.log(clickedSlice[0].datasetIndex);
+    // console.log(clickedSlice[0].index);
+    // @ts-ignore
+    const link = myChart.data.datasets![clickedSlice[0].datasetIndex].data![clickedSlice![0]!.index]!.url as string;
+    console.log({ link });
+    // location.href = link;
+    // window.open(link);
+  }
+}
+
+ctx.onclick = pieChartCanvas;
 
 //- ------------------------------
 //* Default Code
