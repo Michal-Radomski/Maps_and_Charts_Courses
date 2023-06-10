@@ -1310,82 +1310,162 @@ const { Chart } = window;
 // ctx.onclick = pieChartCanvas;
 
 //* Previous and next button in the chart
-const week = [] as string[];
-const weekDataPoints = [] as number[];
+// const week = [] as string[];
+// const weekDataPoints = [] as number[];
 
-for (let i = 1; i <= 52; i++) {
-  week.push(`Week ${i}`);
-  weekDataPoints.push(i);
-}
+// for (let i = 1; i <= 52; i++) {
+//   week.push(`Week ${i}`);
+//   weekDataPoints.push(i);
+// }
 
+// const data = {
+//   labels: week,
+//   datasets: [
+//     {
+//       label: "Weekly Data",
+//       data: weekDataPoints,
+//       backgroundColor: "rgba(54, 162, 235, 0.2)",
+//       borderColor: "rgba(54, 162, 235, 1)",
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     scales: {
+//       x: {
+//         min: 8,
+//         max: 14,
+//       },
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+// const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+
+// function weekData(start: 6, end: 6) {
+//   // console.log({ start, end });
+//   // @ts-ignore
+//   const startScale = myChart.config.options!.scales!.x.min + start;
+//   // @ts-ignore
+//   const endScale = myChart.config.options!.scales!.x.max + end;
+//   // console.log({ startScale, endScale });
+
+//   const previousButton = document.getElementById("previousButton") as HTMLButtonElement;
+//   const nextButton = document.getElementById("nextButton") as HTMLButtonElement;
+
+//   // @ts-ignore
+//   myChart.config.options!.scales!.x.min = startScale;
+//   // @ts-ignore
+//   myChart.config.options!.scales!.x.max = endScale;
+
+//   previousButton!.disabled = false;
+//   nextButton.disabled = false;
+
+//   if (startScale < 0) {
+//     // @ts-ignore
+//     myChart.config.options!.scales!.x.min = 0;
+//     // @ts-ignore
+//     myChart.config.options!.scales!.x.max = 6;
+//     previousButton.disabled = true;
+//   }
+
+//   if (endScale > week.length) {
+//     // @ts-ignore
+//     myChart.config.options!.scales!.x.min = week.length - 6;
+//     // @ts-ignore
+//     myChart.config.options!.scales!.x.max = week.length - 1;
+//     nextButton.disabled = true;
+//   }
+
+//   myChart.update();
+// }
+
+//* Doughnut chart with text label in the center
 const data = {
-  labels: week,
+  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
   datasets: [
     {
-      label: "Weekly Data",
-      data: weekDataPoints,
-      backgroundColor: "rgba(54, 162, 235, 0.2)",
-      borderColor: "rgba(54, 162, 235, 1)",
+      label: "# of Votes",
+      data: [75, 25, 25, 25],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+      ],
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
       borderWidth: 3,
+      cutout: "90%",
     },
   ],
 };
 
-const config = {
-  type: "bar",
-  data: data,
-  options: {
-    scales: {
-      x: {
-        min: 8,
-        max: 14,
-      },
-      y: {
-        beginAtZero: true,
-      },
+const doughnutLabel = {
+  id: "doughnutLabel",
+  beforeDraw(
+    chart: {
+      data: { datasets: { data: number[] }[] };
+      ctx: CanvasRenderingContext2D;
+      chartArea: any;
     },
+    _args: any,
+    options: { fontSize: number; fontColor: string }
+  ) {
+    const {
+      ctx,
+      chartArea: { top, bottom, left, right, width, height },
+    } = chart;
+    ctx.save();
+
+    // console.log({ _args, ctx });
+
+    // console.log({ top, bottom, left, right, width, height });
+    // ctx.fillRect(width / 2, height / 2 + top - 5, 250, 10);
+    // ctx.restore();
+
+    ctx.font = `${options.fontSize}px Arial`;
+    ctx.textAlign = "center";
+    ctx.fillStyle = options.fontColor;
+    ctx.textBaseline = "middle";
+    ctx.fillText(`${chart.data.datasets[0].data[0]}%`, width / 2, height / 2 + top + options.fontSize / 20);
+    ctx.restore();
   },
 };
 
-const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+const config = {
+  type: "doughnut",
+  data: data,
+  options: {
+    plugins: {
+      legend: {
+        display: false,
+      },
+      doughnutLabel: {
+        fontSize: 100,
+        fontColor: "blue",
+      },
+    },
+  },
+  plugins: [doughnutLabel],
+};
 
-function weekData(start: 6, end: 6) {
-  // console.log({ start, end });
-  // @ts-ignore
-  const startScale = myChart.config.options!.scales!.x.min + start;
-  // @ts-ignore
-  const endScale = myChart.config.options!.scales!.x.max + end;
-  // console.log({ startScale, endScale });
-
-  const previousButton = document.getElementById("previousButton") as HTMLButtonElement;
-  const nextButton = document.getElementById("nextButton") as HTMLButtonElement;
-
-  // @ts-ignore
-  myChart.config.options!.scales!.x.min = startScale;
-  // @ts-ignore
-  myChart.config.options!.scales!.x.max = endScale;
-
-  previousButton!.disabled = false;
-  nextButton.disabled = false;
-
-  if (startScale < 0) {
-    // @ts-ignore
-    myChart.config.options!.scales!.x.min = 0;
-    // @ts-ignore
-    myChart.config.options!.scales!.x.max = 6;
-    previousButton.disabled = true;
-  }
-
-  if (endScale > week.length) {
-    // @ts-ignore
-    myChart.config.options!.scales!.x.min = week.length - 6;
-    // @ts-ignore
-    myChart.config.options!.scales!.x.max = week.length - 1;
-    nextButton.disabled = true;
-  }
-
-  myChart.update();
-}
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
 //- ------------------------------
 //* Default Code
