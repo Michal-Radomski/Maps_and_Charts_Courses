@@ -1281,7 +1281,6 @@ const config = {
   data: data,
   options: {
     onHover: (event: any, chartElement: any[]) => {
-      event.native.target.style.cursor = chartElement[0] ? "pointer" : "default";
       // console.log({ event, chartElement });
 
       // if(chartElement.length === 1) {
@@ -1290,6 +1289,8 @@ const config = {
       // if(chartElement.length === 0) {
       //   event.native.target.style.cursor = 'default';
       // };
+
+      event.native.target.style.cursor = chartElement[0] ? "pointer" : "default";
     },
     parsing: {
       key: "amount.usd",
