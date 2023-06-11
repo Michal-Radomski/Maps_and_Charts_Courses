@@ -1546,135 +1546,178 @@ const { ChartDataLabels } = window;
 // };
 
 //* Waterfall Chart
-const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Pink", "Violet"];
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Pink", "Violet"];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [
+//         [12, 19],
+//         [19, 3],
+//         [3, 5],
+//         [5, 2],
+//         [2, 3],
+//         [3, 9],
+//         [9, 15],
+//         [15, 10],
+//       ],
+//       backgroundColor: barBackgroundColorCode(),
+//       borderColor: barColorCode(),
+//       borderWidth: 3,
+//       borderSkipped: false,
+//     },
+//   ],
+// };
+
+// // WaterfallLines plugin
+// const waterfallLines = {
+//   id: "waterfall",
+//   beforeDraw(
+//     chart: { ctx: any; config: any; scales: { x: any; y: any } },
+//     _args: any,
+//     options: {
+//       lineStyle1: number;
+//       lineColor: string;
+//     }
+//   ) {
+//     const {
+//       ctx,
+//       config,
+//       scales: { x, y },
+//     } = chart;
+
+//     ctx.save();
+//     ctx.strokeStyle = options.lineColor;
+//     ctx.setLineDash([options.lineStyle1, options.lineStyle1]);
+//     for (let i = 0; i < config._config.data.datasets[0].data.length - 1; i++) {
+//       ctx.strokeRect(
+//         x.getPixelForValue(i),
+//         y.getPixelForValue(config._config.data.datasets[0].data[i][1]),
+//         x.getPixelForValue(0.5),
+//         0
+//       );
+//     }
+//   },
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     plugins: {
+//       datalabels: {
+//         formatter: (value: number[]) => {
+//           // console.log({value});
+//           const votes = value[1] - value[0];
+//           const netVotes = Math.abs(votes);
+//           return `Votes: ${netVotes}`;
+//         },
+//       },
+//       waterfall: {
+//         lineColor: "black",
+//         lineStyle1: 5,
+//         lineStyle2: 5,
+//       },
+//       tooltip: {
+//         enabled: false,
+//       },
+//     },
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+//   plugins: [waterfallLines, ChartDataLabels],
+// };
+
+// function barColorCode() {
+//   return (ctx: {
+//     chart: { config: { data: { datasets: { data: number[] }[] } } };
+//     dataIndex: number;
+//     parsed: { _custom: { start: number; end: number } };
+//   }) => {
+//     // console.log({ ctx });
+//     // console.log("ctx.chart.config.data.datasets[0].data.length:", ctx.chart.config.data.datasets[0].data.length);
+//     if (ctx.dataIndex !== 0 || ctx.dataIndex !== data.datasets[0].data.length - 1) {
+//       const start = ctx.parsed._custom.start;
+//       const end = ctx.parsed._custom.end;
+//       let barColor = start <= end ? "rgba(75, 192, 192, 1)" : start > end ? "rgba(255, 99, 132, 1)" : "black";
+
+//       if (ctx.dataIndex === 0 || ctx.dataIndex === ctx.chart.config.data.datasets[0].data.length - 1) {
+//         barColor = "rgba(0, 0, 0, 1)";
+//       }
+
+//       return barColor;
+//     }
+//   };
+// }
+
+// function barBackgroundColorCode() {
+//   return (ctx: {
+//     dataIndex: number;
+//     chart: { config: { data: { datasets: { data: number[] }[] } } };
+//     parsed: { _custom: { start: number; end: number } };
+//   }) => {
+//     const start = ctx.parsed._custom.start;
+//     const end = ctx.parsed._custom.end;
+//     let barColor = start <= end ? "rgba(75, 192, 192, 0.2)" : start > end ? "rgba(255, 99, 132, 0.2)" : "rgba(0, 0, 0, 0.2)";
+
+//     if (ctx.dataIndex === 0 || ctx.dataIndex === ctx.chart.config.data.datasets[0].data.length - 1) {
+//       barColor = "rgba(0, 0, 0, 0.2)";
+//     }
+
+//     return barColor;
+//   };
+// }
+
+// new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
+
+//* Bar Growth Indicator Chart
+const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
 const data = {
   labels: labels,
   datasets: [
     {
       label: "# of Votes",
-      data: [
-        [12, 19],
-        [19, 3],
-        [3, 5],
-        [5, 2],
-        [2, 3],
-        [3, 9],
-        [9, 15],
-        [15, 10],
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
       ],
-      backgroundColor: barBackgroundColorCode(),
-      borderColor: barColorCode(),
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
       borderWidth: 3,
-      borderSkipped: false,
     },
   ],
-};
-
-// WaterfallLines plugin
-const waterfallLines = {
-  id: "waterfall",
-  beforeDraw(
-    chart: { ctx: any; config: any; scales: { x: any; y: any } },
-    _args: any,
-    options: {
-      lineStyle1: number;
-      lineColor: string;
-    }
-  ) {
-    const {
-      ctx,
-      config,
-      scales: { x, y },
-    } = chart;
-
-    ctx.save();
-    ctx.strokeStyle = options.lineColor;
-    ctx.setLineDash([options.lineStyle1, options.lineStyle1]);
-    for (let i = 0; i < config._config.data.datasets[0].data.length - 1; i++) {
-      ctx.strokeRect(
-        x.getPixelForValue(i),
-        y.getPixelForValue(config._config.data.datasets[0].data[i][1]),
-        x.getPixelForValue(0.5),
-        0
-      );
-    }
-  },
 };
 
 const config = {
   type: "bar",
   data: data,
   options: {
-    plugins: {
-      datalabels: {
-        formatter: (value: number[]) => {
-          // console.log({value});
-          const votes = value[1] - value[0];
-          const netVotes = Math.abs(votes);
-          return `Votes: ${netVotes}`;
-        },
-      },
-      waterfall: {
-        lineColor: "black",
-        lineStyle1: 5,
-        lineStyle2: 5,
-      },
-      tooltip: {
-        enabled: false,
-      },
-    },
     scales: {
       y: {
         beginAtZero: true,
       },
     },
   },
-  plugins: [waterfallLines, ChartDataLabels],
 };
 
-function barColorCode() {
-  return (ctx: {
-    chart: { config: { data: { datasets: { data: number[] }[] } } };
-    dataIndex: number;
-    parsed: { _custom: { start: number; end: number } };
-  }) => {
-    // console.log({ ctx });
-    // console.log("ctx.chart.config.data.datasets[0].data.length:", ctx.chart.config.data.datasets[0].data.length);
-    if (ctx.dataIndex !== 0 || ctx.dataIndex !== data.datasets[0].data.length - 1) {
-      const start = ctx.parsed._custom.start;
-      const end = ctx.parsed._custom.end;
-      let barColor = start <= end ? "rgba(75, 192, 192, 1)" : start > end ? "rgba(255, 99, 132, 1)" : "black";
-
-      if (ctx.dataIndex === 0 || ctx.dataIndex === ctx.chart.config.data.datasets[0].data.length - 1) {
-        barColor = "rgba(0, 0, 0, 1)";
-      }
-
-      return barColor;
-    }
-  };
-}
-
-function barBackgroundColorCode() {
-  return (ctx: {
-    dataIndex: number;
-    chart: { config: { data: { datasets: { data: number[] }[] } } };
-    parsed: { _custom: { start: number; end: number } };
-  }) => {
-    const start = ctx.parsed._custom.start;
-    const end = ctx.parsed._custom.end;
-    let barColor = start <= end ? "rgba(75, 192, 192, 0.2)" : start > end ? "rgba(255, 99, 132, 0.2)" : "rgba(0, 0, 0, 0.2)";
-
-    if (ctx.dataIndex === 0 || ctx.dataIndex === ctx.chart.config.data.datasets[0].data.length - 1) {
-      barColor = "rgba(0, 0, 0, 0.2)";
-    }
-
-    return barColor;
-  };
-}
-
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
-
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 //- ------------------------------
 //* Default Code
 // const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
