@@ -1771,6 +1771,7 @@ const barGrowthIndicator = {
         );
         ctx.restore();
       }
+
       if (end < start) {
         // console.log("Negative number");
         // Triangle
