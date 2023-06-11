@@ -1724,12 +1724,11 @@ const barGrowthIndicator = {
     const deltaPercentage = [] as number[];
 
     for (let i = 0; i < chart._metasets[0]._parsed.length - 1; i++) {
-      // console.log(chart._metasets[0]._parsed[0].y);
-      // console.log(chart._metasets[0]._parsed[1].y);
-      const basis = chart._metasets[0]._parsed[0].y;
-      const delta = chart._metasets[0]._parsed[1].y;
-      let percentage = ((delta / basis) * 100) as number;
-      // console.log({ percentage });
+      let z = 1 + i;
+      const basis = chart._metasets[0]._parsed[i].y;
+      const delta = chart._metasets[0]._parsed[z].y;
+      let percentage = (delta / basis) * 100;
+      // console.log({percentage})
       percentage = percentage - 100;
       deltaPercentage.push(Number(percentage.toFixed(2)));
     }
