@@ -4,6 +4,9 @@ const { Chart } = window;
 // console.log("Chart:", Chart);
 // console.log({ window });
 
+// @ts-ignore
+const { ChartDataLabels } = window;
+
 // const {helpers} = Chart
 // console.log(helpers)
 
@@ -1604,6 +1607,14 @@ const config = {
   data: data,
   options: {
     plugins: {
+      datalabels: {
+        formatter: (value: number[]) => {
+          // console.log({value});
+          const votes = value[1] - value[0];
+          const netVotes = Math.abs(votes);
+          return `Votes: ${netVotes}`;
+        },
+      },
       waterfall: {
         lineColor: "black",
         lineStyle1: 5,
@@ -1619,7 +1630,7 @@ const config = {
       },
     },
   },
-  plugins: [waterfallLines],
+  plugins: [waterfallLines, ChartDataLabels],
 };
 
 function barColorCode() {
