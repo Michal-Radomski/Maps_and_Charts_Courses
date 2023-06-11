@@ -1571,7 +1571,14 @@ const data = {
 // WaterfallLines plugin
 const waterfallLines = {
   id: "waterfall",
-  beforeDraw(chart: { ctx: any; config: any; scales: { x: any; y: any } }, _args: any, options: { lineColor: string }) {
+  beforeDraw(
+    chart: { ctx: any; config: any; scales: { x: any; y: any } },
+    _args: any,
+    options: {
+      lineStyle1: number;
+      lineColor: string;
+    }
+  ) {
     const {
       ctx,
       config,
@@ -1580,6 +1587,7 @@ const waterfallLines = {
 
     ctx.save();
     ctx.strokeStyle = options.lineColor;
+    ctx.setLineDash([options.lineStyle1, options.lineStyle1]);
     for (let i = 0; i < config._config.data.datasets[0].data.length - 1; i++) {
       ctx.strokeRect(
         x.getPixelForValue(i),
@@ -1598,6 +1606,8 @@ const config = {
     plugins: {
       waterfall: {
         lineColor: "black",
+        lineStyle1: 5,
+        lineStyle2: 5,
       },
       tooltip: {
         enabled: false,
