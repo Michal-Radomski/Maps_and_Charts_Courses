@@ -1718,6 +1718,7 @@ const barGrowthIndicator = {
   afterDatasetsDraw(chart: {
     getDatasetMeta(arg0: number): any;
     _metasets: {
+      hidden: boolean;
       _parsed: {
         _custom: any;
         y: number;
@@ -1745,54 +1746,57 @@ const barGrowthIndicator = {
     // console.log({ deltaPercentage });
     // console.log("chart:", chart);
 
-    for (let a = 0; a < deltaPercentage.length; a++) {
-      const start = chart._metasets[1]._parsed[a]._custom.start;
-      const end = chart._metasets[1]._parsed[a]._custom.end;
-      // console.log({ start, end });
+    // console.log("chart._metasets[1].hidden:", chart._metasets[1].hidden);
+    if (chart._metasets[1].hidden !== true) {
+      for (let a = 0; a < deltaPercentage.length; a++) {
+        const start = chart._metasets[1]._parsed[a]._custom.start;
+        const end = chart._metasets[1]._parsed[a]._custom.end;
+        // console.log({ start, end });
 
-      if (end >= start) {
-        // console.log("Positive number");
-        // Triangle
-        ctx.beginPath();
-        ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(1).data[a].y - 2);
-        ctx.lineTo(chart.getDatasetMeta(1).data[a].x - 5, chart.getDatasetMeta(1).data[a].y + 5);
-        ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(1).data[a].y + 5);
-        ctx.fillStyle = "green";
-        ctx.fill();
-        ctx.restore();
+        if (end >= start) {
+          // console.log("Positive number");
+          // Triangle
+          ctx.beginPath();
+          ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(1).data[a].y - 2);
+          ctx.lineTo(chart.getDatasetMeta(1).data[a].x - 5, chart.getDatasetMeta(1).data[a].y + 5);
+          ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(1).data[a].y + 5);
+          ctx.fillStyle = "green";
+          ctx.fill();
+          ctx.restore();
 
-        ctx.font = "10px Arial";
-        ctx.fillStyle = "green";
-        ctx.textAlign = "center";
-        ctx.fillText(
-          deltaPercentage[a] + "%",
-          chart.getDatasetMeta(1).data[a].x + 2.5,
-          chart.getDatasetMeta(1).data[a].y - 10
-        );
-        ctx.restore();
-      }
+          ctx.font = "10px Arial";
+          ctx.fillStyle = "green";
+          ctx.textAlign = "center";
+          ctx.fillText(
+            deltaPercentage[a] + "%",
+            chart.getDatasetMeta(1).data[a].x + 2.5,
+            chart.getDatasetMeta(1).data[a].y - 10
+          );
+          ctx.restore();
+        }
 
-      if (end < start) {
-        // console.log("Negative number");
-        // Triangle
-        let yStart = a + 1;
-        ctx.beginPath();
-        ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(0).data[yStart].y + 3);
-        ctx.lineTo(chart.getDatasetMeta(1).data[a].x - 5, chart.getDatasetMeta(0).data[yStart].y - 5);
-        ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(0).data[yStart].y - 5);
-        ctx.fillStyle = "red";
-        ctx.fill();
-        ctx.restore();
+        if (end < start) {
+          // console.log("Negative number");
+          // Triangle
+          let yStart = a + 1;
+          ctx.beginPath();
+          ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(0).data[yStart].y + 3);
+          ctx.lineTo(chart.getDatasetMeta(1).data[a].x - 5, chart.getDatasetMeta(0).data[yStart].y - 5);
+          ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(0).data[yStart].y - 5);
+          ctx.fillStyle = "red";
+          ctx.fill();
+          ctx.restore();
 
-        ctx.font = "10px Arial";
-        ctx.fillStyle = "red";
-        ctx.textAlign = "center";
-        ctx.fillText(
-          deltaPercentage[a] + "%",
-          chart.getDatasetMeta(1).data[a].x + 2.5,
-          chart.getDatasetMeta(0).data[yStart].y + 12
-        );
-        ctx.restore();
+          ctx.font = "10px Arial";
+          ctx.fillStyle = "red";
+          ctx.textAlign = "center";
+          ctx.fillText(
+            deltaPercentage[a] + "%",
+            chart.getDatasetMeta(1).data[a].x + 2.5,
+            chart.getDatasetMeta(0).data[yStart].y + 12
+          );
+          ctx.restore();
+        }
       }
     }
   },
@@ -1812,6 +1816,7 @@ const config = {
     },
     scales: {
       y: {
+        grace: "10%",
         beginAtZero: true,
       },
     },
