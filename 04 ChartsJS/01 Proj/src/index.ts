@@ -1746,7 +1746,14 @@ const barGrowthIndicator = {
 
     const start = chart._metasets[1]._parsed[0]._custom.start;
     const end = chart._metasets[1]._parsed[0]._custom.end;
-    console.log({ start, end });
+    // console.log({ start, end });
+
+    if (end >= start) {
+      console.log("positive number");
+    }
+    if (end < start) {
+      console.log("negative number");
+    }
   },
 };
 
