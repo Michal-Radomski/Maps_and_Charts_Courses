@@ -1581,8 +1581,8 @@ const config = {
 };
 
 function barColorCode() {
-  return (ctx: { dataIndex: number; parsed: { _custom: { start: any; end: any } } }) => {
-    console.log({ ctx });
+  return (ctx: { dataIndex: number; parsed: { _custom: { start: number; end: number } } }) => {
+    // console.log({ ctx });
     if (ctx.dataIndex !== 0 || ctx.dataIndex !== data.datasets[0].data.length - 1) {
       const start = ctx.parsed._custom.start;
       const end = ctx.parsed._custom.end;
@@ -1593,7 +1593,7 @@ function barColorCode() {
 }
 
 function barBackgroundColorCode() {
-  return (ctx: { parsed: { _custom: { start: any; end: any } } }) => {
+  return (ctx: { parsed: { _custom: { start: number; end: number } } }) => {
     const start = ctx.parsed._custom.start;
     const end = ctx.parsed._custom.end;
     let barColor = start <= end ? "rgba(75, 192, 192, 0.2)" : start > end ? "rgba(255, 99, 132, 0.2)" : "rgba(0, 0, 0, 0.2)";
