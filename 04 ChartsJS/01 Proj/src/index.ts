@@ -1568,16 +1568,48 @@ const data = {
   ],
 };
 
+// WaterfallLines plugin
+const waterfallLines = {
+  id: "waterfall",
+  beforeDraw(chart: { ctx: any; config: any; scales: { x: any; y: any } }, _args: any, options: { lineColor: string }) {
+    const {
+      ctx,
+      config,
+      scales: { x, y },
+    } = chart;
+
+    ctx.save();
+    ctx.strokeStyle = options.lineColor;
+    for (let i = 0; i < config._config.data.datasets[0].data.length - 1; i++) {
+      ctx.strokeRect(
+        x.getPixelForValue(i),
+        y.getPixelForValue(config._config.data.datasets[0].data[i][1]),
+        x.getPixelForValue(0.5),
+        0
+      );
+    }
+  },
+};
+
 const config = {
   type: "bar",
   data: data,
   options: {
+    plugins: {
+      waterfall: {
+        lineColor: "black",
+      },
+      tooltip: {
+        enabled: false,
+      },
+    },
     scales: {
       y: {
         beginAtZero: true,
       },
     },
   },
+  plugins: [waterfallLines],
 };
 
 function barColorCode() {
