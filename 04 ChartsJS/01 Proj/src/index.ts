@@ -1682,25 +1682,32 @@ const data = {
   labels: labels,
   datasets: [
     {
-      label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
+      label: "Red Bar",
+      data: [
+        [0, 12],
+        [0, 19],
+        [0, 3],
+        [0, 5],
+        [0, 2],
+        [0, 3],
       ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
+      backgroundColor: "rgba(255, 99, 132, 0.2)",
+      borderColor: "rgba(255, 99, 132, 1)",
       borderWidth: 3,
+    },
+    {
+      label: "Arrow Bar",
+      data: [
+        [12, 19],
+        [19, 3],
+        [3, 5],
+        [5, 2],
+        [2, 3],
+        //[0, 3],
+      ],
+      backgroundColor: "rgba(0, 0, 0, 1)",
+      borderColor: "rgba(0, 0, 0, 1)",
+      barPercentage: 0.05,
     },
   ],
 };
@@ -1709,6 +1716,14 @@ const config = {
   type: "bar",
   data: data,
   options: {
+    plugins: {
+      tooltip: {
+        filter: (tooltipItem: { datasetIndex: number }) => {
+          // console.log({ tooltipItem });
+          return tooltipItem.datasetIndex === 0;
+        },
+      },
+    },
     scales: {
       y: {
         beginAtZero: true,
@@ -1718,6 +1733,7 @@ const config = {
 };
 
 new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+
 //- ------------------------------
 //* Default Code
 // const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
