@@ -1751,8 +1751,7 @@ const barGrowthIndicator = {
       // console.log({ start, end });
 
       if (end >= start) {
-        console.log("Positive number");
-
+        // console.log("Positive number");
         // Triangle
         ctx.beginPath();
         ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(1).data[a].y - 2);
@@ -1762,7 +1761,7 @@ const barGrowthIndicator = {
         ctx.fill();
       }
       if (end < start) {
-        console.log("Negative number");
+        // console.log("Negative number");
       }
     }
   },
