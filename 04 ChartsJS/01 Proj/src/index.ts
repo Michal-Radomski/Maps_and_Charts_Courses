@@ -1715,7 +1715,16 @@ const data = {
 // barGrowthIndicator plugin
 const barGrowthIndicator = {
   id: "barGrowthIndicator",
-  afterDatasetsDraw(chart: { _metasets: { _parsed: { y: number }[] }[]; ctx?: any; scales?: any }) {
+  afterDatasetsDraw(chart: {
+    _metasets: {
+      _parsed: {
+        _custom: any;
+        y: number;
+      }[];
+    }[];
+    ctx?: any;
+    scales?: any;
+  }) {
     const {
       ctx,
       scales: { x, y },
@@ -1733,6 +1742,11 @@ const barGrowthIndicator = {
       deltaPercentage.push(Number(percentage.toFixed(2)));
     }
     // console.log({ deltaPercentage });
+    // console.log("chart:", chart);
+
+    const start = chart._metasets[1]._parsed[0]._custom.start;
+    const end = chart._metasets[1]._parsed[0]._custom.end;
+    console.log({ start, end });
   },
 };
 
