@@ -1716,6 +1716,7 @@ const data = {
 const barGrowthIndicator = {
   id: "barGrowthIndicator",
   afterDatasetsDraw(chart: {
+    getDatasetMeta(arg0: number): any;
     _metasets: {
       _parsed: {
         _custom: any;
@@ -1744,15 +1745,25 @@ const barGrowthIndicator = {
     // console.log({ deltaPercentage });
     // console.log("chart:", chart);
 
-    const start = chart._metasets[1]._parsed[0]._custom.start;
-    const end = chart._metasets[1]._parsed[0]._custom.end;
-    // console.log({ start, end });
+    for (let a = 0; a < deltaPercentage.length; a++) {
+      const start = chart._metasets[1]._parsed[a]._custom.start;
+      const end = chart._metasets[1]._parsed[a]._custom.end;
+      // console.log({ start, end });
 
-    if (end >= start) {
-      console.log("positive number");
-    }
-    if (end < start) {
-      console.log("negative number");
+      if (end >= start) {
+        console.log("Positive number");
+
+        // Triangle
+        ctx.beginPath();
+        ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(1).data[a].y - 2);
+        ctx.lineTo(chart.getDatasetMeta(1).data[a].x - 5, chart.getDatasetMeta(1).data[a].y + 5);
+        ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(1).data[a].y + 5);
+        ctx.fillStyle = "black";
+        ctx.fill();
+      }
+      if (end < start) {
+        console.log("Negative number");
+      }
     }
   },
 };
