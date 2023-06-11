@@ -1773,6 +1773,25 @@ const barGrowthIndicator = {
       }
       if (end < start) {
         // console.log("Negative number");
+        // Triangle
+        let yStart = a + 1;
+        ctx.beginPath();
+        ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(0).data[yStart].y + 3);
+        ctx.lineTo(chart.getDatasetMeta(1).data[a].x - 5, chart.getDatasetMeta(0).data[yStart].y - 5);
+        ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(0).data[yStart].y - 5);
+        ctx.fillStyle = "red";
+        ctx.fill();
+        ctx.restore();
+
+        ctx.font = "10px Arial";
+        ctx.fillStyle = "red";
+        ctx.textAlign = "center";
+        ctx.fillText(
+          deltaPercentage[a] + "%",
+          chart.getDatasetMeta(1).data[a].x + 2.5,
+          chart.getDatasetMeta(0).data[yStart].y + 12
+        );
+        ctx.restore();
       }
     }
   },
