@@ -1703,7 +1703,7 @@ const data = {
         [3, 5],
         [5, 2],
         [2, 3],
-        //[0, 3],
+        //[0, 3], //* No arrow there!
       ],
       backgroundColor: "rgba(0, 0, 0, 1)",
       borderColor: "rgba(0, 0, 0, 1)",
