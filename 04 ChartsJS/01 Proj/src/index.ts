@@ -1543,7 +1543,7 @@ const { Chart } = window;
 // };
 
 //* Waterfall Chart
-const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Pink", "Violet"];
 
 const data = {
   labels: labels,
@@ -1581,22 +1581,41 @@ const config = {
 };
 
 function barColorCode() {
-  return (ctx: { dataIndex: number; parsed: { _custom: { start: number; end: number } } }) => {
+  return (ctx: {
+    chart: { config: { data: { datasets: { data: number[] }[] } } };
+    dataIndex: number;
+    parsed: { _custom: { start: number; end: number } };
+  }) => {
     // console.log({ ctx });
+    // console.log("ctx.chart.config.data.datasets[0].data.length:", ctx.chart.config.data.datasets[0].data.length);
     if (ctx.dataIndex !== 0 || ctx.dataIndex !== data.datasets[0].data.length - 1) {
       const start = ctx.parsed._custom.start;
       const end = ctx.parsed._custom.end;
       let barColor = start <= end ? "rgba(75, 192, 192, 1)" : start > end ? "rgba(255, 99, 132, 1)" : "black";
+
+      if (ctx.dataIndex === 0 || ctx.dataIndex === ctx.chart.config.data.datasets[0].data.length - 1) {
+        barColor = "rgba(0, 0, 0, 1)";
+      }
+
       return barColor;
     }
   };
 }
 
 function barBackgroundColorCode() {
-  return (ctx: { parsed: { _custom: { start: number; end: number } } }) => {
+  return (ctx: {
+    dataIndex: number;
+    chart: { config: { data: { datasets: { data: number[] }[] } } };
+    parsed: { _custom: { start: number; end: number } };
+  }) => {
     const start = ctx.parsed._custom.start;
     const end = ctx.parsed._custom.end;
     let barColor = start <= end ? "rgba(75, 192, 192, 0.2)" : start > end ? "rgba(255, 99, 132, 0.2)" : "rgba(0, 0, 0, 0.2)";
+
+    if (ctx.dataIndex === 0 || ctx.dataIndex === ctx.chart.config.data.datasets[0].data.length - 1) {
+      barColor = "rgba(0, 0, 0, 0.2)";
+    }
+
     return barColor;
   };
 }
