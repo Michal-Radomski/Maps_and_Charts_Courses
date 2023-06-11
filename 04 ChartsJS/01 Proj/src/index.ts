@@ -1759,6 +1759,17 @@ const barGrowthIndicator = {
         ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(1).data[a].y + 5);
         ctx.fillStyle = "green";
         ctx.fill();
+        ctx.restore();
+
+        ctx.font = "10px Arial";
+        ctx.fillStyle = "green";
+        ctx.textAlign = "center";
+        ctx.fillText(
+          deltaPercentage[a] + "%",
+          chart.getDatasetMeta(1).data[a].x + 2.5,
+          chart.getDatasetMeta(1).data[a].y - 10
+        );
+        ctx.restore();
       }
       if (end < start) {
         // console.log("Negative number");
