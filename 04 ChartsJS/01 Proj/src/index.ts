@@ -1560,22 +1560,8 @@ const data = {
         [9, 15],
         [15, 10],
       ],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
+      backgroundColor: barBackgroundColorCode(),
+      borderColor: barColorCode(),
       borderWidth: 3,
       borderSkipped: false,
     },
@@ -1593,6 +1579,27 @@ const config = {
     },
   },
 };
+
+function barColorCode() {
+  return (ctx: { dataIndex: number; parsed: { _custom: { start: any; end: any } } }) => {
+    console.log({ ctx });
+    if (ctx.dataIndex !== 0 || ctx.dataIndex !== data.datasets[0].data.length - 1) {
+      const start = ctx.parsed._custom.start;
+      const end = ctx.parsed._custom.end;
+      let barColor = start <= end ? "rgba(75, 192, 192, 1)" : start > end ? "rgba(255, 99, 132, 1)" : "black";
+      return barColor;
+    }
+  };
+}
+
+function barBackgroundColorCode() {
+  return (ctx: { parsed: { _custom: { start: any; end: any } } }) => {
+    const start = ctx.parsed._custom.start;
+    const end = ctx.parsed._custom.end;
+    let barColor = start <= end ? "rgba(75, 192, 192, 0.2)" : start > end ? "rgba(255, 99, 132, 0.2)" : "rgba(0, 0, 0, 0.2)";
+    return barColor;
+  };
+}
 
 new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
