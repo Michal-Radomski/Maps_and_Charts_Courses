@@ -5,7 +5,7 @@ const { Chart } = window;
 // console.log({ window });
 
 // @ts-ignore
-const { ChartDataLabels } = window;
+// const { ChartDataLabels } = window;
 
 // const {helpers} = Chart
 // console.log(helpers)
@@ -1757,7 +1757,7 @@ const barGrowthIndicator = {
         ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(1).data[a].y - 2);
         ctx.lineTo(chart.getDatasetMeta(1).data[a].x - 5, chart.getDatasetMeta(1).data[a].y + 5);
         ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(1).data[a].y + 5);
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "green";
         ctx.fill();
       }
       if (end < start) {
