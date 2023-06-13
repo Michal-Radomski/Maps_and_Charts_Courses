@@ -1905,6 +1905,7 @@ const myChart = new Chart(ctx, config as unknown as ChartConfiguration);
 function clickHandler(click: MouseEvent) {
   // @ts-ignore
   const bar = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
+  // console.log({ bar });
   if (bar[0]) {
     chargeChart(bar[0].index);
   }
