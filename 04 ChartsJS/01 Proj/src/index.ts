@@ -1881,6 +1881,12 @@ const config = {
   type: "bar",
   data: data,
   options: {
+    onHover: (event: { native: { target: { style: { cursor: string } } } }, chartElement: any[]) => {
+      // console.log({ event });
+      // console.log("chartElement[0]:", chartElement[0]);
+      // console.log("chartElement:", chartElement);
+      event.native.target.style.cursor = chartElement[0] ? "pointer" : "default";
+    },
     parsing: {
       xAxisKey: "browser",
       yAxisKey: "marketshare",
@@ -1893,7 +1899,7 @@ const config = {
   },
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //- ------------------------------
 //* Default Code
