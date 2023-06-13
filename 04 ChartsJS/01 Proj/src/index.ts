@@ -1899,7 +1899,22 @@ const config = {
   },
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
+const ctx = document.getElementById("myChart") as HTMLCanvasElement;
+const myChart = new Chart(ctx, config as unknown as ChartConfiguration);
+
+function clickHandler(click: MouseEvent) {
+  // @ts-ignore
+  const bar = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
+  if (bar[0]) {
+    chargeChart(bar[0].index);
+  }
+}
+
+function chargeChart(value: string) {
+  console.log(`${value} -> grabbed from the ClickHandler`);
+}
+
+ctx.onclick = clickHandler;
 
 //- ------------------------------
 //* Default Code
