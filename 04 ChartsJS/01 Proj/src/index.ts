@@ -1676,156 +1676,237 @@ const { Chart } = window;
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //* Bar Growth Indicator Chart
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "Red Bar",
+//       data: [
+//         [0, 12],
+//         [0, 19],
+//         [0, 3],
+//         [0, 5],
+//         [0, 2],
+//         [0, 3],
+//       ],
+//       backgroundColor: "rgba(255, 99, 132, 0.2)",
+//       borderColor: "rgba(255, 99, 132, 1)",
+//       borderWidth: 3,
+//     },
+//     {
+//       label: "Arrow Bar",
+//       data: [
+//         [12, 19],
+//         [19, 3],
+//         [3, 5],
+//         [5, 2],
+//         [2, 3],
+//         //[0, 3], //* No arrow there!
+//       ],
+//       backgroundColor: "rgba(0, 0, 0, 1)",
+//       borderColor: "rgba(0, 0, 0, 1)",
+//       barPercentage: 0.05,
+//     },
+//   ],
+// };
+
+// // barGrowthIndicator plugin
+// const barGrowthIndicator = {
+//   id: "barGrowthIndicator",
+//   afterDatasetsDraw(chart: {
+//     getDatasetMeta(arg0: number): any;
+//     _metasets: {
+//       hidden: boolean;
+//       _parsed: {
+//         _custom: any;
+//         y: number;
+//       }[];
+//     }[];
+//     ctx?: any;
+//     scales?: any;
+//   }) {
+//     const {
+//       ctx,
+//       scales: { x, y },
+//     } = chart;
+
+//     const deltaPercentage = [] as number[];
+
+//     for (let i = 0; i < chart._metasets[0]._parsed.length - 1; i++) {
+//       let z = 1 + i;
+//       const basis = chart._metasets[0]._parsed[i].y;
+//       const delta = chart._metasets[0]._parsed[z].y;
+//       let percentage = (delta / basis) * 100;
+//       // console.log({percentage})
+//       percentage = percentage - 100;
+//       deltaPercentage.push(Number(percentage.toFixed(2)));
+//     }
+//     // console.log({ deltaPercentage });
+//     // console.log("chart:", chart);
+
+//     // console.log("chart._metasets[1].hidden:", chart._metasets[1].hidden);
+//     if (chart._metasets[1].hidden !== true) {
+//       for (let a = 0; a < deltaPercentage.length; a++) {
+//         const start = chart._metasets[1]._parsed[a]._custom.start;
+//         const end = chart._metasets[1]._parsed[a]._custom.end;
+//         // console.log({ start, end });
+
+//         if (end >= start) {
+//           // console.log("Positive number");
+//           // Triangle
+//           ctx.beginPath();
+//           ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(1).data[a].y - 2);
+//           ctx.lineTo(chart.getDatasetMeta(1).data[a].x - 5, chart.getDatasetMeta(1).data[a].y + 5);
+//           ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(1).data[a].y + 5);
+//           ctx.fillStyle = "green";
+//           ctx.fill();
+//           ctx.restore();
+
+//           ctx.font = "10px Arial";
+//           ctx.fillStyle = "green";
+//           ctx.textAlign = "center";
+//           ctx.fillText(
+//             deltaPercentage[a] + "%",
+//             chart.getDatasetMeta(1).data[a].x + 2.5,
+//             chart.getDatasetMeta(1).data[a].y - 10
+//           );
+//           ctx.restore();
+//         }
+
+//         if (end < start) {
+//           // console.log("Negative number");
+//           // Triangle
+//           let yStart = a + 1;
+//           ctx.beginPath();
+//           ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(0).data[yStart].y + 3);
+//           ctx.lineTo(chart.getDatasetMeta(1).data[a].x - 5, chart.getDatasetMeta(0).data[yStart].y - 5);
+//           ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(0).data[yStart].y - 5);
+//           ctx.fillStyle = "red";
+//           ctx.fill();
+//           ctx.restore();
+
+//           ctx.font = "10px Arial";
+//           ctx.fillStyle = "red";
+//           ctx.textAlign = "center";
+//           ctx.fillText(
+//             deltaPercentage[a] + "%",
+//             chart.getDatasetMeta(1).data[a].x + 2.5,
+//             chart.getDatasetMeta(0).data[yStart].y + 12
+//           );
+//           ctx.restore();
+//         }
+//       }
+//     }
+//   },
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     plugins: {
+//       tooltip: {
+//         filter: (tooltipItem: { datasetIndex: number }) => {
+//           // console.log({tooltipItem});
+//           return tooltipItem.datasetIndex === 0;
+//         },
+//       },
+//     },
+//     scales: {
+//       y: {
+//         grace: "10%",
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+//   plugins: [barGrowthIndicator],
+// };
+
+// new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
+
+//* Advanced Drill Down Bar Chart
+const browserData = [
+  {
+    browser: "Chrome",
+    color: "rgba(75, 192, 192, 1)",
+    users: 150,
+    marketshare: 70,
+    versionData: [
+      { version: "v5", users: 10 },
+      { version: "v6", users: 20 },
+      { version: "v7", users: 30 },
+      { version: "v8", users: 60 },
+      { version: "v9", users: 20 },
+    ],
+  },
+  {
+    browser: "FireFox",
+    color: "rgba(255, 26, 104, 1)",
+    users: 25,
+    marketshare: 24,
+    versionData: [
+      { version: "V3.1", users: 10 },
+      { version: "v3.2", users: 10 },
+      { version: "v3.3", users: 5 },
+    ],
+  },
+  {
+    browser: "Safari",
+    color: "rgba(54, 162, 235, 1)",
+    users: 30,
+    marketshare: 26,
+    versionData: [
+      { version: "Web 9", users: 10 },
+      { version: "Web 10", users: 10 },
+      { version: "Web 11", users: 10 },
+    ],
+  },
+];
+
 const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
 const data = {
   labels: labels,
   datasets: [
     {
-      label: "Red Bar",
-      data: [
-        [0, 12],
-        [0, 19],
-        [0, 3],
-        [0, 5],
-        [0, 2],
-        [0, 3],
+      label: "# of Votes",
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
       ],
-      backgroundColor: "rgba(255, 99, 132, 0.2)",
-      borderColor: "rgba(255, 99, 132, 1)",
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
       borderWidth: 3,
     },
-    {
-      label: "Arrow Bar",
-      data: [
-        [12, 19],
-        [19, 3],
-        [3, 5],
-        [5, 2],
-        [2, 3],
-        //[0, 3], //* No arrow there!
-      ],
-      backgroundColor: "rgba(0, 0, 0, 1)",
-      borderColor: "rgba(0, 0, 0, 1)",
-      barPercentage: 0.05,
-    },
   ],
-};
-
-// barGrowthIndicator plugin
-const barGrowthIndicator = {
-  id: "barGrowthIndicator",
-  afterDatasetsDraw(chart: {
-    getDatasetMeta(arg0: number): any;
-    _metasets: {
-      hidden: boolean;
-      _parsed: {
-        _custom: any;
-        y: number;
-      }[];
-    }[];
-    ctx?: any;
-    scales?: any;
-  }) {
-    const {
-      ctx,
-      scales: { x, y },
-    } = chart;
-
-    const deltaPercentage = [] as number[];
-
-    for (let i = 0; i < chart._metasets[0]._parsed.length - 1; i++) {
-      let z = 1 + i;
-      const basis = chart._metasets[0]._parsed[i].y;
-      const delta = chart._metasets[0]._parsed[z].y;
-      let percentage = (delta / basis) * 100;
-      // console.log({percentage})
-      percentage = percentage - 100;
-      deltaPercentage.push(Number(percentage.toFixed(2)));
-    }
-    // console.log({ deltaPercentage });
-    // console.log("chart:", chart);
-
-    // console.log("chart._metasets[1].hidden:", chart._metasets[1].hidden);
-    if (chart._metasets[1].hidden !== true) {
-      for (let a = 0; a < deltaPercentage.length; a++) {
-        const start = chart._metasets[1]._parsed[a]._custom.start;
-        const end = chart._metasets[1]._parsed[a]._custom.end;
-        // console.log({ start, end });
-
-        if (end >= start) {
-          // console.log("Positive number");
-          // Triangle
-          ctx.beginPath();
-          ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(1).data[a].y - 2);
-          ctx.lineTo(chart.getDatasetMeta(1).data[a].x - 5, chart.getDatasetMeta(1).data[a].y + 5);
-          ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(1).data[a].y + 5);
-          ctx.fillStyle = "green";
-          ctx.fill();
-          ctx.restore();
-
-          ctx.font = "10px Arial";
-          ctx.fillStyle = "green";
-          ctx.textAlign = "center";
-          ctx.fillText(
-            deltaPercentage[a] + "%",
-            chart.getDatasetMeta(1).data[a].x + 2.5,
-            chart.getDatasetMeta(1).data[a].y - 10
-          );
-          ctx.restore();
-        }
-
-        if (end < start) {
-          // console.log("Negative number");
-          // Triangle
-          let yStart = a + 1;
-          ctx.beginPath();
-          ctx.moveTo(chart.getDatasetMeta(1).data[a].x, chart.getDatasetMeta(0).data[yStart].y + 3);
-          ctx.lineTo(chart.getDatasetMeta(1).data[a].x - 5, chart.getDatasetMeta(0).data[yStart].y - 5);
-          ctx.lineTo(chart.getDatasetMeta(1).data[a].x + 5, chart.getDatasetMeta(0).data[yStart].y - 5);
-          ctx.fillStyle = "red";
-          ctx.fill();
-          ctx.restore();
-
-          ctx.font = "10px Arial";
-          ctx.fillStyle = "red";
-          ctx.textAlign = "center";
-          ctx.fillText(
-            deltaPercentage[a] + "%",
-            chart.getDatasetMeta(1).data[a].x + 2.5,
-            chart.getDatasetMeta(0).data[yStart].y + 12
-          );
-          ctx.restore();
-        }
-      }
-    }
-  },
 };
 
 const config = {
   type: "bar",
   data: data,
   options: {
-    plugins: {
-      tooltip: {
-        filter: (tooltipItem: { datasetIndex: number }) => {
-          // console.log({tooltipItem});
-          return tooltipItem.datasetIndex === 0;
-        },
-      },
-    },
     scales: {
       y: {
-        grace: "10%",
         beginAtZero: true,
       },
     },
   },
-  plugins: [barGrowthIndicator],
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
-
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 //- ------------------------------
 //* Default Code
 // const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
