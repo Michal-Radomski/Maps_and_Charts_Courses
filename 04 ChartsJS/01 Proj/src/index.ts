@@ -1865,8 +1865,6 @@ const browserData = [
   },
 ];
 
-const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-
 const data = {
   datasets: [
     {
