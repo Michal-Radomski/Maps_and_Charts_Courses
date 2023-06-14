@@ -1998,6 +1998,10 @@ function chargeChart(browser: number) {
 
 ctx.onclick = clickHandler;
 
+function resetChart() {
+  console.log("Update Chart Function");
+}
+
 function mousemoveHandler(canvas: HTMLCanvasElement, mousemove: MouseEvent) {
   // console.table(coordinates);
   const x = mousemove.offsetX;
@@ -2012,8 +2016,20 @@ function mousemoveHandler(canvas: HTMLCanvasElement, mousemove: MouseEvent) {
   }
 }
 
+function clickButtonHandler(click: MouseEvent) {
+  const x = click.offsetX;
+  const y = click.offsetY;
+  if (x > coordinates.left && x < coordinates.right && y > coordinates.top && y < coordinates.bottom) {
+    resetChart();
+  }
+}
+
 ctx.addEventListener("mousemove", (event: MouseEvent) => {
   mousemoveHandler(ctx, event);
+});
+
+ctx.addEventListener("click", (event: MouseEvent) => {
+  clickButtonHandler(event);
 });
 
 //- ------------------------------
