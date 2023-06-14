@@ -1901,6 +1901,7 @@ const resetButton = {
     const text = "Back";
     const thickBorder = 3;
     const textWidth = ctx.measureText(text).width;
+    // console.log({ textWidth });
     const padding = 10;
     const paddingright = padding / 2;
 
@@ -1910,13 +1911,15 @@ const resetButton = {
 
     // Text
     ctx.fillStyle = "#666";
-    ctx.font = "italic bold 1rem Arial";
+    ctx.font = "italic bold 0.75rem Arial";
     ctx.fillText(text, right - (textWidth + 2 + paddingright), 15);
 
     // Border button
     ctx.lineWidth = thickBorder;
     ctx.strokeStyle = "rgba(75, 192, 192, 1)";
     ctx.strokeRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
+
+    ctx.restore();
   },
 };
 
