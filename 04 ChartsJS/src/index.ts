@@ -1887,6 +1887,7 @@ const resetButton = {
     } = chart;
 
     ctx.save();
+    // console.log("ctx:", ctx);
 
     const text = "Back";
     const thickBorder = 3;
@@ -1900,7 +1901,7 @@ const resetButton = {
 
     // Text
     ctx.fillStyle = "#666";
-    ctx.font = "12px Arial";
+    ctx.font = "italic bold 12px Arial";
     ctx.fillText(text, right - (textWidth + 2 + paddingright), 15);
 
     // Border button
