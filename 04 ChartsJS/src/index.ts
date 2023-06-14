@@ -1,4 +1,4 @@
-import { ChartColor, ChartConfiguration, ChartPoint, Scriptable } from "chart.js";
+import { ChartConfiguration } from "chart.js";
 
 const { Chart } = window;
 // console.log("Chart:", Chart);
@@ -2030,27 +2030,32 @@ function mousemoveHandler(canvas: HTMLCanvasElement, mousemove: MouseEvent) {
   const y = mousemove.offsetY;
   // console.log({ x });
   // console.log({ y });
-
-  if (x > coordinates.left && x < coordinates.right && y > coordinates.top && y < coordinates.bottom) {
-    canvas.style.cursor = "pointer";
-  } else {
-    canvas.style.cursor = "default";
+  if (myChart.config.data!.datasets![0].label !== "Browser Data Market Share") {
+    if (x > coordinates.left && x < coordinates.right && y > coordinates.top && y < coordinates.bottom) {
+      canvas.style.cursor = "pointer";
+    } else {
+      canvas.style.cursor = "default";
+    }
   }
 }
 
 function clickButtonHandler(click: MouseEvent) {
   const x = click.offsetX;
   const y = click.offsetY;
-  if (x > coordinates.left && x < coordinates.right && y > coordinates.top && y < coordinates.bottom) {
-    resetChart();
+  if (myChart.config.data!.datasets![0].label !== "Browser Data Market Share") {
+    if (x > coordinates.left && x < coordinates.right && y > coordinates.top && y < coordinates.bottom) {
+      resetChart();
+    }
   }
 }
 
 ctx.addEventListener("mousemove", (event: MouseEvent) => {
+  myChart.resize();
   mousemoveHandler(ctx, event);
 });
 
 ctx.addEventListener("click", (event: MouseEvent) => {
+  myChart.resize();
   clickButtonHandler(event);
 });
 
