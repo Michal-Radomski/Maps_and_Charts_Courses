@@ -1889,43 +1889,46 @@ const coordinates = {
 // resetButton
 const resetButton = {
   id: "resetButton",
-  beforeDraw(chart: { ctx: any; chartArea: { right: number } }) {
-    const {
-      ctx,
-      chartArea: { right },
-    } = chart;
+  beforeDraw(chart: { data: any; ctx: any; chartArea: { right: number } }) {
+    if (chart.data.datasets[0].label !== "Browser Data Market Share") {
+      // console.log("chart,", chart);
+      const {
+        ctx,
+        chartArea: { right },
+      } = chart;
 
-    ctx.save();
-    // console.log("ctx:", ctx);
+      ctx.save();
+      // console.log("ctx:", ctx);
 
-    const text = "Back";
-    const thickBorder = 3;
-    const textWidth = ctx.measureText(text).width;
-    // console.log({ textWidth });
-    const padding = 10;
-    const paddingright = padding / 2;
+      const text = "Back";
+      const thickBorder = 3;
+      const textWidth = ctx.measureText(text).width;
+      // console.log({ textWidth });
+      const padding = 10;
+      const paddingright = padding / 2;
 
-    // Background
-    ctx.fillStyle = "rgba(75, 192, 192, 0.2)";
-    ctx.fillRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
+      // Background
+      ctx.fillStyle = "rgba(75, 192, 192, 0.2)";
+      ctx.fillRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
 
-    // Text
-    ctx.fillStyle = "#666";
-    ctx.font = "italic bold 0.75rem Arial";
-    ctx.fillText(text, right - (textWidth + 2 + paddingright), 15);
+      // Text
+      ctx.fillStyle = "#666";
+      ctx.font = "italic bold 0.75rem Arial";
+      ctx.fillText(text, right - (textWidth + 2 + paddingright), 15);
 
-    // Border button
-    ctx.lineWidth = thickBorder;
-    ctx.strokeStyle = "rgba(75, 192, 192, 1)";
-    ctx.strokeRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
+      // Border button
+      ctx.lineWidth = thickBorder;
+      ctx.strokeStyle = "rgba(75, 192, 192, 1)";
+      ctx.strokeRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
 
-    coordinates.top = 5 - thickBorder;
-    coordinates.bottom = 5 + 20 + thickBorder;
-    coordinates.left = right - (textWidth + 2 + padding);
-    coordinates.right = right;
-    // console.table(coordinates);
+      coordinates.top = 5 - thickBorder;
+      coordinates.bottom = 5 + 20 + thickBorder;
+      coordinates.left = right - (textWidth + 2 + padding);
+      coordinates.right = right;
+      // console.table(coordinates);
 
-    ctx.restore();
+      ctx.restore();
+    }
   },
 };
 
