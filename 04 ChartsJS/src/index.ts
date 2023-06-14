@@ -1919,6 +1919,12 @@ const resetButton = {
     ctx.strokeStyle = "rgba(75, 192, 192, 1)";
     ctx.strokeRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
 
+    coordinates.top = 5 - thickBorder;
+    coordinates.bottom = 5 + 20 + thickBorder;
+    coordinates.left = right - (textWidth + 2 + padding);
+    coordinates.right = right;
+    // console.table(coordinates);
+
     ctx.restore();
   },
 };
@@ -1993,6 +1999,7 @@ function chargeChart(browser: number) {
 ctx.onclick = clickHandler;
 
 function mousemoveHandler(canvas: HTMLCanvasElement, mousemove: MouseEvent) {
+  // console.table(coordinates);
   const x = mousemove.offsetX;
   const y = mousemove.offsetY;
   // console.log({ x });
