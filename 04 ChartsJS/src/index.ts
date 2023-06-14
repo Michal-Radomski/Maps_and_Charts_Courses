@@ -1903,11 +1903,13 @@ const ctx = document.getElementById("myChart") as HTMLCanvasElement;
 const myChart = new Chart(ctx, config as unknown as ChartConfiguration);
 
 function clickHandler(click: MouseEvent) {
-  // @ts-ignore
-  const bar = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
-  // console.log({ bar });
-  if (bar[0]) {
-    chargeChart(bar[0].index);
+  if (myChart.config.data!.datasets![0].label === "Browser Data Market Share") {
+    // @ts-ignore
+    const bar = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
+    // console.log({ bar });
+    if (bar[0]) {
+      chargeChart(bar[0].index);
+    }
   }
 }
 
