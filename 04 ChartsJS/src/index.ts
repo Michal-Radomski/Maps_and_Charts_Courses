@@ -1882,10 +1882,14 @@ const config = {
   data: data,
   options: {
     onHover: (event: { native: { target: { style: { cursor: string } } } }, chartElement: any[]) => {
-      // console.log({ event });
-      // console.log("chartElement[0]:", chartElement[0]);
-      // console.log("chartElement:", chartElement);
-      event.native.target.style.cursor = chartElement[0] ? "pointer" : "default";
+      if (myChart.config.data!.datasets![0].label === "Browser Data Market Share") {
+        // console.log({ event });
+        // console.log("chartElement[0]:", chartElement[0]);
+        // console.log("chartElement:", chartElement);
+        event.native.target.style.cursor = chartElement[0] ? "pointer" : "default";
+      } else {
+        event.native.target.style.cursor = "default";
+      }
     },
     parsing: {
       xAxisKey: "browser",
