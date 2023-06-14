@@ -1,4 +1,4 @@
-import { ChartConfiguration } from "chart.js";
+import { ChartColor, ChartConfiguration, ChartPoint, Scriptable } from "chart.js";
 
 const { Chart } = window;
 // console.log("Chart:", Chart);
@@ -1965,12 +1965,12 @@ function clickHandler(click: MouseEvent) {
     const bar = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
     // console.log({ bar });
     if (bar[0]) {
-      chargeChart(bar[0].index);
+      changeChart(bar[0].index);
     }
   }
 }
 
-function chargeChart(browser: number) {
+function changeChart(browser: number) {
   // console.log({ browser });
   // console.log(`${browser} -> grabbed from the ClickHandler`);
 
@@ -1999,7 +1999,26 @@ function chargeChart(browser: number) {
 ctx.onclick = clickHandler;
 
 function resetChart() {
-  console.log("Update Chart Function");
+  // console.log("Update Chart Function");
+  // @ts-ignore
+  myChart.config.options!.parsing.xAxisKey = "browser";
+  // @ts-ignore
+  myChart.config.options!.parsing.yAxisKey = "marketshare";
+
+  const bColor: string[] = [];
+  const bMarketshare: number[] = [];
+  const bLabel = browserData.map((browser) => {
+    bMarketshare.push(browser.marketshare);
+    bColor.push(browser.color);
+    return browser.browser;
+  });
+
+  myChart.config.data!.labels = bLabel;
+  myChart.config.data!.datasets![0].label = "Browser Data Market Share";
+  myChart.config.data!.datasets![0].data = bMarketshare;
+  myChart.config.data!.datasets![0].backgroundColor = bColor;
+  myChart.config.data!.datasets![0].borderColor = bColor;
+  myChart.update();
 }
 
 function mousemoveHandler(canvas: HTMLCanvasElement, mousemove: MouseEvent) {
