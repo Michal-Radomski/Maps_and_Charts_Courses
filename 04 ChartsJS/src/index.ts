@@ -1877,6 +1877,15 @@ const data = {
   ],
 };
 
+const coordinates = {
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+};
+// console.log("console.table(coordinates)");
+// console.table(coordinates);
+
 // resetButton
 const resetButton = {
   id: "resetButton",
@@ -1901,7 +1910,7 @@ const resetButton = {
 
     // Text
     ctx.fillStyle = "#666";
-    ctx.font = "italic bold 12px Arial";
+    ctx.font = "italic bold 1rem Arial";
     ctx.fillText(text, right - (textWidth + 2 + paddingright), 15);
 
     // Border button
@@ -1979,6 +1988,23 @@ function chargeChart(browser: number) {
 }
 
 ctx.onclick = clickHandler;
+
+function mousemoveHandler(canvas: HTMLCanvasElement, mousemove: MouseEvent) {
+  const x = mousemove.offsetX;
+  const y = mousemove.offsetY;
+  // console.log({ x });
+  // console.log({ y });
+
+  if (x > coordinates.left && x < coordinates.right && y > coordinates.top && y < coordinates.bottom) {
+    canvas.style.cursor = "pointer";
+  } else {
+    canvas.style.cursor = "default";
+  }
+}
+
+ctx.addEventListener("mousemove", (event: MouseEvent) => {
+  mousemoveHandler(ctx, event);
+});
 
 //- ------------------------------
 //* Default Code
