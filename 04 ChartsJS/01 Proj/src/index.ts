@@ -1911,8 +1911,28 @@ function clickHandler(click: MouseEvent) {
   }
 }
 
-function chargeChart(value: string) {
-  console.log(`${value} -> grabbed from the ClickHandler`);
+function chargeChart(browser: string) {
+  // console.log(`${browser} -> grabbed from the ClickHandler`);
+
+  //  @ts-ignore
+  myChart.config.options!.parsing.xAxisKey = "versionData.version";
+  // @ts-ignore
+  myChart.config.options!.parsing.yAxisKey = "versionData.users";
+
+  const vColor = [] as string[];
+  const vUsers = [] as number[];
+  const vLabel = browserData[browser as unknown as number].versionData.map((labels: { users: number; version: string }) => {
+    vUsers.push(labels.users);
+    vColor.push(browserData[browser as unknown as number].color);
+    return labels.version;
+  });
+
+  myChart.config.data!.labels = vLabel;
+  myChart.config.data!.datasets![0].label = browserData[browser as unknown as number].browser;
+  myChart.config.data!.datasets![0].data = vUsers;
+  myChart.config.data!.datasets![0].backgroundColor = vColor;
+  myChart.config.data!.datasets![0].borderColor = vColor;
+  myChart.update();
 }
 
 ctx.onclick = clickHandler;
