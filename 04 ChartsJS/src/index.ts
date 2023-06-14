@@ -1877,6 +1877,39 @@ const data = {
   ],
 };
 
+// resetButton
+const resetButton = {
+  id: "resetButton",
+  beforeDraw(chart: { ctx: any; chartArea: { right: number } }) {
+    const {
+      ctx,
+      chartArea: { right },
+    } = chart;
+
+    ctx.save();
+
+    const text = "Back";
+    const thickBorder = 3;
+    const textWidth = ctx.measureText(text).width;
+    const padding = 10;
+    const paddingright = padding / 2;
+
+    // Background
+    ctx.fillStyle = "rgba(75, 192, 192, 0.2)";
+    ctx.fillRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
+
+    // Text
+    ctx.fillStyle = "#666";
+    ctx.font = "12px Arial";
+    ctx.fillText(text, right - (textWidth + 2 + paddingright), 15);
+
+    // Border button
+    ctx.lineWidth = thickBorder;
+    ctx.strokeStyle = "rgba(75, 192, 192, 1)";
+    ctx.strokeRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
+  },
+};
+
 const config = {
   type: "bar",
   data: data,
@@ -1901,6 +1934,7 @@ const config = {
       },
     },
   },
+  plugins: [resetButton],
 };
 
 const ctx = document.getElementById("myChart") as HTMLCanvasElement;
