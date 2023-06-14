@@ -1911,7 +1911,8 @@ function clickHandler(click: MouseEvent) {
   }
 }
 
-function chargeChart(browser: string) {
+function chargeChart(browser: number) {
+  // console.log({ browser });
   // console.log(`${browser} -> grabbed from the ClickHandler`);
 
   //  @ts-ignore
@@ -1921,14 +1922,14 @@ function chargeChart(browser: string) {
 
   const vColor = [] as string[];
   const vUsers = [] as number[];
-  const vLabel = browserData[browser as unknown as number].versionData.map((labels: { users: number; version: string }) => {
+  const vLabel = browserData[browser].versionData.map((labels: { users: number; version: string }) => {
     vUsers.push(labels.users);
-    vColor.push(browserData[browser as unknown as number].color);
+    vColor.push(browserData[browser].color);
     return labels.version;
   });
 
   myChart.config.data!.labels = vLabel;
-  myChart.config.data!.datasets![0].label = browserData[browser as unknown as number].browser;
+  myChart.config.data!.datasets![0].label = browserData[browser].browser;
   myChart.config.data!.datasets![0].data = vUsers;
   myChart.config.data!.datasets![0].backgroundColor = vColor;
   myChart.config.data!.datasets![0].borderColor = vColor;
