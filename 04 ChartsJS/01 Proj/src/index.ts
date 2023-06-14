@@ -1926,7 +1926,8 @@ function chargeChart(browser: number) {
     vUsers.push(labels.users);
     vColor.push(browserData[browser].color);
     return labels.version;
-  });
+  }) as string[];
+  // console.log({ vColor, vUsers, vLabel });
 
   myChart.config.data!.labels = vLabel;
   myChart.config.data!.datasets![0].label = browserData[browser].browser;
