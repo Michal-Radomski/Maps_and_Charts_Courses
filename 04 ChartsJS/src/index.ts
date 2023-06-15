@@ -2184,8 +2184,28 @@ const data = {
   ],
 };
 
+// statusChecker plugin
+const statusChecker = {
+  id: "statusChecker",
+  beforeDatasetsDraw(chart: { ctx: any }) {
+    const { ctx } = chart;
+
+    ctx.save();
+
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "rgba(255, 99, 132, 1)";
+    ctx.moveTo(10, 10);
+    ctx.lineTo(100, 10);
+    ctx.stroke();
+    ctx.closePath();
+    ctx.restore();
+  },
+};
+
+// config block
 const config = {
-  type: "bar",
+  type: "line",
   data: data,
   options: {
     scales: {
@@ -2194,6 +2214,7 @@ const config = {
       },
     },
   },
+  plugins: [statusChecker],
 };
 
 new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
