@@ -2187,23 +2187,30 @@ const data = {
 // statusChecker plugin
 const statusChecker = {
   id: "statusChecker",
-  beforeDatasetsDraw(chart: { ctx: any }) {
-    const { ctx } = chart;
+  beforeDatasetsDraw(chart: { ctx: any; chartArea: { left: number; right: number }; scales: { x: any; y: any } }) {
+    const {
+      ctx,
+      chartArea: { left, right },
+      scales: { y },
+    } = chart;
 
     ctx.save();
+    drawLines(12, "rgba(255, 99, 132, 1)");
+    drawLines(4, "rgba(255, 206, 86, 1)");
 
-    ctx.beginPath();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "rgba(255, 99, 132, 1)";
-    ctx.moveTo(10, 10);
-    ctx.lineTo(100, 10);
-    ctx.stroke();
-    ctx.closePath();
-    ctx.restore();
+    function drawLines(yValue: number, color: string) {
+      ctx.beginPath();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = color;
+      ctx.moveTo(left, y.getPixelForValue(yValue));
+      ctx.lineTo(right, y.getPixelForValue(yValue));
+      ctx.stroke();
+      ctx.closePath();
+      ctx.restore();
+    }
   },
 };
 
-// config block
 const config = {
   type: "line",
   data: data,
@@ -2217,7 +2224,7 @@ const config = {
   plugins: [statusChecker],
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //- ------------------------------
 
