@@ -2196,7 +2196,7 @@ const statusChecker = {
 
     ctx.save();
     drawLines(12, "rgba(255, 99, 132, 1)");
-    drawLines(4, "rgba(255, 206, 86, 1)");
+    drawLines(3.5, "rgba(255, 206, 86, 1)");
 
     function drawLines(yValue: number, color: string) {
       ctx.beginPath();
@@ -2208,6 +2208,7 @@ const statusChecker = {
       ctx.closePath();
       ctx.restore();
     }
+    tracker();
   },
 };
 
@@ -2224,7 +2225,23 @@ const config = {
   plugins: [statusChecker],
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
+const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
+
+function tracker() {
+  const dataPoints = myChart.data.datasets![0].data as number[];
+
+  const dataPointsLength = myChart.data.datasets![0].data!.length - 1;
+  // console.log({ dataPoints, dataPointsLength });
+  const status = document.getElementById("status") as HTMLSpanElement;
+
+  if (dataPoints![dataPointsLength] > 12) {
+    status.innerText = "Danger";
+  } else if (dataPoints![dataPointsLength] < 3.5) {
+    status.innerText = "Please Reset System";
+  } else {
+    status.innerText = "Success";
+  }
+}
 
 //- ------------------------------
 
