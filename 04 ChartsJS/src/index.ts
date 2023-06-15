@@ -2116,19 +2116,19 @@ const hoverLabels = {
     ctx.save();
 
     if (chart._active[0]) {
-      console.log("chart._active[0]:", chart._active[0]);
-      console.log("chart.config.data.labels[chart._active[0].index]:", chart.config.data.labels[chart._active[0].index]);
-      console.log(
-        "chart.config.data.datasets[chart._active[0].datasetIndex].borderColor[chart._active[0].index]:",
-        chart.config.data.datasets[chart._active[0].datasetIndex].borderColor[chart._active[0].index]
-      );
-      console.log("chart._active[0].datasetIndex:", chart._active[0].datasetIndex);
-      console.log("chart._active[0].index:", chart._active[0].index);
+      // console.log("chart._active[0]:", chart._active[0]);
+      // console.log("chart.config.data.labels[chart._active[0].index]:", chart.config.data.labels[chart._active[0].index]);
+      // console.log(
+      //   "chart.config.data.datasets[chart._active[0].datasetIndex].borderColor[chart._active[0].index]:",
+      //   chart.config.data.datasets[chart._active[0].datasetIndex].borderColor[chart._active[0].index]
+      // );
+      // console.log("chart._active[0].datasetIndex:", chart._active[0].datasetIndex);
+      // console.log("chart._active[0].index:", chart._active[0].index);
 
       const textLabel = chart.config.data.labels[chart._active[0].index];
       const dataLabel = chart.config.data.datasets[chart._active[0].datasetIndex].data[chart._active[0].index];
       const color = chart.config.data.datasets[chart._active[0].datasetIndex].borderColor[chart._active[0].index];
-      console.log({ textLabel, dataLabel, color });
+      // console.log({ textLabel, dataLabel, color });
 
       ctx.font = "bolder 60px Arial";
       ctx.fillStyle = color;
