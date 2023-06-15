@@ -2093,24 +2093,38 @@ const data = {
 // hoverLabels plugin
 const hoverLabels = {
   id: "hoverLabels",
-  afterDraw(chart: { ctx: any }) {
-    const { ctx } = chart;
+  afterDatasetsDraw(chart: { _active?: any; ctx?: any; chartArea: { width: number; height: number } }) {
+    const {
+      ctx,
+      chartArea: { width, height },
+    } = chart;
     ctx.save();
 
-    ctx.font = "bolder 50px Arial";
-    ctx.fillStyle = "blue";
-    ctx.fillText("Hello", 10, 50);
+    if (chart._active[0]) {
+      // console.log("chart._active[0]:", chart._active[0]);
+
+      ctx.font = "bolder 60px Arial";
+      ctx.fillStyle = "blue";
+      ctx.textAlign = "center";
+      ctx.fillText("Hello Test", width / 2, height / 2 + 25);
+    }
   },
 };
 
 const config = {
   type: "doughnut",
   data: data,
-  options: {},
+  options: {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+  },
   plugins: [hoverLabels],
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //- ------------------------------
 
