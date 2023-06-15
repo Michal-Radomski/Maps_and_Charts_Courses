@@ -1827,239 +1827,293 @@ const { Chart } = window;
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //* Advanced Drill Down Bar Chart
-const browserData = [
-  {
-    browser: "Chrome",
-    color: "rgba(75, 192, 192, 1)",
-    users: 150,
-    marketshare: 70,
-    versionData: [
-      { version: "v5", users: 10 },
-      { version: "v6", users: 20 },
-      { version: "v7", users: 30 },
-      { version: "v8", users: 60 },
-      { version: "v9", users: 20 },
-    ],
-  },
-  {
-    browser: "FireFox",
-    color: "rgba(255, 26, 104, 1)",
-    users: 25,
-    marketshare: 24,
-    versionData: [
-      { version: "V3.1", users: 10 },
-      { version: "v3.2", users: 10 },
-      { version: "v3.3", users: 5 },
-    ],
-  },
-  {
-    browser: "Safari",
-    color: "rgba(54, 162, 235, 1)",
-    users: 30,
-    marketshare: 26,
-    versionData: [
-      { version: "Web 9", users: 10 },
-      { version: "Web 10", users: 10 },
-      { version: "Web 11", users: 10 },
-    ],
-  },
-];
+// const browserData = [
+//   {
+//     browser: "Chrome",
+//     color: "rgba(75, 192, 192, 1)",
+//     users: 150,
+//     marketshare: 70,
+//     versionData: [
+//       { version: "v5", users: 10 },
+//       { version: "v6", users: 20 },
+//       { version: "v7", users: 30 },
+//       { version: "v8", users: 60 },
+//       { version: "v9", users: 20 },
+//     ],
+//   },
+//   {
+//     browser: "FireFox",
+//     color: "rgba(255, 26, 104, 1)",
+//     users: 25,
+//     marketshare: 24,
+//     versionData: [
+//       { version: "V3.1", users: 10 },
+//       { version: "v3.2", users: 10 },
+//       { version: "v3.3", users: 5 },
+//     ],
+//   },
+//   {
+//     browser: "Safari",
+//     color: "rgba(54, 162, 235, 1)",
+//     users: 30,
+//     marketshare: 26,
+//     versionData: [
+//       { version: "Web 9", users: 10 },
+//       { version: "Web 10", users: 10 },
+//       { version: "Web 11", users: 10 },
+//     ],
+//   },
+// ];
+
+// const data = {
+//   datasets: [
+//     {
+//       label: "Browser Data Market Share",
+//       data: browserData,
+//       backgroundColor: [browserData[0].color, browserData[1].color, browserData[2].color],
+//       borderColor: [browserData[0].color, browserData[1].color, browserData[2].color],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// const coordinates = {
+//   top: 0,
+//   bottom: 0,
+//   left: 0,
+//   right: 0,
+// };
+// // console.log("console.table(coordinates)");
+// // console.table(coordinates);
+
+// // resetButton
+// const resetButton = {
+//   id: "resetButton",
+//   beforeDraw(chart: { data: any; ctx: any; chartArea: { right: number } }) {
+//     if (chart.data.datasets[0].label !== "Browser Data Market Share") {
+//       // console.log("chart,", chart);
+//       const {
+//         ctx,
+//         chartArea: { right },
+//       } = chart;
+
+//       ctx.save();
+//       // console.log("ctx:", ctx);
+
+//       const text = "Back";
+//       const thickBorder = 3;
+//       const textWidth = ctx.measureText(text).width;
+//       // console.log({ textWidth });
+//       const padding = 10;
+//       const paddingright = padding / 2;
+
+//       // Background
+//       ctx.fillStyle = "rgba(75, 192, 192, 0.2)";
+//       ctx.fillRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
+
+//       // Text
+//       ctx.fillStyle = "#666";
+//       ctx.font = "italic bold 0.75rem Arial";
+//       ctx.fillText(text, right - (textWidth + 2 + paddingright), 15);
+
+//       // Border button
+//       ctx.lineWidth = thickBorder;
+//       ctx.strokeStyle = "rgba(75, 192, 192, 1)";
+//       ctx.strokeRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
+
+//       coordinates.top = 5 - thickBorder;
+//       coordinates.bottom = 5 + 20 + thickBorder;
+//       coordinates.left = right - (textWidth + 2 + padding);
+//       coordinates.right = right;
+//       // console.table(coordinates);
+
+//       ctx.restore();
+//     }
+//   },
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     onHover: (event: { native: { target: { style: { cursor: string } } } }, chartElement: any[]) => {
+//       if (myChart.config.data!.datasets![0].label === "Browser Data Market Share") {
+//         // console.log({ event });
+//         // console.log("chartElement[0]:", chartElement[0]);
+//         // console.log("chartElement:", chartElement);
+//         event.native.target.style.cursor = chartElement[0] ? "pointer" : "default";
+//       } else {
+//         event.native.target.style.cursor = "default";
+//       }
+//     },
+//     parsing: {
+//       xAxisKey: "browser",
+//       yAxisKey: "marketshare",
+//     },
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+//   plugins: [resetButton],
+// };
+
+// const ctx = document.getElementById("myChart") as HTMLCanvasElement;
+// const myChart = new Chart(ctx, config as unknown as ChartConfiguration);
+
+// function clickHandler(click: MouseEvent) {
+//   if (myChart.config.data!.datasets![0].label === "Browser Data Market Share") {
+//     // @ts-ignore
+//     const bar = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
+//     // console.log({ bar });
+//     if (bar[0]) {
+//       changeChart(bar[0].index);
+//     }
+//   }
+// }
+
+// function changeChart(browser: number) {
+//   // console.log({ browser });
+//   // console.log(`${browser} -> grabbed from the ClickHandler`);
+
+//   //  @ts-ignore
+//   myChart.config.options!.parsing.xAxisKey = "versionData.version";
+//   // @ts-ignore
+//   myChart.config.options!.parsing.yAxisKey = "versionData.users";
+
+//   const vColor = [] as string[];
+//   const vUsers = [] as number[];
+//   const vLabel = browserData[browser].versionData.map((labels: { users: number; version: string }) => {
+//     vUsers.push(labels.users);
+//     vColor.push(browserData[browser].color);
+//     return labels.version;
+//   }) as string[];
+//   // console.log({ vColor, vUsers, vLabel });
+
+//   myChart.config.data!.labels = vLabel;
+//   myChart.config.data!.datasets![0].label = browserData[browser].browser;
+//   myChart.config.data!.datasets![0].data = vUsers;
+//   myChart.config.data!.datasets![0].backgroundColor = vColor;
+//   myChart.config.data!.datasets![0].borderColor = vColor;
+//   myChart.update();
+// }
+
+// ctx.onclick = clickHandler;
+
+// function resetChart() {
+//   // console.log("Update Chart Function");
+//   // @ts-ignore
+//   myChart.config.options!.parsing.xAxisKey = "browser";
+//   // @ts-ignore
+//   myChart.config.options!.parsing.yAxisKey = "marketshare";
+
+//   const bColor: string[] = [];
+//   const bMarketshare: number[] = [];
+//   const bLabel = browserData.map((browser) => {
+//     bMarketshare.push(browser.marketshare);
+//     bColor.push(browser.color);
+//     return browser.browser;
+//   });
+
+//   myChart.config.data!.labels = bLabel;
+//   myChart.config.data!.datasets![0].label = "Browser Data Market Share";
+//   myChart.config.data!.datasets![0].data = bMarketshare;
+//   myChart.config.data!.datasets![0].backgroundColor = bColor;
+//   myChart.config.data!.datasets![0].borderColor = bColor;
+//   myChart.update();
+// }
+
+// function mousemoveHandler(canvas: HTMLCanvasElement, mousemove: MouseEvent) {
+//   // console.table(coordinates);
+//   const x = mousemove.offsetX;
+//   const y = mousemove.offsetY;
+//   // console.log({ x });
+//   // console.log({ y });
+//   if (myChart.config.data!.datasets![0].label !== "Browser Data Market Share") {
+//     if (x > coordinates.left && x < coordinates.right && y > coordinates.top && y < coordinates.bottom) {
+//       canvas.style.cursor = "pointer";
+//     } else {
+//       canvas.style.cursor = "default";
+//     }
+//   }
+// }
+
+// function clickButtonHandler(click: MouseEvent) {
+//   const x = click.offsetX;
+//   const y = click.offsetY;
+//   if (myChart.config.data!.datasets![0].label !== "Browser Data Market Share") {
+//     if (x > coordinates.left && x < coordinates.right && y > coordinates.top && y < coordinates.bottom) {
+//       resetChart();
+//     }
+//   }
+// }
+
+// ctx.addEventListener("mousemove", (event: MouseEvent) => {
+//   myChart.resize();
+//   mousemoveHandler(ctx, event);
+// });
+
+// ctx.addEventListener("click", (event: MouseEvent) => {
+//   myChart.resize();
+//   clickButtonHandler(event);
+// });
+
+//* Doughnut Chart that display text In center onHover
+const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
 const data = {
+  labels: labels,
   datasets: [
     {
-      label: "Browser Data Market Share",
-      data: browserData,
-      backgroundColor: [browserData[0].color, browserData[1].color, browserData[2].color],
-      borderColor: [browserData[0].color, browserData[1].color, browserData[2].color],
+      label: "# of Votes",
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+      ],
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
       borderWidth: 3,
+      cutout: "90%",
     },
   ],
 };
 
-const coordinates = {
-  top: 0,
-  bottom: 0,
-  left: 0,
-  right: 0,
-};
-// console.log("console.table(coordinates)");
-// console.table(coordinates);
+// hoverLabels plugin
+const hoverLabels = {
+  id: "hoverLabels",
+  afterDraw(chart: { ctx: any }) {
+    const { ctx } = chart;
+    ctx.save();
 
-// resetButton
-const resetButton = {
-  id: "resetButton",
-  beforeDraw(chart: { data: any; ctx: any; chartArea: { right: number } }) {
-    if (chart.data.datasets[0].label !== "Browser Data Market Share") {
-      // console.log("chart,", chart);
-      const {
-        ctx,
-        chartArea: { right },
-      } = chart;
-
-      ctx.save();
-      // console.log("ctx:", ctx);
-
-      const text = "Back";
-      const thickBorder = 3;
-      const textWidth = ctx.measureText(text).width;
-      // console.log({ textWidth });
-      const padding = 10;
-      const paddingright = padding / 2;
-
-      // Background
-      ctx.fillStyle = "rgba(75, 192, 192, 0.2)";
-      ctx.fillRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
-
-      // Text
-      ctx.fillStyle = "#666";
-      ctx.font = "italic bold 0.75rem Arial";
-      ctx.fillText(text, right - (textWidth + 2 + paddingright), 15);
-
-      // Border button
-      ctx.lineWidth = thickBorder;
-      ctx.strokeStyle = "rgba(75, 192, 192, 1)";
-      ctx.strokeRect(right - (textWidth + 2 + padding), 5, textWidth + padding, 20);
-
-      coordinates.top = 5 - thickBorder;
-      coordinates.bottom = 5 + 20 + thickBorder;
-      coordinates.left = right - (textWidth + 2 + padding);
-      coordinates.right = right;
-      // console.table(coordinates);
-
-      ctx.restore();
-    }
+    ctx.font = "bolder 60px Arial";
+    ctx.fillStyle = "blue";
+    ctx.fillText("Hello Test", 10, 50);
   },
 };
 
 const config = {
-  type: "bar",
+  type: "doughnut",
   data: data,
-  options: {
-    onHover: (event: { native: { target: { style: { cursor: string } } } }, chartElement: any[]) => {
-      if (myChart.config.data!.datasets![0].label === "Browser Data Market Share") {
-        // console.log({ event });
-        // console.log("chartElement[0]:", chartElement[0]);
-        // console.log("chartElement:", chartElement);
-        event.native.target.style.cursor = chartElement[0] ? "pointer" : "default";
-      } else {
-        event.native.target.style.cursor = "default";
-      }
-    },
-    parsing: {
-      xAxisKey: "browser",
-      yAxisKey: "marketshare",
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  },
-  plugins: [resetButton],
+  options: {},
+  plugins: [hoverLabels],
 };
 
-const ctx = document.getElementById("myChart") as HTMLCanvasElement;
-const myChart = new Chart(ctx, config as unknown as ChartConfiguration);
-
-function clickHandler(click: MouseEvent) {
-  if (myChart.config.data!.datasets![0].label === "Browser Data Market Share") {
-    // @ts-ignore
-    const bar = myChart.getElementsAtEventForMode(click, "nearest", { intersect: true }, true);
-    // console.log({ bar });
-    if (bar[0]) {
-      changeChart(bar[0].index);
-    }
-  }
-}
-
-function changeChart(browser: number) {
-  // console.log({ browser });
-  // console.log(`${browser} -> grabbed from the ClickHandler`);
-
-  //  @ts-ignore
-  myChart.config.options!.parsing.xAxisKey = "versionData.version";
-  // @ts-ignore
-  myChart.config.options!.parsing.yAxisKey = "versionData.users";
-
-  const vColor = [] as string[];
-  const vUsers = [] as number[];
-  const vLabel = browserData[browser].versionData.map((labels: { users: number; version: string }) => {
-    vUsers.push(labels.users);
-    vColor.push(browserData[browser].color);
-    return labels.version;
-  }) as string[];
-  // console.log({ vColor, vUsers, vLabel });
-
-  myChart.config.data!.labels = vLabel;
-  myChart.config.data!.datasets![0].label = browserData[browser].browser;
-  myChart.config.data!.datasets![0].data = vUsers;
-  myChart.config.data!.datasets![0].backgroundColor = vColor;
-  myChart.config.data!.datasets![0].borderColor = vColor;
-  myChart.update();
-}
-
-ctx.onclick = clickHandler;
-
-function resetChart() {
-  // console.log("Update Chart Function");
-  // @ts-ignore
-  myChart.config.options!.parsing.xAxisKey = "browser";
-  // @ts-ignore
-  myChart.config.options!.parsing.yAxisKey = "marketshare";
-
-  const bColor: string[] = [];
-  const bMarketshare: number[] = [];
-  const bLabel = browserData.map((browser) => {
-    bMarketshare.push(browser.marketshare);
-    bColor.push(browser.color);
-    return browser.browser;
-  });
-
-  myChart.config.data!.labels = bLabel;
-  myChart.config.data!.datasets![0].label = "Browser Data Market Share";
-  myChart.config.data!.datasets![0].data = bMarketshare;
-  myChart.config.data!.datasets![0].backgroundColor = bColor;
-  myChart.config.data!.datasets![0].borderColor = bColor;
-  myChart.update();
-}
-
-function mousemoveHandler(canvas: HTMLCanvasElement, mousemove: MouseEvent) {
-  // console.table(coordinates);
-  const x = mousemove.offsetX;
-  const y = mousemove.offsetY;
-  // console.log({ x });
-  // console.log({ y });
-  if (myChart.config.data!.datasets![0].label !== "Browser Data Market Share") {
-    if (x > coordinates.left && x < coordinates.right && y > coordinates.top && y < coordinates.bottom) {
-      canvas.style.cursor = "pointer";
-    } else {
-      canvas.style.cursor = "default";
-    }
-  }
-}
-
-function clickButtonHandler(click: MouseEvent) {
-  const x = click.offsetX;
-  const y = click.offsetY;
-  if (myChart.config.data!.datasets![0].label !== "Browser Data Market Share") {
-    if (x > coordinates.left && x < coordinates.right && y > coordinates.top && y < coordinates.bottom) {
-      resetChart();
-    }
-  }
-}
-
-ctx.addEventListener("mousemove", (event: MouseEvent) => {
-  myChart.resize();
-  mousemoveHandler(ctx, event);
-});
-
-ctx.addEventListener("click", (event: MouseEvent) => {
-  myChart.resize();
-  clickButtonHandler(event);
-});
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
 //- ------------------------------
+
 //* Default Code
 // const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
