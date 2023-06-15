@@ -2097,9 +2097,9 @@ const hoverLabels = {
     const { ctx } = chart;
     ctx.save();
 
-    ctx.font = "bolder 60px Arial";
+    ctx.font = "bolder 50px Arial";
     ctx.fillStyle = "blue";
-    ctx.fillText("Hello Test", 10, 50);
+    ctx.fillText("Hello", 10, 50);
   },
 };
 
