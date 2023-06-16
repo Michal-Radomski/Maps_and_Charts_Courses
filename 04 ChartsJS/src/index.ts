@@ -1,4 +1,4 @@
-import { ChartConfiguration } from "chart.js";
+import { ChartConfiguration, ChartPoint } from "chart.js";
 
 const { Chart } = window;
 // console.log("Chart:", Chart);
@@ -2241,6 +2241,14 @@ function tracker() {
   } else {
     status.innerText = "Success";
   }
+}
+
+function addValue(element: { value: string }) {
+  // console.log("element:", element);
+  // console.log("element.value:", element.value);
+  myChart.data.datasets![0].data!.push(Number(element.value));
+  myChart.data.labels!.push(`New Value: ${element.value}`);
+  myChart.update();
 }
 
 //- ------------------------------
