@@ -2236,20 +2236,23 @@ function tracker() {
 
   if (dataPoints![dataPointsLength] > 12) {
     status.innerText = "Danger";
+    status.style.color = "red";
   } else if (dataPoints![dataPointsLength] < 3.5) {
     status.innerText = "Please Reset System";
+    status.style.color = "orange";
   } else {
     status.innerText = "Success";
+    status.style.color = "green";
   }
 }
 
-function addValue(element: { value: string }) {
+const addValue = (element: { value: string }) => {
   // console.log("element:", element);
   // console.log("element.value:", element.value);
   myChart.data.datasets![0].data!.push(Number(element.value));
   myChart.data.labels!.push(`New Value: ${element.value}`);
   myChart.update();
-}
+};
 
 //- ------------------------------
 
