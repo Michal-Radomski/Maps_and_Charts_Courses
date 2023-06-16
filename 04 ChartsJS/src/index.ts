@@ -1,4 +1,4 @@
-import { ChartConfiguration, ChartPoint } from "chart.js";
+import { ChartConfiguration } from "chart.js";
 
 const { Chart } = window;
 // console.log("Chart:", Chart);
@@ -2155,6 +2155,106 @@ const { Chart } = window;
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //* Create an Indicator Tracker in Chart.js
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// // statusChecker plugin
+// const statusChecker = {
+//   id: "statusChecker",
+//   beforeDatasetsDraw(chart: { ctx: any; chartArea: { left: number; right: number }; scales: { x: any; y: any } }) {
+//     const {
+//       ctx,
+//       chartArea: { left, right },
+//       scales: { y },
+//     } = chart;
+
+//     ctx.save();
+//     drawLines(12, "rgba(255, 99, 132, 1)");
+//     drawLines(3.5, "rgba(255, 206, 86, 1)");
+
+//     function drawLines(yValue: number, color: string) {
+//       ctx.beginPath();
+//       ctx.lineWidth = 3;
+//       ctx.strokeStyle = color;
+//       ctx.moveTo(left, y.getPixelForValue(yValue));
+//       ctx.lineTo(right, y.getPixelForValue(yValue));
+//       ctx.stroke();
+//       ctx.closePath();
+//       ctx.restore();
+//     }
+//     tracker();
+//   },
+// };
+
+// const config = {
+//   type: "line",
+//   data: data,
+//   options: {
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+//   plugins: [statusChecker],
+// };
+
+// const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
+
+// function tracker() {
+//   const dataPoints = myChart.data.datasets![0].data as number[];
+
+//   const dataPointsLength = myChart.data.datasets![0].data!.length - 1;
+//   // console.log({ dataPoints, dataPointsLength });
+//   const status = document.getElementById("status") as HTMLSpanElement;
+
+//   if (dataPoints![dataPointsLength] > 12) {
+//     status.innerText = "Danger";
+//     status.style.color = "red";
+//   } else if (dataPoints![dataPointsLength] < 3.5) {
+//     status.innerText = "Please Reset System";
+//     status.style.color = "orange";
+//   } else {
+//     status.innerText = "Success";
+//     status.style.color = "green";
+//   }
+// }
+
+// const addValue = (element: { value: string }) => {
+//   // console.log("element:", element);
+//   // console.log("element.value:", element.value);
+//   myChart.data.datasets![0].data!.push(Number(element.value));
+//   myChart.data.labels!.push(`New Value: ${element.value}`);
+//   myChart.update();
+// };
+
+//* Create a Crosshair in Chart.js
 const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
 const data = {
@@ -2184,36 +2284,8 @@ const data = {
   ],
 };
 
-// statusChecker plugin
-const statusChecker = {
-  id: "statusChecker",
-  beforeDatasetsDraw(chart: { ctx: any; chartArea: { left: number; right: number }; scales: { x: any; y: any } }) {
-    const {
-      ctx,
-      chartArea: { left, right },
-      scales: { y },
-    } = chart;
-
-    ctx.save();
-    drawLines(12, "rgba(255, 99, 132, 1)");
-    drawLines(3.5, "rgba(255, 206, 86, 1)");
-
-    function drawLines(yValue: number, color: string) {
-      ctx.beginPath();
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = color;
-      ctx.moveTo(left, y.getPixelForValue(yValue));
-      ctx.lineTo(right, y.getPixelForValue(yValue));
-      ctx.stroke();
-      ctx.closePath();
-      ctx.restore();
-    }
-    tracker();
-  },
-};
-
 const config = {
-  type: "line",
+  type: "bar",
   data: data,
   options: {
     scales: {
@@ -2222,37 +2294,9 @@ const config = {
       },
     },
   },
-  plugins: [statusChecker],
 };
 
-const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
-
-function tracker() {
-  const dataPoints = myChart.data.datasets![0].data as number[];
-
-  const dataPointsLength = myChart.data.datasets![0].data!.length - 1;
-  // console.log({ dataPoints, dataPointsLength });
-  const status = document.getElementById("status") as HTMLSpanElement;
-
-  if (dataPoints![dataPointsLength] > 12) {
-    status.innerText = "Danger";
-    status.style.color = "red";
-  } else if (dataPoints![dataPointsLength] < 3.5) {
-    status.innerText = "Please Reset System";
-    status.style.color = "orange";
-  } else {
-    status.innerText = "Success";
-    status.style.color = "green";
-  }
-}
-
-const addValue = (element: { value: string }) => {
-  // console.log("element:", element);
-  // console.log("element.value:", element.value);
-  myChart.data.datasets![0].data!.push(Number(element.value));
-  myChart.data.labels!.push(`New Value: ${element.value}`);
-  myChart.update();
-};
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
 //- ------------------------------
 
