@@ -12,7 +12,9 @@ const data = {
       borderColor: ["rgba(255, 99, 132, 1)"],
       borderWidth: 3,
       circumference: (ctx: { dataset: { data: number[] } }) => {
-        return (ctx.dataset.data[0] / 12) * 270;
+        console.log("ctx:", ctx);
+        // return (ctx.dataset.data[0] / 12) * 270;
+        return (ctx.dataset.data[0] / 12) * 360;
       },
     },
     {
@@ -22,7 +24,8 @@ const data = {
       borderColor: ["rgba(54, 162, 235, 1)"],
       borderWidth: 3,
       circumference: (ctx: { dataset: { data: number[] } }) => {
-        return (ctx.dataset.data[0] / 12) * 270;
+        // return (ctx.dataset.data[0] / 12) * 270;
+        return (ctx.dataset.data[0] / 12) * 360;
       },
     },
     {
@@ -32,7 +35,8 @@ const data = {
       borderColor: ["rgba(255, 159, 64, 1)"],
       borderWidth: 3,
       circumference: (ctx: { dataset: { data: number[] } }) => {
-        return (ctx.dataset.data[0] / 12) * 270;
+        // return (ctx.dataset.data[0] / 12) * 270;
+        return (ctx.dataset.data[0] / 12) * 360;
       },
     },
   ],
