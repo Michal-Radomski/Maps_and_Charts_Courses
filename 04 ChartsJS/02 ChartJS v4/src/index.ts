@@ -61,17 +61,19 @@ const barLabels = {
     ctx.save();
     // console.log("chart.getDatasetMeta(0).data:", chart.getDatasetMeta(0).data);
 
-    const xCoor = chart.getDatasetMeta(0).data[0].x;
-    const yCoor = chart.getDatasetMeta(0).data[0].y;
-    const innerRadius = chart.getDatasetMeta(0).data[0].innerRadius;
-    const outerRadius = chart.getDatasetMeta(0).data[0].outerRadius;
-    const thickness = outerRadius - innerRadius;
-    // console.log({thickness});
     ctx.font = "bold 12px sans-serif";
-    ctx.fillStyle = "black";
     ctx.textAlign = "right";
     ctx.textBaseline = "middle";
-    ctx.fillText("Red", xCoor - 5, yCoor - innerRadius - thickness / 2);
+
+    for (let i = 0; i < data.datasets.length; i++) {
+      const xCoor = chart.getDatasetMeta(i).data[0].x;
+      const yCoor = chart.getDatasetMeta(i).data[0].y;
+      const innerRadius = chart.getDatasetMeta(i).data[0].innerRadius;
+      const outerRadius = chart.getDatasetMeta(i).data[0].outerRadius;
+      const thickness = outerRadius - innerRadius;
+      ctx.fillStyle = data.datasets[i].borderColor;
+      ctx.fillText(data.datasets[i].label, xCoor - 5, yCoor - innerRadius - thickness / 2);
+    }
   },
 };
 
