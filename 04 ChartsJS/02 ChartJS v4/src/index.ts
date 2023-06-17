@@ -133,8 +133,8 @@ const verticalBackground = {
     chart: {
       data: any;
       ctx: any;
-      chartArea: { top: number; width: number; height: number };
-      scales: { x: any };
+      chartArea: { width: number; height: number; left: number };
+      scales: { y: any };
     },
     _args: any,
     plugins: { barBackground: string }
@@ -142,20 +142,20 @@ const verticalBackground = {
     const {
       data,
       ctx,
-      chartArea: { top, width, height },
-      scales: { x },
+      chartArea: { width, left, height },
+      scales: { y },
     } = chart;
     // console.log({ x });
     const barPercentage = data.datasets[0].barPercentage || 0.9;
     const categoryPercentage = data.datasets[0].categoryPercentage || 0.8;
-    const barWidth = (width / data.labels.length) * barPercentage * categoryPercentage;
+    const barWidth = (height / data.labels.length) * barPercentage * categoryPercentage;
     ctx.save();
 
     ctx.fillStyle = plugins.barBackground || "lightgrey";
     data.labels.forEach((_label: string, index: number) => {
       // console.log({ _label });
-      const xCoor = x.getPixelForValue(index);
-      ctx.fillRect(xCoor - barWidth / 2, top, barWidth, height);
+      const yCoor = y.getPixelForValue(index);
+      ctx.fillRect(left, yCoor - barWidth / 2, width, barWidth);
     });
   },
 };
@@ -164,6 +164,7 @@ const config = {
   type: "bar",
   data: data,
   options: {
+    indexAxis: "y",
     scales: {
       y: {
         beginAtZero: true,
@@ -171,7 +172,7 @@ const config = {
     },
     plugins: {
       verticalBackground: {
-        // barBackground: "black",
+        // barBackground: 'black'
       },
     },
   },
