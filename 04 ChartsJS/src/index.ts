@@ -2296,7 +2296,20 @@ const config = {
   },
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+
+function crosshair(chart: Chart, mousemove: MouseEvent) {
+  // console.log("chart:", chart);
+  console.log("mousemove:", mousemove);
+  const xCoor = mousemove.offsetX;
+  const yCoor = mousemove.offsetY;
+  // console.log({ xCoor });
+  // console.log({ yCoor });
+}
+
+myChart.canvas!.addEventListener("mousemove", (event: MouseEvent) => {
+  crosshair(myChart, event);
+});
 
 //- ------------------------------
 
