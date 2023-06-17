@@ -2353,10 +2353,10 @@ function crosshair(chart: Chart, mousemove: MouseEvent) {
     ctx!.fillText(labelText.toFixed(2), left / 2, yCoor);
     ctx!.restore();
 
-    // Bottom rect
+    // Bottom rectangle
     const bottomLabel = data.labels[x.getValueForPixel(xCoor)];
     const bottomLabelWidth = ctx!.measureText(bottomLabel).width + 12;
-    console.log(bottomLabelWidth);
+    // console.log("bottomLabelWidth:", bottomLabelWidth);
     ctx!.beginPath();
     ctx!.fillStyle = "rgba(102, 102, 102, 1)";
     ctx!.fillRect(xCoor - bottomLabelWidth / 2, bottom, bottomLabelWidth, LABEL_HEIGHT);
