@@ -81,6 +81,8 @@ const config = {
   type: "doughnut",
   data: data,
   options: {
+    borderRadius: 10,
+    cutout: "67%",
     plugins: {
       legend: {
         display: false,
