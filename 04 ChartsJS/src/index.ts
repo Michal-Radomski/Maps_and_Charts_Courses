@@ -2305,6 +2305,30 @@ function crosshair(chart: Chart, mousemove: MouseEvent) {
   const yCoor = mousemove.offsetY;
   // console.log({ xCoor });
   // console.log({ yCoor });
+
+  const {
+    ctx,
+    chartArea: { top, bottom },
+    // @ts-ignore
+    scales: { x, y },
+  } = chart;
+
+  ctx!.strokeStyle = "rgba(102, 102, 102, 1)";
+  ctx!.lineWidth = 2;
+
+  // let left = xCoor,
+  //   right = xCoor;
+  // ctx!.beginPath();
+  // ctx!.moveTo(left, yCoor);
+  // ctx!.lineTo(right, yCoor);
+  // ctx!.stroke();
+  // ctx!.closePath();
+
+  ctx!.beginPath();
+  ctx!.moveTo(xCoor, top);
+  ctx!.lineTo(xCoor, bottom);
+  ctx!.stroke();
+  ctx!.closePath();
 }
 
 myChart.canvas!.addEventListener("mousemove", (event: MouseEvent) => {
