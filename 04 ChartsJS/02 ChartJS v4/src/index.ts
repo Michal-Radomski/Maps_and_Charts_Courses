@@ -124,6 +124,30 @@ const data = {
   ],
 };
 
+// verticalBackground plugin
+const verticalBackground = {
+  id: "verticalBackground",
+  beforeDatasetsDraw(chart: {
+    data: any;
+    ctx: any;
+    chartArea: { top: number; bottom: number; left: number; right: number; width: number; height: number };
+    scales: { x: any; y: any };
+  }) {
+    const {
+      data,
+      ctx,
+      chartArea: { top, bottom, left, right, width, height },
+      scales: { x, y },
+    } = chart;
+    const barPercentage = data.datasets[0].barPercentage || 0.9;
+    const categoryPercentage = data.datasets[0].categoryPercentage || 0.8;
+    const barWidth = (width / data.labels.length) * barPercentage * categoryPercentage;
+    ctx.save();
+    const xCoor = x.getPixelForValue(0);
+    ctx.fillRect(xCoor - barWidth / 2, top, barWidth, height);
+  },
+};
+
 const config = {
   type: "bar",
   data: data,
@@ -134,9 +158,10 @@ const config = {
       },
     },
   },
+  plugins: [verticalBackground],
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //- -------------------------------------------------
 
