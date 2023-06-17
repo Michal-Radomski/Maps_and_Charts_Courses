@@ -2435,15 +2435,20 @@ const roundedProgressBar = {
       ctx,
       data,
       // @ts-ignore
-      chartArea: { height },
+      chartArea: { top, height },
       // @ts-ignore
       scales: { x, y },
     } = chart;
 
     ctx!.save();
-
     const segmentHeight = height / data.labels!.length;
     // console.log({ segmentHeight });
+
+    chart.getDatasetMeta(0).data.forEach((dataPoint, index) => {
+      // @ts-ignore
+      dataPoint.y = top + segmentHeight * (index + 0.9);
+      // console.log({ dataPoint });
+    });
   },
 };
 
