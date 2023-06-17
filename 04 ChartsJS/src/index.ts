@@ -2418,7 +2418,7 @@ const data = {
         "rgba(153, 102, 255, 0.2)",
         "rgba(255, 159, 64, 0.2)",
       ],
-      borderWidth: 3,
+      borderWidth: 1,
       barPercentage: 0.1,
       borderSkipped: false,
       borderRadius: 10,
@@ -2448,6 +2448,13 @@ const roundedProgressBar = {
       // @ts-ignore
       dataPoint.y = top + segmentHeight * (index + 0.9);
       // console.log({ dataPoint });
+
+      // Label text
+      ctx!.font = "12px sans-serif";
+      ctx!.fillStyle = "rgba(102, 102, 102, 1)";
+      ctx!.textBaseline = "middle";
+      // @ts-ignore
+      ctx!.fillText(data.labels[index], left, dataPoint.y - 15);
 
       // Background shadow
       ctx!.beginPath();
