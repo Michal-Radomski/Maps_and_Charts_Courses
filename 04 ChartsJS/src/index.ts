@@ -2300,7 +2300,7 @@ const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElemen
 
 function crosshair(chart: Chart, mousemove: MouseEvent) {
   // console.log("chart:", chart);
-  console.log("mousemove:", mousemove);
+  // console.log("mousemove:", mousemove);
   const xCoor = mousemove.offsetX;
   const yCoor = mousemove.offsetY;
   // console.log({ xCoor });
@@ -2308,7 +2308,7 @@ function crosshair(chart: Chart, mousemove: MouseEvent) {
 
   const {
     ctx,
-    chartArea: { top, bottom },
+    chartArea: { top, bottom, left, right },
     // @ts-ignore
     scales: { x, y },
   } = chart;
@@ -2324,11 +2324,17 @@ function crosshair(chart: Chart, mousemove: MouseEvent) {
   // ctx!.stroke();
   // ctx!.closePath();
 
-  ctx!.beginPath();
-  ctx!.moveTo(xCoor, top);
-  ctx!.lineTo(xCoor, bottom);
-  ctx!.stroke();
-  ctx!.closePath();
+  if (xCoor >= left && xCoor <= right && yCoor >= top && yCoor <= bottom) {
+    lines(left, yCoor, right, yCoor);
+    lines(xCoor, top, xCoor, bottom);
+    function lines(xStart: number, yStart: number, xEnd: number, yEnd: number) {
+      ctx!.beginPath();
+      ctx!.moveTo(xStart, yStart);
+      ctx!.lineTo(xEnd, yEnd);
+      ctx!.stroke();
+      ctx!.closePath();
+    }
+  }
 }
 
 myChart.canvas!.addEventListener("mousemove", (event: MouseEvent) => {
