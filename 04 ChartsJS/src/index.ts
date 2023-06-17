@@ -2290,6 +2290,11 @@ const config = {
   type: "line",
   data: data,
   options: {
+    layout: {
+      padding: {
+        left: 12,
+      },
+    },
     plugins: {
       tooltip: {
         enabled: false,
