@@ -146,17 +146,25 @@ const verticalBackground = {
       scales: { y },
     } = chart;
     // console.log({ x });
+
     const barPercentage = data.datasets[0].barPercentage || 0.9;
     const categoryPercentage = data.datasets[0].categoryPercentage || 0.8;
-    const barWidth = (height / data.labels.length) * barPercentage * categoryPercentage;
+
+    const displayDataPoints = y.max - y.min + 1 || data.labels.length;
+    const barWidth = (height / displayDataPoints) * barPercentage * categoryPercentage;
     ctx.save();
 
     ctx.fillStyle = plugins.barBackground || "lightgrey";
-    data.labels.forEach((_label: string, index: number) => {
-      // console.log({ _label });
-      const yCoor = y.getPixelForValue(index);
+    for (let i = y.min; i <= displayDataPoints; i++) {
+      const yCoor = y.getPixelForValue(i);
       ctx.fillRect(left, yCoor - barWidth / 2, width, barWidth);
-    });
+    }
+
+    // data.labels.forEach((_label: string, index: number) => {
+    //   // console.log({ _label });
+    //   const yCoor = y.getPixelForValue(index);
+    //   ctx.fillRect(left, yCoor - barWidth / 2, width, barWidth);
+    // });
   },
 };
 
@@ -167,6 +175,8 @@ const config = {
     indexAxis: "y",
     scales: {
       y: {
+        min: 1,
+        max: 6,
         beginAtZero: true,
       },
     },
