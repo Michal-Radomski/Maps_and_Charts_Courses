@@ -2255,7 +2255,14 @@ const { Chart } = window;
 // };
 
 //* Create a Crosshair in Chart.js
-const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+const labels = [
+  new Date("2023-06-01").setHours(0, 0, 0, 0),
+  new Date("2023-06-02").setHours(0, 0, 0, 0),
+  new Date("2023-06-03").setHours(0, 0, 0, 0),
+  new Date("2023-06-04").setHours(0, 0, 0, 0),
+  new Date("2023-06-05").setHours(0, 0, 0, 0),
+  new Date("2023-06-06").setHours(0, 0, 0, 0),
+];
 
 const data = {
   labels: labels,
@@ -2287,6 +2294,12 @@ const config = {
       },
     },
     scales: {
+      x: {
+        type: "time",
+        time: {
+          unit: "day",
+        },
+      },
       y: {
         beginAtZero: true,
       },
@@ -2354,7 +2367,11 @@ function crosshair(chart: Chart, mousemove: MouseEvent) {
     ctx!.restore();
 
     // Bottom rectangle
-    const bottomLabel = data.labels[x.getValueForPixel(xCoor)];
+    const bottomLabel = new Date(x.getValueForPixel(xCoor)).toLocaleString("pl-PL", {
+      day: "numeric",
+      month: "long",
+      weekday: "short",
+    });
     const bottomLabelWidth = ctx!.measureText(bottomLabel).width + 12;
     // console.log("bottomLabelWidth:", bottomLabelWidth);
     ctx!.beginPath();
