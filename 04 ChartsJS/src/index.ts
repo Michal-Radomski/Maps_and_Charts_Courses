@@ -2340,9 +2340,22 @@ function crosshair(chart: Chart, mousemove: MouseEvent) {
       ctx!.beginPath();
       ctx!.moveTo(xStart, yStart);
       ctx!.lineTo(xEnd, yEnd);
+      ctx!.setLineDash([6, 6]);
       ctx!.stroke();
       ctx!.closePath();
+      ctx!.setLineDash([]);
     }
+    ctx!.beginPath();
+    const LABEL_HEIGHT = 24;
+    ctx!.fillStyle = "rgba(102, 102, 102, 1)";
+    ctx!.fillRect(0, yCoor - LABEL_HEIGHT / 2, left, LABEL_HEIGHT);
+
+    const labelText = y.getValueForPixel(yCoor);
+    ctx!.font = "bold 12px sans-serif";
+    ctx!.textAlign = "center";
+    ctx!.textBaseline = "middle";
+    ctx!.fillStyle = "white";
+    ctx!.fillText(labelText.toFixed(2), left / 2, yCoor);
   }
 }
 
