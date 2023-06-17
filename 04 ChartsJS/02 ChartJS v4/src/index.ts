@@ -120,6 +120,8 @@ const data = {
         "rgba(255, 159, 64, 1)",
       ],
       borderWidth: 3,
+      barPercentage: 0.5,
+      categoryPercentage: 0.8,
     },
   ],
 };
@@ -127,12 +129,16 @@ const data = {
 // verticalBackground plugin
 const verticalBackground = {
   id: "verticalBackground",
-  beforeDatasetsDraw(chart: {
-    data: any;
-    ctx: any;
-    chartArea: { top: number; width: number; height: number };
-    scales: { x: any };
-  }) {
+  beforeDatasetsDraw(
+    chart: {
+      data: any;
+      ctx: any;
+      chartArea: { top: number; width: number; height: number };
+      scales: { x: any };
+    },
+    _args: any,
+    plugins: { barBackground: string }
+  ) {
     const {
       data,
       ctx,
@@ -145,7 +151,7 @@ const verticalBackground = {
     const barWidth = (width / data.labels.length) * barPercentage * categoryPercentage;
     ctx.save();
 
-    ctx.fillStyle = "lightgrey";
+    ctx.fillStyle = plugins.barBackground || "lightgrey";
     data.labels.forEach((_label: string, index: number) => {
       // console.log({ _label });
       const xCoor = x.getPixelForValue(index);
@@ -161,6 +167,11 @@ const config = {
     scales: {
       y: {
         beginAtZero: true,
+      },
+    },
+    plugins: {
+      verticalBackground: {
+        // barBackground: "black",
       },
     },
   },
