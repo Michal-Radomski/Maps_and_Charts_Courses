@@ -53,6 +53,28 @@ const data = {
   ],
 };
 
+// barLabels plugin
+const barLabels = {
+  id: "barLabels",
+  beforeDatasetsDraw(chart: { getDatasetMeta?: any; ctx?: any; data?: any }) {
+    const { ctx, data } = chart;
+    ctx.save();
+    // console.log("chart.getDatasetMeta(0).data:", chart.getDatasetMeta(0).data);
+
+    const xCoor = chart.getDatasetMeta(0).data[0].x;
+    const yCoor = chart.getDatasetMeta(0).data[0].y;
+    const innerRadius = chart.getDatasetMeta(0).data[0].innerRadius;
+    const outerRadius = chart.getDatasetMeta(0).data[0].outerRadius;
+    const thickness = outerRadius - innerRadius;
+    // console.log({thickness});
+    ctx.font = "bold 12px sans-serif";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    ctx.fillText("Red", xCoor - 5, yCoor - innerRadius - thickness / 2);
+  },
+};
+
 const config = {
   type: "doughnut",
   data: data,
@@ -63,6 +85,7 @@ const config = {
       },
     },
   },
+  plugins: [barLabels],
 };
 
 new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
