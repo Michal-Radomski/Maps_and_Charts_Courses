@@ -2255,14 +2255,146 @@ const { Chart } = window;
 // };
 
 //* Create a Crosshair in Chart.js
-const labels = [
-  new Date("2023-06-01").setHours(0, 0, 0, 0),
-  new Date("2023-06-02").setHours(0, 0, 0, 0),
-  new Date("2023-06-03").setHours(0, 0, 0, 0),
-  new Date("2023-06-04").setHours(0, 0, 0, 0),
-  new Date("2023-06-05").setHours(0, 0, 0, 0),
-  new Date("2023-06-06").setHours(0, 0, 0, 0),
-];
+// const labels = [
+//   new Date("2023-06-01").setHours(0, 0, 0, 0),
+//   new Date("2023-06-02").setHours(0, 0, 0, 0),
+//   new Date("2023-06-03").setHours(0, 0, 0, 0),
+//   new Date("2023-06-04").setHours(0, 0, 0, 0),
+//   new Date("2023-06-05").setHours(0, 0, 0, 0),
+//   new Date("2023-06-06").setHours(0, 0, 0, 0),
+// ];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+//       borderColor: ["rgba(255, 99, 132, 1)"],
+//       borderWidth: 3,
+//       hitRadius: 0,
+//       pointRadius: 0,
+//     },
+//   ],
+// };
+
+// const config = {
+//   type: "line",
+//   data: data,
+//   options: {
+//     layout: {
+//       padding: {
+//         left: 12,
+//       },
+//     },
+//     plugins: {
+//       tooltip: {
+//         enabled: false,
+//       },
+//     },
+//     scales: {
+//       x: {
+//         type: "time",
+//         time: {
+//           unit: "day",
+//         },
+//       },
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// };
+
+// const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+
+// function crosshair(chart: Chart, mousemove: MouseEvent) {
+//   // @ts-ignore
+//   chart.update("none");
+//   // console.log("chart:", chart);
+//   // console.log("mousemove:", mousemove);
+//   const xCoor = mousemove.offsetX;
+//   const yCoor = mousemove.offsetY;
+//   // console.log({ xCoor });
+//   // console.log({ yCoor });
+
+//   const {
+//     ctx,
+//     chartArea: { top, bottom, left, right },
+//     // @ts-ignore
+//     scales: { x, y },
+//   } = chart;
+
+//   // let left = xCoor,
+//   //   right = xCoor;
+//   // ctx!.beginPath();
+//   // ctx!.moveTo(left, yCoor);
+//   // ctx!.lineTo(right, yCoor);
+//   // ctx!.stroke();
+//   // ctx!.closePath();
+
+//   ctx!.save();
+
+//   if (xCoor >= left && xCoor <= right && yCoor >= top && yCoor <= bottom) {
+//     lines(left, yCoor, right, yCoor);
+//     lines(xCoor, top, xCoor, bottom);
+//     function lines(xStart: number, yStart: number, xEnd: number, yEnd: number) {
+//       ctx!.beginPath();
+//       ctx!.strokeStyle = "rgba(102, 102, 102, 1)";
+//       ctx!.lineWidth = 2;
+//       ctx!.moveTo(xStart, yStart);
+//       ctx!.lineTo(xEnd, yEnd);
+//       ctx!.setLineDash([6, 6]);
+//       ctx!.stroke();
+//       ctx!.closePath();
+//       ctx!.restore();
+//       ctx!.setLineDash([]);
+//     }
+
+//     ctx!.beginPath();
+//     const LABEL_HEIGHT = 24;
+//     ctx!.fillStyle = "rgba(102, 102, 102, 1)";
+//     ctx!.fillRect(0, yCoor - LABEL_HEIGHT / 2, left, LABEL_HEIGHT);
+//     ctx!.restore();
+
+//     const labelText = y.getValueForPixel(yCoor);
+//     ctx!.font = "bold 12px sans-serif";
+//     ctx!.textAlign = "center";
+//     ctx!.textBaseline = "middle";
+//     ctx!.fillStyle = "white";
+//     ctx!.fillText(labelText.toFixed(2), left / 2, yCoor);
+//     ctx!.restore();
+
+//     // Bottom rectangle
+//     const bottomLabel = new Date(x.getValueForPixel(xCoor)).toLocaleString("pl-PL", {
+//       day: "numeric",
+//       month: "long",
+//       weekday: "short",
+//     });
+//     const bottomLabelWidth = ctx!.measureText(bottomLabel).width + 12;
+//     // console.log("bottomLabelWidth:", bottomLabelWidth);
+//     ctx!.beginPath();
+//     ctx!.fillStyle = "rgba(102, 102, 102, 1)";
+//     ctx!.fillRect(xCoor - bottomLabelWidth / 2, bottom, bottomLabelWidth, LABEL_HEIGHT);
+//     ctx!.restore();
+
+//     // Bottom text
+//     ctx!.font = "bold 12px sans-serif";
+//     ctx!.textAlign = "center";
+//     ctx!.textBaseline = "middle";
+//     ctx!.fillStyle = "white";
+//     ctx!.fillText(bottomLabel, xCoor, bottom + LABEL_HEIGHT / 2);
+//     ctx!.restore();
+//   }
+// }
+
+// myChart.canvas!.addEventListener("mousemove", (event: MouseEvent) => {
+//   crosshair(myChart, event);
+// });
+
+//* Progress Bar Chart in Chart.js
+const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
 const data = {
   labels: labels,
@@ -2270,36 +2402,42 @@ const data = {
     {
       label: "# of Votes",
       data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-      borderColor: ["rgba(255, 99, 132, 1)"],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(255, 206, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+      ],
+      borderColor: [
+        "rgba(255, 99, 132, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(255, 206, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(255, 159, 64, 1)",
+      ],
       borderWidth: 3,
-      hitRadius: 0,
-      pointRadius: 0,
+      barPercentage: 0.1,
+      borderSkipped: false,
+      borderRadius: 10,
+      categoryPercentage: 0.8,
     },
   ],
 };
 
 const config = {
-  type: "line",
+  type: "bar",
   data: data,
   options: {
-    layout: {
-      padding: {
-        left: 12,
-      },
-    },
+    indexAxis: "y",
     plugins: {
-      tooltip: {
-        enabled: false,
+      legend: {
+        display: false,
       },
     },
     scales: {
-      x: {
-        type: "time",
-        time: {
-          unit: "day",
-        },
-      },
       y: {
         beginAtZero: true,
       },
@@ -2307,91 +2445,7 @@ const config = {
   },
 };
 
-const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
-
-function crosshair(chart: Chart, mousemove: MouseEvent) {
-  // @ts-ignore
-  chart.update("none");
-  // console.log("chart:", chart);
-  // console.log("mousemove:", mousemove);
-  const xCoor = mousemove.offsetX;
-  const yCoor = mousemove.offsetY;
-  // console.log({ xCoor });
-  // console.log({ yCoor });
-
-  const {
-    ctx,
-    chartArea: { top, bottom, left, right },
-    // @ts-ignore
-    scales: { x, y },
-  } = chart;
-
-  // let left = xCoor,
-  //   right = xCoor;
-  // ctx!.beginPath();
-  // ctx!.moveTo(left, yCoor);
-  // ctx!.lineTo(right, yCoor);
-  // ctx!.stroke();
-  // ctx!.closePath();
-
-  ctx!.save();
-
-  if (xCoor >= left && xCoor <= right && yCoor >= top && yCoor <= bottom) {
-    lines(left, yCoor, right, yCoor);
-    lines(xCoor, top, xCoor, bottom);
-    function lines(xStart: number, yStart: number, xEnd: number, yEnd: number) {
-      ctx!.beginPath();
-      ctx!.strokeStyle = "rgba(102, 102, 102, 1)";
-      ctx!.lineWidth = 2;
-      ctx!.moveTo(xStart, yStart);
-      ctx!.lineTo(xEnd, yEnd);
-      ctx!.setLineDash([6, 6]);
-      ctx!.stroke();
-      ctx!.closePath();
-      ctx!.restore();
-      ctx!.setLineDash([]);
-    }
-
-    ctx!.beginPath();
-    const LABEL_HEIGHT = 24;
-    ctx!.fillStyle = "rgba(102, 102, 102, 1)";
-    ctx!.fillRect(0, yCoor - LABEL_HEIGHT / 2, left, LABEL_HEIGHT);
-    ctx!.restore();
-
-    const labelText = y.getValueForPixel(yCoor);
-    ctx!.font = "bold 12px sans-serif";
-    ctx!.textAlign = "center";
-    ctx!.textBaseline = "middle";
-    ctx!.fillStyle = "white";
-    ctx!.fillText(labelText.toFixed(2), left / 2, yCoor);
-    ctx!.restore();
-
-    // Bottom rectangle
-    const bottomLabel = new Date(x.getValueForPixel(xCoor)).toLocaleString("pl-PL", {
-      day: "numeric",
-      month: "long",
-      weekday: "short",
-    });
-    const bottomLabelWidth = ctx!.measureText(bottomLabel).width + 12;
-    // console.log("bottomLabelWidth:", bottomLabelWidth);
-    ctx!.beginPath();
-    ctx!.fillStyle = "rgba(102, 102, 102, 1)";
-    ctx!.fillRect(xCoor - bottomLabelWidth / 2, bottom, bottomLabelWidth, LABEL_HEIGHT);
-    ctx!.restore();
-
-    // Bottom text
-    ctx!.font = "bold 12px sans-serif";
-    ctx!.textAlign = "center";
-    ctx!.textBaseline = "middle";
-    ctx!.fillStyle = "white";
-    ctx!.fillText(bottomLabel, xCoor, bottom + LABEL_HEIGHT / 2);
-    ctx!.restore();
-  }
-}
-
-myChart.canvas!.addEventListener("mousemove", (event: MouseEvent) => {
-  crosshair(myChart, event);
-});
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //- ------------------------------
 
