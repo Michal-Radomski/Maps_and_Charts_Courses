@@ -2280,14 +2280,21 @@ const data = {
         "rgba(255, 159, 64, 1)",
       ],
       borderWidth: 3,
+      hitRadius: 0,
+      pointRadius: 0,
     },
   ],
 };
 
 const config = {
-  type: "bar",
+  type: "line",
   data: data,
   options: {
+    plugins: {
+      tooltip: {
+        enabled: false,
+      },
+    },
     scales: {
       y: {
         beginAtZero: true,
@@ -2299,6 +2306,8 @@ const config = {
 const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
 function crosshair(chart: Chart, mousemove: MouseEvent) {
+  // @ts-ignore
+  chart.update("none");
   // console.log("chart:", chart);
   // console.log("mousemove:", mousemove);
   const xCoor = mousemove.offsetX;
