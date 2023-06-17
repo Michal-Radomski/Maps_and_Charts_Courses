@@ -2343,6 +2343,7 @@ function crosshair(chart: Chart, mousemove: MouseEvent) {
     const LABEL_HEIGHT = 24;
     ctx!.fillStyle = "rgba(102, 102, 102, 1)";
     ctx!.fillRect(0, yCoor - LABEL_HEIGHT / 2, left, LABEL_HEIGHT);
+    ctx!.restore();
 
     const labelText = y.getValueForPixel(yCoor);
     ctx!.font = "bold 12px sans-serif";
@@ -2350,6 +2351,24 @@ function crosshair(chart: Chart, mousemove: MouseEvent) {
     ctx!.textBaseline = "middle";
     ctx!.fillStyle = "white";
     ctx!.fillText(labelText.toFixed(2), left / 2, yCoor);
+    ctx!.restore();
+
+    // Bottom rect
+    const bottomLabel = data.labels[x.getValueForPixel(xCoor)];
+    const bottomLabelWidth = ctx!.measureText(bottomLabel).width + 12;
+    console.log(bottomLabelWidth);
+    ctx!.beginPath();
+    ctx!.fillStyle = "rgba(102, 102, 102, 1)";
+    ctx!.fillRect(xCoor - bottomLabelWidth / 2, bottom, bottomLabelWidth, LABEL_HEIGHT);
+    ctx!.restore();
+
+    // Bottom text
+    ctx!.font = "bold 12px sans-serif";
+    ctx!.textAlign = "center";
+    ctx!.textBaseline = "middle";
+    ctx!.fillStyle = "white";
+    ctx!.fillText(bottomLabel, xCoor, bottom + LABEL_HEIGHT / 2);
+    ctx!.restore();
   }
 }
 
