@@ -7,25 +7,32 @@ const data = {
   datasets: [
     {
       label: "Red",
-      data: [12],
+      data: [15],
       backgroundColor: ["rgba(255, 99, 132, 0.2)"],
       borderColor: ["rgba(255, 99, 132, 1)"],
       borderWidth: 3,
-      circumference: (ctx: { dataset: { data: number[] } }) => {
-        console.log("ctx:", ctx);
-        // return (ctx.dataset.data[0] / 12) * 270;
-        return (ctx.dataset.data[0] / 12) * 360;
+      circumference: (ctx: { chart: { data: { datasets: any[] } }; dataset: { data: number[] } }) => {
+        const datapoints = ctx.chart.data.datasets.map((dataset, _index) => {
+          return dataset.data[0];
+        });
+        const maxValue = Math.max(...datapoints);
+        // return (ctx.dataset.data[0] / maxValue) * 270;
+        return (ctx.dataset.data[0] / maxValue) * 360;
       },
     },
     {
       label: "Blue",
-      data: [9],
+      data: [30],
       backgroundColor: ["rgba(54, 162, 235, 0.2)"],
       borderColor: ["rgba(54, 162, 235, 1)"],
       borderWidth: 3,
-      circumference: (ctx: { dataset: { data: number[] } }) => {
-        // return (ctx.dataset.data[0] / 12) * 270;
-        return (ctx.dataset.data[0] / 12) * 360;
+      circumference: (ctx: { chart: { data: { datasets: any[] } }; dataset: { data: number[] } }) => {
+        const datapoints = ctx.chart.data.datasets.map((dataset, _index) => {
+          return dataset.data[0];
+        });
+        const maxValue = Math.max(...datapoints);
+        // return (ctx.dataset.data[0] / maxValue) * 270;
+        return (ctx.dataset.data[0] / maxValue) * 360;
       },
     },
     {
@@ -34,9 +41,13 @@ const data = {
       backgroundColor: ["rgba(255, 159, 64, 0.2)"],
       borderColor: ["rgba(255, 159, 64, 1)"],
       borderWidth: 3,
-      circumference: (ctx: { dataset: { data: number[] } }) => {
-        // return (ctx.dataset.data[0] / 12) * 270;
-        return (ctx.dataset.data[0] / 12) * 360;
+      circumference: (ctx: { chart: { data: { datasets: any[] } }; dataset: { data: number[] } }) => {
+        const datapoints = ctx.chart.data.datasets.map((dataset, _index) => {
+          return dataset.data[0];
+        });
+        const maxValue = Math.max(...datapoints);
+        // return (ctx.dataset.data[0] / maxValue) * 270;
+        return (ctx.dataset.data[0] / maxValue) * 360;
       },
     },
   ],
