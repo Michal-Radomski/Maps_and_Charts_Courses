@@ -2263,22 +2263,8 @@ const data = {
     {
       label: "# of Votes",
       data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
+      backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+      borderColor: ["rgba(255, 99, 132, 1)"],
       borderWidth: 3,
       hitRadius: 0,
       pointRadius: 0,
@@ -2327,9 +2313,6 @@ function crosshair(chart: Chart, mousemove: MouseEvent) {
     scales: { x, y },
   } = chart;
 
-  ctx!.strokeStyle = "rgba(102, 102, 102, 1)";
-  ctx!.lineWidth = 2;
-
   // let left = xCoor,
   //   right = xCoor;
   // ctx!.beginPath();
@@ -2338,18 +2321,24 @@ function crosshair(chart: Chart, mousemove: MouseEvent) {
   // ctx!.stroke();
   // ctx!.closePath();
 
+  ctx!.save();
+
   if (xCoor >= left && xCoor <= right && yCoor >= top && yCoor <= bottom) {
     lines(left, yCoor, right, yCoor);
     lines(xCoor, top, xCoor, bottom);
     function lines(xStart: number, yStart: number, xEnd: number, yEnd: number) {
       ctx!.beginPath();
+      ctx!.strokeStyle = "rgba(102, 102, 102, 1)";
+      ctx!.lineWidth = 2;
       ctx!.moveTo(xStart, yStart);
       ctx!.lineTo(xEnd, yEnd);
       ctx!.setLineDash([6, 6]);
       ctx!.stroke();
       ctx!.closePath();
+      ctx!.restore();
       ctx!.setLineDash([]);
     }
+
     ctx!.beginPath();
     const LABEL_HEIGHT = 24;
     ctx!.fillStyle = "rgba(102, 102, 102, 1)";
