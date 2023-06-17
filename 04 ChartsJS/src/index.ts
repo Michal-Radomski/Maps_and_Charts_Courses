@@ -2453,10 +2453,11 @@ const roundedProgressBar = {
       ctx!.font = "12px sans-serif";
       ctx!.fillStyle = "rgba(102, 102, 102, 1)";
       ctx!.textBaseline = "middle";
+      ctx!.textAlign = "left";
       // @ts-ignore
       ctx!.fillText(data.labels[index], left, dataPoint.y - 15);
 
-      // text value
+      // Text value
       ctx!.font = "bold 15px sans-serif";
       //  @ts-ignore
       ctx!.fillStyle = dataPoint.options.backgroundColor;
@@ -2476,6 +2477,8 @@ const roundedProgressBar = {
       ctx!.lineWidth = dataPoint.height;
       // @ts-ignore
       ctx!.strokeRect(left + dataPoint.height / 2, dataPoint.y, width - dataPoint.height, 1);
+
+      ctx!.restore();
     });
   },
 };
@@ -2491,8 +2494,24 @@ const config = {
       },
     },
     scales: {
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          display: false,
+        },
+      },
       y: {
         beginAtZero: true,
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          display: false,
+        },
       },
     },
   },
