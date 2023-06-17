@@ -130,21 +130,27 @@ const verticalBackground = {
   beforeDatasetsDraw(chart: {
     data: any;
     ctx: any;
-    chartArea: { top: number; bottom: number; left: number; right: number; width: number; height: number };
-    scales: { x: any; y: any };
+    chartArea: { top: number; width: number; height: number };
+    scales: { x: any };
   }) {
     const {
       data,
       ctx,
-      chartArea: { top, bottom, left, right, width, height },
-      scales: { x, y },
+      chartArea: { top, width, height },
+      scales: { x },
     } = chart;
+    // console.log({ x });
     const barPercentage = data.datasets[0].barPercentage || 0.9;
     const categoryPercentage = data.datasets[0].categoryPercentage || 0.8;
     const barWidth = (width / data.labels.length) * barPercentage * categoryPercentage;
     ctx.save();
-    const xCoor = x.getPixelForValue(0);
-    ctx.fillRect(xCoor - barWidth / 2, top, barWidth, height);
+
+    ctx.fillStyle = "lightgrey";
+    data.labels.forEach((_label: string, index: number) => {
+      // console.log({ _label });
+      const xCoor = x.getPixelForValue(index);
+      ctx.fillRect(xCoor - barWidth / 2, top, barWidth, height);
+    });
   },
 };
 
