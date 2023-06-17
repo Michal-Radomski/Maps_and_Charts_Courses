@@ -2427,6 +2427,26 @@ const data = {
   ],
 };
 
+// roundedProgressBar plugin
+const roundedProgressBar = {
+  id: "roundedProgressBar",
+  beforeDatasetsDraw(chart: Chart) {
+    const {
+      ctx,
+      data,
+      // @ts-ignore
+      chartArea: { height },
+      // @ts-ignore
+      scales: { x, y },
+    } = chart;
+
+    ctx!.save();
+
+    const segmentHeight = height / data.labels!.length;
+    // console.log({ segmentHeight });
+  },
+};
+
 const config = {
   type: "bar",
   data: data,
@@ -2443,6 +2463,7 @@ const config = {
       },
     },
   },
+  plugins: [roundedProgressBar],
 };
 
 new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
