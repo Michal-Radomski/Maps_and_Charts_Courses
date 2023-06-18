@@ -390,10 +390,9 @@ const { Chart } = window;
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //* Radial Bar Chart with Label Scale
-const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-
+const val = 20;
 const data = {
-  labels: labels,
+  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
   datasets: [
     {
       label: "# of Votes",
@@ -401,13 +400,21 @@ const data = {
       backgroundColor: ["rgba(255, 99, 132, 0.2)"],
       borderColor: ["rgba(255, 99, 132, 1)"],
       borderWidth: 2,
+      circumference: (ctx: { dataset: { data: number[] } }) => {
+        console.log({ ctx });
+        return (ctx.dataset.data[0] / val) * 270;
+      },
     },
     {
       label: "# of Votes",
-      data: [15],
+      data: [val],
       backgroundColor: ["rgba(54, 162, 235, 0.2)"],
       borderColor: ["rgba(54, 162, 235, 1)"],
       borderWidth: 2,
+      circumference: (ctx: { dataset: { data: number[] } }) => {
+        console.log({ ctx });
+        return (ctx.dataset.data[0] / val) * 270;
+      },
     },
     {
       label: "# of Votes",
@@ -415,6 +422,10 @@ const data = {
       backgroundColor: ["rgba(255, 159, 64, 0.2)"],
       borderColor: ["rgba(255, 159, 64, 1)"],
       borderWidth: 2,
+      circumference: (ctx: { dataset: { data: number[] } }) => {
+        console.log({ ctx });
+        return (ctx.dataset.data[0] / val) * 270;
+      },
     },
   ],
 };
