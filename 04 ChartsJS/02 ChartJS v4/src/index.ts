@@ -390,7 +390,7 @@ const { Chart } = window;
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //* Radial Bar Chart with Label Scale
-const val = 20;
+const val = 21;
 const data = {
   // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
   datasets: [
@@ -468,6 +468,9 @@ const radialScale = {
     });
     const max = Math.max(...dataPoints);
     // console.log({ max });
+    const increment = max / 6;
+    const labelArray = Array.from({ length: 7 }, (_, index) => increment * index);
+    // console.log({ labelArray });
   },
 };
 
