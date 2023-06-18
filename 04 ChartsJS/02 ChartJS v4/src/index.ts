@@ -249,7 +249,10 @@ const noData = {
 
       if (datapoint === null) {
         ctx.fillStyle = "rgba(102, 102, 102, 0.2)";
+        ctx.strokeStyle = "rgba(102, 102, 102, 1)";
+        ctx.lineWidth = 1;
         ctx.fillRect(x.getPixelForValue(index) - segment / 2, top, segment, height);
+        ctx.strokeRect(x.getPixelForValue(index) - segment / 2, top, segment, height);
 
         ctx.rotate(90 * angle);
         ctx.font = "bold 20px sans-serif";
