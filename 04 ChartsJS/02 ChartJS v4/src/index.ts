@@ -324,10 +324,10 @@ const sliceThickness = {
       chartArea: { top, bottom, left, right, width, height },
     } = chart;
 
-    console.log(`Center: ${chart.getDatasetMeta(0).data[0].x}`);
-    console.log(`InnerRadius: ${chart.getDatasetMeta(0).data[0].innerRadius}`);
-    console.log(`OuterRadius: ${chart.getDatasetMeta(0).data[0].outerRadius}`);
-    console.log(`Width: ${width}`);
+    // console.log(`Center: ${chart.getDatasetMeta(0).data[0].x}`);
+    // console.log(`InnerRadius: ${chart.getDatasetMeta(0).data[0].innerRadius}`);
+    // console.log(`OuterRadius: ${chart.getDatasetMeta(0).data[0].outerRadius}`);
+    // console.log(`Width: ${width}`);
   },
 };
 
