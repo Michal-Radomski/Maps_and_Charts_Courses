@@ -314,6 +314,23 @@ const data = {
   ],
 };
 
+// sliceThickness plugin
+const sliceThickness = {
+  id: "sliceThickness",
+  beforeDraw(chart: any) {
+    const {
+      ctx,
+      data,
+      chartArea: { top, bottom, left, right, width, height },
+    } = chart;
+
+    console.log(`Center: ${chart.getDatasetMeta(0).data[0].x}`);
+    console.log(`InnerRadius: ${chart.getDatasetMeta(0).data[0].innerRadius}`);
+    console.log(`OuterRadius: ${chart.getDatasetMeta(0).data[0].outerRadius}`);
+    console.log(`Width: ${width}`);
+  },
+};
+
 // textLabel plugin
 const textLabel = {
   id: "textLabel",
@@ -352,7 +369,7 @@ const config = {
       },
     },
   },
-  plugins: [textLabel],
+  plugins: [textLabel, sliceThickness],
 };
 
 new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
