@@ -500,6 +500,9 @@ const config = {
   type: "doughnut",
   data: data,
   options: {
+    layout: {
+      padding: 30,
+    },
     borderRadius: 10,
     plugins: {
       legend: {
