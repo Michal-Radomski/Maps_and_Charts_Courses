@@ -458,6 +458,19 @@ const labelsRadialBar = {
   },
 };
 
+const radialScale = {
+  id: "radialScale",
+  afterDatasetsDraw(chart: { data: any }) {
+    const { data } = chart;
+
+    const dataPoints = data.datasets.map((dataset: { data: number[] }) => {
+      return dataset.data[0];
+    });
+    const max = Math.max(...dataPoints);
+    // console.log({ max });
+  },
+};
+
 const config = {
   type: "doughnut",
   data: data,
@@ -472,7 +485,7 @@ const config = {
       },
     },
   },
-  plugins: [labelsRadialBar],
+  plugins: [labelsRadialBar, radialScale],
 };
 
 new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
