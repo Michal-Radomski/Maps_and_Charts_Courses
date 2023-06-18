@@ -555,7 +555,7 @@ chartVersion.innerText = Chart.version;
 
 //* Customize the Scale with Two Date Labels
 const data = {
-  labels: ["2023-01-01", "2023-02-01", "2023-03-01", "2023-04-01", "2023-05-01"],
+  labels: ["2023-01-01", "2023-02-01", "2023-03-01", "2023-04-01", "2023-05-01", "2023-05-19"],
   datasets: [
     {
       label: "# of Votes",
@@ -576,12 +576,11 @@ const data = {
         "rgba(153, 102, 255, 1)",
         "rgba(255, 159, 64, 1)",
       ],
-      borderWidth: 1,
+      borderWidth: 3,
     },
   ],
 };
 
-// config block
 const config = {
   type: "bar",
   data: data,
@@ -591,6 +590,24 @@ const config = {
         type: "time",
         time: {
           unit: "day",
+          displayFormats: {
+            day: "eeeeee",
+          },
+        },
+        min: "2022-12-28",
+        max: "2023-06-01",
+        ticks: {
+          maxRotation: 0,
+          autoSkip: false,
+          font: {
+            weight: "bold",
+          },
+        },
+        border: {
+          width: 3,
+        },
+        grid: {
+          display: false,
         },
       },
       y: {
