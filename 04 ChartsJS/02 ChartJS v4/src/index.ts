@@ -192,6 +192,99 @@ const { Chart } = window;
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //* No Data Block for Bar Chart
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, null, 3, null, 2, 3],
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// // noData plugin
+// const noData = {
+//   id: "noData",
+//   afterDatasetsDraw: (chart: {
+//     ctx: any;
+//     data: any;
+//     chartArea: { top: number; bottom: number; left: number; right: number; width: number; height: number };
+//     scales: { x: any; y: any };
+//   }) => {
+//     const {
+//       ctx,
+//       data,
+//       chartArea: { top, bottom, left, right, width, height },
+//       scales: { x, y },
+//     } = chart;
+
+//     ctx.save();
+//     const difference = x.max - x.min + 1;
+//     const segment = width / difference;
+//     // console.log({ segment });
+
+//     data.datasets[0].data.forEach((datapoint: null | number, index: number) => {
+//       const angle = Math.PI / 180;
+//       // console.log({ angle });
+//       ctx.translate(0, 0);
+
+//       if (datapoint === null) {
+//         ctx.fillStyle = "rgba(102, 102, 102, 0.2)";
+//         ctx.strokeStyle = "rgba(102, 102, 102, 1)";
+//         ctx.lineWidth = 1;
+//         ctx.fillRect(x.getPixelForValue(index) - segment / 2, top, segment, height);
+//         ctx.strokeRect(x.getPixelForValue(index) - segment / 2, top, segment, height);
+
+//         ctx.rotate(90 * angle);
+//         ctx.font = "bold 20px sans-serif";
+//         ctx.fillStyle = "dimgray";
+//         ctx.fillText("No Data", height / 2, -x.getPixelForValue(index));
+//         ctx.rotate(-90 * angle);
+//         ctx.restore();
+//       }
+//     });
+//   },
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     scales: {
+//       x: {
+//         min: 0,
+//         max: 5,
+//       },
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+//   plugins: [noData],
+// };
+
+// new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
+
+//* Add Custom Doughnut Slice and Text in Center
 const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
 const data = {
@@ -199,7 +292,7 @@ const data = {
   datasets: [
     {
       label: "# of Votes",
-      data: [12, null, 3, null, 2, 3],
+      data: [12, 19, 3, 5, 2, 3],
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)",
         "rgba(54, 162, 235, 0.2)",
@@ -221,68 +314,37 @@ const data = {
   ],
 };
 
-// noData plugin
-const noData = {
-  id: "noData",
-  afterDatasetsDraw: (chart: {
-    ctx: any;
-    data: any;
-    chartArea: { top: number; bottom: number; left: number; right: number; width: number; height: number };
-    scales: { x: any; y: any };
-  }) => {
+// textLabel plugin
+const textLabel = {
+  id: "textLabel",
+  afterDatasetsDraw(chart: { getDatasetMeta?: any; ctx?: any; chartArea?: any }) {
     const {
       ctx,
-      data,
       chartArea: { top, bottom, left, right, width, height },
-      scales: { x, y },
     } = chart;
 
     ctx.save();
-    const difference = x.max - x.min + 1;
-    const segment = width / difference;
-    // console.log({ segment });
 
-    data.datasets[0].data.forEach((datapoint: null | number, index: number) => {
-      const angle = Math.PI / 180;
-      // console.log({ angle });
-      ctx.translate(0, 0);
+    const xCenter = chart.getDatasetMeta(0).data[0].x;
+    const yCenter = chart.getDatasetMeta(0).data[0].y;
 
-      if (datapoint === null) {
-        ctx.fillStyle = "rgba(102, 102, 102, 0.2)";
-        ctx.strokeStyle = "rgba(102, 102, 102, 1)";
-        ctx.lineWidth = 1;
-        ctx.fillRect(x.getPixelForValue(index) - segment / 2, top, segment, height);
-        ctx.strokeRect(x.getPixelForValue(index) - segment / 2, top, segment, height);
-
-        ctx.rotate(90 * angle);
-        ctx.font = "bold 20px sans-serif";
-        ctx.fillStyle = "dimgray";
-        ctx.fillText("No Data", height / 2, -x.getPixelForValue(index));
-        ctx.rotate(-90 * angle);
-        ctx.restore();
-      }
-    });
+    ctx.font = "bold 30px sans-serif";
+    ctx.fillStyle = "gray";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    //ctx.fillText('text', width / 2, height / 2 + top);
+    ctx.fillText("text", xCenter, yCenter);
   },
 };
 
 const config = {
-  type: "bar",
+  type: "doughnut",
   data: data,
-  options: {
-    scales: {
-      x: {
-        min: 0,
-        max: 5,
-      },
-      y: {
-        beginAtZero: true,
-      },
-    },
-  },
-  plugins: [noData],
+  options: {},
+  plugins: [textLabel],
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
 //- -------------------------------------------------
 
