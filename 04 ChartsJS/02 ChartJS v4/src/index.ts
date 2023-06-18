@@ -430,6 +430,28 @@ const data = {
   ],
 };
 
+const labelsRadialBar = {
+  id: "labelsRadialBar",
+  afterDatasetsDraw(chart: { getDatasetMeta?: any; ctx?: any; data?: any }) {
+    const { ctx, data } = chart;
+
+    ctx.save();
+    ctx.font = "bold 12px sans-serif";
+    ctx.fillStyle = "black";
+
+    // console.log("chart.getDatasetMeta(0).data[0]:", chart.getDatasetMeta(0).data[0]);
+    const xCenter = chart.getDatasetMeta(0).data[0].x;
+    const yCenter = chart.getDatasetMeta(0).data[0].y;
+    const outerRadius = chart.getDatasetMeta(0).data[0].outerRadius;
+    const innerRadius = chart.getDatasetMeta(0).data[0].innerRadius;
+    const between = (outerRadius - innerRadius) / 2;
+
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    ctx.fillText("text", xCenter - 6, yCenter - outerRadius + between);
+  },
+};
+
 const config = {
   type: "doughnut",
   data: data,
@@ -441,6 +463,7 @@ const config = {
       },
     },
   },
+  plugins: [labelsRadialBar],
 };
 
 new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
