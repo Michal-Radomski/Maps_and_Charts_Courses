@@ -241,11 +241,14 @@ const noData = {
     const segment = width / data.labels.length;
     console.log(segment);
 
-    data.datasets[0].data.forEach((datapoint: number | null, index: number) => {
-      // console.log("datapoint:", datapoint);
+    data.datasets[0].data.forEach((datapoint: null | number, index: number) => {
       if (datapoint === null) {
-        ctx.fillStyle = "rgba(102, 102, 102, 0.2)";
+        ctx.fillStyle = "rgba(102, 102, 102, 1)";
         ctx.fillRect(x.getPixelForValue(index) - segment / 2, top, segment, height);
+
+        ctx.font = "bold 20px sans-serif";
+        ctx.fillStyle = "white";
+        ctx.fillText("No Data", x.getPixelForValue(index), height / 2);
       }
     });
   },
