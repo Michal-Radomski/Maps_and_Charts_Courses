@@ -610,6 +610,27 @@ const config = {
           display: false,
         },
       },
+      x2: {
+        type: "time",
+        time: {
+          unit: "day",
+          displayFormats: {
+            day: "dd",
+          },
+        },
+        min: "2022-12-28",
+        max: "2023-06-01",
+        ticks: {
+          maxRotation: 0,
+          autoSkip: false,
+        },
+        border: {
+          display: false,
+        },
+        grid: {
+          display: false,
+        },
+      },
       y: {
         beginAtZero: true,
       },
