@@ -442,13 +442,20 @@ const labelsRadialBar = {
     // console.log("chart.getDatasetMeta(0).data[0]:", chart.getDatasetMeta(0).data[0]);
     const xCenter = chart.getDatasetMeta(0).data[0].x;
     const yCenter = chart.getDatasetMeta(0).data[0].y;
-    const outerRadius = chart.getDatasetMeta(0).data[0].outerRadius;
-    const innerRadius = chart.getDatasetMeta(0).data[0].innerRadius;
-    const between = (outerRadius - innerRadius) / 2;
 
-    ctx.textAlign = "right";
-    ctx.textBaseline = "middle";
-    ctx.fillText("text", xCenter - 6, yCenter - outerRadius + between);
+    ctx.save();
+
+    for (let i = 0; i < data.datasets.length; i++) {
+      const outerRadius = chart.getDatasetMeta(i).data[0].outerRadius;
+      const innerRadius = chart.getDatasetMeta(i).data[0].innerRadius;
+      const between = (outerRadius - innerRadius) / 2;
+
+      ctx.font = "bold 12px sans-serif";
+      ctx.fillStyle = data.datasets[i].borderColor;
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      ctx.fillText(data.datasets[i].label, xCenter - 6, yCenter - outerRadius + between);
+    }
   },
 };
 
@@ -460,6 +467,9 @@ const config = {
     plugins: {
       legend: {
         display: false,
+      },
+      tooltip: {
+        enabled: false,
       },
     },
   },
