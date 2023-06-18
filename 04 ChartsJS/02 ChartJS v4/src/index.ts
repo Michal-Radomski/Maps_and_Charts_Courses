@@ -469,8 +469,11 @@ const radialScale = {
     const max = Math.max(...dataPoints);
     // console.log({ max });
     const increment = max / 6;
-    const labelArray = Array.from({ length: 7 }, (_, index) => increment * index);
-    // console.log({ labelArray });
+    const labelArray = Array.from({ length: 7 }, (_, index) => {
+      // console.log(_, index);
+      return increment * index;
+    });
+    console.log({ labelArray });
   },
 };
 
