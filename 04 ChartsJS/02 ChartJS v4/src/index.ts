@@ -390,7 +390,7 @@ const { Chart } = window;
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //* Radial Bar Chart with Label Scale
-const val = 99;
+const val = 90;
 const data = {
   // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [
@@ -491,7 +491,7 @@ const radialScale = {
     labelArray.forEach((label, index) => {
       ctx.fillStyle = "black";
       ctx.textAlign = "center";
-      ctx.fillText(label, labelPosition[index].x, labelPosition[index].y);
+      ctx.fillText(label.toFixed(2), labelPosition[index].x, labelPosition[index].y);
     });
   },
 };
