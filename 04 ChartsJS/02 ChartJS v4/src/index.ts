@@ -199,7 +199,7 @@ const data = {
   datasets: [
     {
       label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
+      data: [12, null, 3, null, 2, 3],
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)",
         "rgba(54, 162, 235, 0.2)",
@@ -244,7 +244,7 @@ const noData = {
     data.datasets[0].data.forEach((datapoint: number | null, index: number) => {
       // console.log("datapoint:", datapoint);
       if (datapoint === null) {
-        ctx.fillStyle = "rgba(102, 102, 102, 1)";
+        ctx.fillStyle = "rgba(102, 102, 102, 0.2)";
         ctx.fillRect(x.getPixelForValue(index) - segment / 2, top, segment, height);
       }
     });
