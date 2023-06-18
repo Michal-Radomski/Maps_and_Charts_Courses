@@ -392,10 +392,10 @@ const { Chart } = window;
 //* Radial Bar Chart with Label Scale
 const val = 20;
 const data = {
-  labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
   datasets: [
     {
-      label: "# of Votes",
+      label: "Red",
       data: [12],
       backgroundColor: ["rgba(255, 99, 132, 0.2)"],
       borderColor: ["rgba(255, 99, 132, 1)"],
@@ -406,7 +406,7 @@ const data = {
       },
     },
     {
-      label: "# of Votes",
+      label: "Blue",
       data: [val],
       backgroundColor: ["rgba(54, 162, 235, 0.2)"],
       borderColor: ["rgba(54, 162, 235, 1)"],
@@ -417,7 +417,7 @@ const data = {
       },
     },
     {
-      label: "# of Votes",
+      label: "Orange",
       data: [3],
       backgroundColor: ["rgba(255, 159, 64, 0.2)"],
       borderColor: ["rgba(255, 159, 64, 1)"],
@@ -442,7 +442,6 @@ const labelsRadialBar = {
     // console.log("chart.getDatasetMeta(0).data[0]:", chart.getDatasetMeta(0).data[0]);
     const xCenter = chart.getDatasetMeta(0).data[0].x;
     const yCenter = chart.getDatasetMeta(0).data[0].y;
-
     ctx.save();
 
     for (let i = 0; i < data.datasets.length; i++) {
