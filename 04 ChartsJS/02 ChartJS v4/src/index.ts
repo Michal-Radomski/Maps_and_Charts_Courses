@@ -95,6 +95,103 @@ const { Chart } = window;
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
 //* Create a Track behind the Bar Chart
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 3,
+//       barPercentage: 0.5,
+//       categoryPercentage: 0.8,
+//     },
+//   ],
+// };
+
+// // verticalBackground plugin
+// const verticalBackground = {
+//   id: "verticalBackground",
+//   beforeDatasetsDraw(
+//     chart: {
+//       data: any;
+//       ctx: any;
+//       chartArea: { width: number; height: number; left: number };
+//       scales: { y: any };
+//     },
+//     _args: any,
+//     plugins: { barBackground: string }
+//   ) {
+//     const {
+//       data,
+//       ctx,
+//       chartArea: { width, left, height },
+//       scales: { y },
+//     } = chart;
+//     // console.log({ x });
+
+//     const barPercentage = data.datasets[0].barPercentage || 0.9;
+//     const categoryPercentage = data.datasets[0].categoryPercentage || 0.8;
+
+//     const displayDataPoints = y.max - y.min + 1 || data.labels.length;
+//     const barWidth = (height / displayDataPoints) * barPercentage * categoryPercentage;
+//     ctx.save();
+
+//     ctx.fillStyle = plugins.barBackground || "lightgrey";
+//     for (let i = y.min; i <= displayDataPoints; i++) {
+//       const yCoor = y.getPixelForValue(i);
+//       ctx.fillRect(left, yCoor - barWidth / 2, width, barWidth);
+//     }
+
+//     // data.labels.forEach((_label: string, index: number) => {
+//     //   // console.log({ _label });
+//     //   const yCoor = y.getPixelForValue(index);
+//     //   ctx.fillRect(left, yCoor - barWidth / 2, width, barWidth);
+//     // });
+//   },
+// };
+
+// const config = {
+//   type: "bar",
+//   data: data,
+//   options: {
+//     indexAxis: "y",
+//     scales: {
+//       y: {
+//         min: 1,
+//         max: 6,
+//         beginAtZero: true,
+//       },
+//     },
+//     plugins: {
+//       verticalBackground: {
+//         // barBackground: 'black'
+//       },
+//     },
+//   },
+//   plugins: [verticalBackground],
+// };
+
+// new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
+
+//* No Data Block for Bar Chart
 const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
 const data = {
@@ -120,51 +217,36 @@ const data = {
         "rgba(255, 159, 64, 1)",
       ],
       borderWidth: 3,
-      barPercentage: 0.5,
-      categoryPercentage: 0.8,
     },
   ],
 };
 
-// verticalBackground plugin
-const verticalBackground = {
-  id: "verticalBackground",
-  beforeDatasetsDraw(
-    chart: {
-      data: any;
-      ctx: any;
-      chartArea: { width: number; height: number; left: number };
-      scales: { y: any };
-    },
-    _args: any,
-    plugins: { barBackground: string }
-  ) {
+// noData plugin
+const noData = {
+  id: "noData",
+  afterDatasetsDraw: (chart: {
+    ctx: any;
+    data: any;
+    chartArea: { top: number; bottom: number; left: number; right: number; width: number; height: number };
+    scales: { x: any; y: any };
+  }) => {
     const {
-      data,
       ctx,
-      chartArea: { width, left, height },
-      scales: { y },
+      data,
+      chartArea: { top, bottom, left, right, width, height },
+      scales: { x, y },
     } = chart;
-    // console.log({ x });
 
-    const barPercentage = data.datasets[0].barPercentage || 0.9;
-    const categoryPercentage = data.datasets[0].categoryPercentage || 0.8;
-
-    const displayDataPoints = y.max - y.min + 1 || data.labels.length;
-    const barWidth = (height / displayDataPoints) * barPercentage * categoryPercentage;
     ctx.save();
+    const segment = width / data.labels.length;
+    console.log(segment);
 
-    ctx.fillStyle = plugins.barBackground || "lightgrey";
-    for (let i = y.min; i <= displayDataPoints; i++) {
-      const yCoor = y.getPixelForValue(i);
-      ctx.fillRect(left, yCoor - barWidth / 2, width, barWidth);
-    }
-
-    // data.labels.forEach((_label: string, index: number) => {
-    //   // console.log({ _label });
-    //   const yCoor = y.getPixelForValue(index);
-    //   ctx.fillRect(left, yCoor - barWidth / 2, width, barWidth);
-    // });
+    data.datasets[0].data.forEach((datapoint: any, index: number) => {
+      if (datapoint === null) {
+        ctx.fillStyle = "rgba(102, 102, 102, 1)";
+        ctx.fillRect(x.getPixelForValue(index) - segment / 2, top, segment, height);
+      }
+    });
   },
 };
 
@@ -172,21 +254,13 @@ const config = {
   type: "bar",
   data: data,
   options: {
-    indexAxis: "y",
     scales: {
       y: {
-        min: 1,
-        max: 6,
         beginAtZero: true,
       },
     },
-    plugins: {
-      verticalBackground: {
-        // barBackground: 'black'
-      },
-    },
   },
-  plugins: [verticalBackground],
+  plugins: [noData],
 };
 
 new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
