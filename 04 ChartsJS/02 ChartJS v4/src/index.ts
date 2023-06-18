@@ -602,6 +602,21 @@ const config = {
           font: {
             weight: "bold",
           },
+          showLabelBackdrop: true,
+          backdropColor: (color: { tick: { value: number } }) => {
+            // console.log("color.tick.value:", color.tick.value);
+            const date = new Date(color.tick.value);
+            const dayOfWeek = date.getDay();
+            // console.log({ dayOfWeek });
+            const isSunday = dayOfWeek === 0;
+            const isSaturday = dayOfWeek === 6;
+
+            if (isSunday === true || isSaturday === true) {
+              return "#eee";
+            } else {
+              return "transparent";
+            }
+          },
         },
         border: {
           width: 3,
@@ -623,6 +638,21 @@ const config = {
         ticks: {
           maxRotation: 0,
           autoSkip: false,
+          showLabelBackdrop: true,
+          backdropColor: (color: { tick: { value: number } }) => {
+            // console.log("color.tick.value:", color.tick.value);
+            const date = new Date(color.tick.value);
+            const dayOfWeek = date.getDay();
+            // console.log({ dayOfWeek });
+            const isSunday = dayOfWeek === 0;
+            const isSaturday = dayOfWeek === 6;
+
+            if (isSunday === true || isSaturday === true) {
+              return "#eee";
+            } else {
+              return "transparent";
+            }
+          },
         },
         border: {
           display: false,
