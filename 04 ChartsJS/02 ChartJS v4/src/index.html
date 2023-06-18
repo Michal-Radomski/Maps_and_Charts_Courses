@@ -23,6 +23,12 @@
     <!-- Chart.js 4 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.umd.js" defer></script>
 
+    <!-- Plugins -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"
+      defer
+    ></script>
+
     <!-- My Styles + script -->
     <link rel="stylesheet" type="text/css" href="index.min.css" />
     <script src="index.min.js" defer></script>
@@ -30,9 +36,10 @@
 
   <body>
     <div class="container-fluid">
-      <div class="chartMenu">
+      <!-- <div class="chartMenu">
         <p>Chart JS 4.3.0</p>
-      </div>
+      </div> -->
+      <p>Chart JS <span id="chartVersion"></span></p>
       <div class="chartCard">
         <div class="chartBox">
           <canvas id="myChart"></canvas>
