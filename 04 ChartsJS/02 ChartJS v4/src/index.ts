@@ -392,7 +392,6 @@ const { Chart } = window;
 //* Radial Bar Chart with Label Scale
 const val = 90;
 const data = {
-  // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [
     {
       label: "Red",
@@ -514,10 +513,17 @@ const radialGrid = {
     ctx.strokeStyle = "rgba(0, 0, 0, 0.5)";
     ctx.moveTo(xCenter, yCenter - innerRadius + 3);
     ctx.lineTo(xCenter, yCenter - outerRadius - 3);
+
+    ctx.arc(xCenter, yCenter, outerRadius + 3, angle * -90, angle * 180, false);
+    ctx.lineTo(xCenter - innerRadius + 3, yCenter);
+    ctx.arc(xCenter, yCenter, innerRadius - 3, angle * 180, angle * -90, true);
+    ctx.closePath();
     ctx.stroke();
+    ctx.fill();
   },
 };
 
+// config block
 const config = {
   type: "doughnut",
   data: data,
