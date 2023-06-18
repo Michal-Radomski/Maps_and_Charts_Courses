@@ -491,8 +491,30 @@ const radialScale = {
     labelArray.forEach((label, index) => {
       ctx.fillStyle = "black";
       ctx.textAlign = "center";
-      ctx.fillText(label.toFixed(2), labelPosition[index].x, labelPosition[index].y);
+      ctx.fillText(label.toFixed(1), labelPosition[index].x, labelPosition[index].y);
     });
+  },
+};
+
+const radialGrid = {
+  id: "radialGrid",
+  beforeDatasetsDraw(chart: { getDatasetMeta?: any; ctx?: any; data?: any }) {
+    const { ctx, data } = chart;
+
+    const datasetLength = data.datasets.length - 1;
+    const angle = Math.PI / 180;
+    const xCenter = chart.getDatasetMeta(0).data[0].x;
+    const yCenter = chart.getDatasetMeta(0).data[0].y;
+    const outerRadius = chart.getDatasetMeta(0).data[0].outerRadius;
+    const innerRadius = chart.getDatasetMeta(datasetLength).data[0].innerRadius;
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.5)";
+    ctx.moveTo(xCenter, yCenter - innerRadius + 3);
+    ctx.lineTo(xCenter, yCenter - outerRadius - 3);
+    ctx.stroke();
   },
 };
 
@@ -501,7 +523,7 @@ const config = {
   data: data,
   options: {
     layout: {
-      padding: 30,
+      padding: 50,
     },
     borderRadius: 10,
     plugins: {
@@ -513,7 +535,7 @@ const config = {
       },
     },
   },
-  plugins: [labelsRadialBar, radialScale],
+  plugins: [labelsRadialBar, radialScale, radialGrid],
 };
 
 new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
