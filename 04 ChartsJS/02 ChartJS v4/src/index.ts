@@ -285,6 +285,111 @@ const { Chart } = window;
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //* Add Custom Doughnut Slice and Text in Center
+// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+
+// const data = {
+//   labels: labels,
+//   datasets: [
+//     {
+//       label: "# of Votes",
+//       data: [12, 19, 3, 5, 2, 3],
+//       backgroundColor: [
+//         "rgba(255, 99, 132, 0.2)",
+//         "rgba(54, 162, 235, 0.2)",
+//         "rgba(255, 206, 86, 0.2)",
+//         "rgba(75, 192, 192, 0.2)",
+//         "rgba(153, 102, 255, 0.2)",
+//         "rgba(255, 159, 64, 0.2)",
+//       ],
+//       borderColor: [
+//         "rgba(255, 99, 132, 1)",
+//         "rgba(54, 162, 235, 1)",
+//         "rgba(255, 206, 86, 1)",
+//         "rgba(75, 192, 192, 1)",
+//         "rgba(153, 102, 255, 1)",
+//         "rgba(255, 159, 64, 1)",
+//       ],
+//       borderWidth: 3,
+//     },
+//   ],
+// };
+
+// // sliceThickness plugin
+// const sliceThickness = {
+//   id: "sliceThickness",
+//   beforeDraw(chart: { getDatasetMeta?: any; ctx?: any; data?: any; chartArea?: any }) {
+//     const {
+//       ctx,
+//       data,
+//       chartArea: { top, bottom, left, right, width, height },
+//     } = chart;
+
+//     ctx.save();
+//     // console.log(`Center: ${chart.getDatasetMeta(0).data[0].x}`);
+//     // console.log(`InnerRadius: ${chart.getDatasetMeta(0).data[0].innerRadius}`);
+//     // console.log(`OuterRadius: ${chart.getDatasetMeta(0).data[0].outerRadius}`);
+//     // console.log(`Width: ${width}`);
+//     ctx.fillStyle = "black";
+//     ctx.fillRect(
+//       chart.getDatasetMeta(0).data[0].x,
+//       chart.getDatasetMeta(0).data[0].y,
+//       chart.getDatasetMeta(0).data[1].outerRadius,
+//       10
+//     );
+
+//     data.datasets[0].data.forEach((thickness: number, index: number) => {
+//       chart.getDatasetMeta(0).data[index].innerRadius = width / 3.5;
+//       chart.getDatasetMeta(0).data[index].outerRadius = width / 2.5 + thickness * 2;
+//     });
+//   },
+// };
+
+// // textLabel plugin
+// const textLabel = {
+//   id: "textLabel",
+//   afterDatasetsDraw(
+//     chart: { getDatasetMeta?: any; ctx?: any; data?: any; chartArea?: any },
+//     _args: any,
+//     plugins: { textColor: string }
+//   ) {
+//     const {
+//       ctx,
+//       data,
+//       chartArea: { width },
+//     } = chart;
+
+//     ctx.save();
+
+//     const xCenter = chart.getDatasetMeta(0).data[0].x;
+//     const yCenter = chart.getDatasetMeta(0).data[0].y;
+
+//     // console.log("plugins.textColor:", plugins.textColor);
+//     const fontSize = width / 15;
+//     ctx.font = `bold ${fontSize}px sans-serif`;
+//     ctx.fillStyle = plugins.textColor || "dimgray";
+//     ctx.textAlign = "center";
+//     ctx.textBaseline = "middle";
+//     //ctx.fillText('text', width / 2, height / 2 + top);
+//     ctx.fillText(data.datasets[0].label, xCenter, yCenter);
+//   },
+// };
+
+// const config = {
+//   type: "doughnut",
+//   data: data,
+//   options: {
+//     plugins: {
+//       textLabel: {
+//         textColor: "blue",
+//       },
+//     },
+//   },
+//   plugins: [textLabel, sliceThickness],
+// };
+
+// new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
+
+//* Radial Bar Chart with Label Scale
 const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
 
 const data = {
@@ -292,102 +397,42 @@ const data = {
   datasets: [
     {
       label: "# of Votes",
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(255, 206, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-      ],
-      borderColor: [
-        "rgba(255, 99, 132, 1)",
-        "rgba(54, 162, 235, 1)",
-        "rgba(255, 206, 86, 1)",
-        "rgba(75, 192, 192, 1)",
-        "rgba(153, 102, 255, 1)",
-        "rgba(255, 159, 64, 1)",
-      ],
-      borderWidth: 3,
+      data: [12],
+      backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+      borderColor: ["rgba(255, 99, 132, 1)"],
+      borderWidth: 1,
+    },
+    {
+      label: "# of Votes",
+      data: [15],
+      backgroundColor: ["rgba(54, 162, 235, 0.2)"],
+      borderColor: ["rgba(54, 162, 235, 1)"],
+      borderWidth: 1,
+    },
+    {
+      label: "# of Votes",
+      data: [3],
+      backgroundColor: ["rgba(255, 159, 64, 0.2)"],
+      borderColor: ["rgba(255, 159, 64, 1)"],
+      borderWidth: 1,
     },
   ],
-};
-
-// sliceThickness plugin
-const sliceThickness = {
-  id: "sliceThickness",
-  beforeDraw(chart: { getDatasetMeta?: any; ctx?: any; data?: any; chartArea?: any }) {
-    const {
-      ctx,
-      data,
-      chartArea: { top, bottom, left, right, width, height },
-    } = chart;
-
-    ctx.save();
-    // console.log(`Center: ${chart.getDatasetMeta(0).data[0].x}`);
-    // console.log(`InnerRadius: ${chart.getDatasetMeta(0).data[0].innerRadius}`);
-    // console.log(`OuterRadius: ${chart.getDatasetMeta(0).data[0].outerRadius}`);
-    // console.log(`Width: ${width}`);
-    ctx.fillStyle = "black";
-    ctx.fillRect(
-      chart.getDatasetMeta(0).data[0].x,
-      chart.getDatasetMeta(0).data[0].y,
-      chart.getDatasetMeta(0).data[1].outerRadius,
-      10
-    );
-
-    data.datasets[0].data.forEach((thickness: number, index: number) => {
-      chart.getDatasetMeta(0).data[index].innerRadius = width / 3.5;
-      chart.getDatasetMeta(0).data[index].outerRadius = width / 2.5 + thickness * 2;
-    });
-  },
-};
-
-// textLabel plugin
-const textLabel = {
-  id: "textLabel",
-  afterDatasetsDraw(
-    chart: { getDatasetMeta?: any; ctx?: any; data?: any; chartArea?: any },
-    _args: any,
-    plugins: { textColor: string }
-  ) {
-    const {
-      ctx,
-      data,
-      chartArea: { width },
-    } = chart;
-
-    ctx.save();
-
-    const xCenter = chart.getDatasetMeta(0).data[0].x;
-    const yCenter = chart.getDatasetMeta(0).data[0].y;
-
-    // console.log("plugins.textColor:", plugins.textColor);
-    const fontSize = width / 15;
-    ctx.font = `bold ${fontSize}px sans-serif`;
-    ctx.fillStyle = plugins.textColor || "dimgray";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    //ctx.fillText('text', width / 2, height / 2 + top);
-    ctx.fillText(data.datasets[0].label, xCenter, yCenter);
-  },
 };
 
 const config = {
   type: "doughnut",
   data: data,
   options: {
+    borderRadius: 10,
     plugins: {
-      textLabel: {
-        textColor: "blue",
+      legend: {
+        display: false,
       },
     },
   },
-  plugins: [textLabel, sliceThickness],
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
 
 //- -------------------------------------------------
 
