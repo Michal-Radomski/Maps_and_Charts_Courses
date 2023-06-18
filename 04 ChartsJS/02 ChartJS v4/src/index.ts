@@ -241,7 +241,8 @@ const noData = {
     const segment = width / data.labels.length;
     console.log(segment);
 
-    data.datasets[0].data.forEach((datapoint: any, index: number) => {
+    data.datasets[0].data.forEach((datapoint: number | null, index: number) => {
+      // console.log("datapoint:", datapoint);
       if (datapoint === null) {
         ctx.fillStyle = "rgba(102, 102, 102, 1)";
         ctx.fillRect(x.getPixelForValue(index) - segment / 2, top, segment, height);
