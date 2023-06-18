@@ -317,17 +317,30 @@ const data = {
 // sliceThickness plugin
 const sliceThickness = {
   id: "sliceThickness",
-  beforeDraw(chart: any) {
+  beforeDraw(chart: { getDatasetMeta?: any; ctx?: any; data?: any; chartArea?: any }) {
     const {
       ctx,
       data,
       chartArea: { top, bottom, left, right, width, height },
     } = chart;
 
+    ctx.save();
     // console.log(`Center: ${chart.getDatasetMeta(0).data[0].x}`);
     // console.log(`InnerRadius: ${chart.getDatasetMeta(0).data[0].innerRadius}`);
     // console.log(`OuterRadius: ${chart.getDatasetMeta(0).data[0].outerRadius}`);
     // console.log(`Width: ${width}`);
+    ctx.fillStyle = "black";
+    ctx.fillRect(
+      chart.getDatasetMeta(0).data[0].x,
+      chart.getDatasetMeta(0).data[0].y,
+      chart.getDatasetMeta(0).data[1].outerRadius,
+      10
+    );
+
+    data.datasets[0].data.forEach((thickness: number, index: number) => {
+      chart.getDatasetMeta(0).data[index].innerRadius = width / 3.5;
+      chart.getDatasetMeta(0).data[index].outerRadius = width / 2.5 + thickness * 2;
+    });
   },
 };
 
@@ -336,12 +349,13 @@ const textLabel = {
   id: "textLabel",
   afterDatasetsDraw(
     chart: { getDatasetMeta?: any; ctx?: any; data?: any; chartArea?: any },
+    _args: any,
     plugins: { textColor: string }
   ) {
     const {
       ctx,
       data,
-      chartArea: { top, bottom, left, right, width, height },
+      chartArea: { width },
     } = chart;
 
     ctx.save();
@@ -349,6 +363,7 @@ const textLabel = {
     const xCenter = chart.getDatasetMeta(0).data[0].x;
     const yCenter = chart.getDatasetMeta(0).data[0].y;
 
+    // console.log("plugins.textColor:", plugins.textColor);
     const fontSize = width / 15;
     ctx.font = `bold ${fontSize}px sans-serif`;
     ctx.fillStyle = plugins.textColor || "dimgray";
