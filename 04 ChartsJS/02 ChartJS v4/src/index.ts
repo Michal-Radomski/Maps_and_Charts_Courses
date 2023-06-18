@@ -317,9 +317,13 @@ const data = {
 // textLabel plugin
 const textLabel = {
   id: "textLabel",
-  afterDatasetsDraw(chart: { getDatasetMeta?: any; ctx?: any; chartArea?: any }) {
+  afterDatasetsDraw(
+    chart: { getDatasetMeta?: any; ctx?: any; data?: any; chartArea?: any },
+    plugins: { textColor: string }
+  ) {
     const {
       ctx,
+      data,
       chartArea: { top, bottom, left, right, width, height },
     } = chart;
 
@@ -328,23 +332,30 @@ const textLabel = {
     const xCenter = chart.getDatasetMeta(0).data[0].x;
     const yCenter = chart.getDatasetMeta(0).data[0].y;
 
-    ctx.font = "bold 30px sans-serif";
-    ctx.fillStyle = "dimgray";
+    const fontSize = width / 15;
+    ctx.font = `bold ${fontSize}px sans-serif`;
+    ctx.fillStyle = plugins.textColor || "dimgray";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     //ctx.fillText('text', width / 2, height / 2 + top);
-    ctx.fillText("Text", xCenter, yCenter);
+    ctx.fillText(data.datasets[0].label, xCenter, yCenter);
   },
 };
 
 const config = {
   type: "doughnut",
   data: data,
-  options: {},
+  options: {
+    plugins: {
+      textLabel: {
+        textColor: "blue",
+      },
+    },
+  },
   plugins: [textLabel],
 };
 
-new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //- -------------------------------------------------
 
