@@ -238,7 +238,8 @@ const noData = {
     } = chart;
 
     ctx.save();
-    const segment = width / data.labels.length;
+    const difference = x.max - x.min + 1;
+    const segment = width / difference;
     // console.log({ segment });
 
     data.datasets[0].data.forEach((datapoint: null | number, index: number) => {
@@ -266,6 +267,10 @@ const config = {
   data: data,
   options: {
     scales: {
+      x: {
+        min: 0,
+        max: 5,
+      },
       y: {
         beginAtZero: true,
       },
