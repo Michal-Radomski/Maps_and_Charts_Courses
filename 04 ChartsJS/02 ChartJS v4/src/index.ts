@@ -329,11 +329,11 @@ const textLabel = {
     const yCenter = chart.getDatasetMeta(0).data[0].y;
 
     ctx.font = "bold 30px sans-serif";
-    ctx.fillStyle = "gray";
+    ctx.fillStyle = "dimgray";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     //ctx.fillText('text', width / 2, height / 2 + top);
-    ctx.fillText("text", xCenter, yCenter);
+    ctx.fillText("Text", xCenter, yCenter);
   },
 };
 
