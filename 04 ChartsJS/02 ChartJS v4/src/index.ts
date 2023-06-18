@@ -390,29 +390,29 @@ const { Chart } = window;
 // new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as unknown as ChartConfiguration);
 
 //* Radial Bar Chart with Label Scale
-const val = 21;
+const val = 99;
 const data = {
-  // labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+  // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [
     {
       label: "Red",
-      data: [12],
+      data: [val],
       backgroundColor: ["rgba(255, 99, 132, 0.2)"],
       borderColor: ["rgba(255, 99, 132, 1)"],
       borderWidth: 2,
       circumference: (ctx: { dataset: { data: number[] } }) => {
-        // console.log({ ctx });
+        // console.log({ctx})
         return (ctx.dataset.data[0] / val) * 270;
       },
     },
     {
       label: "Blue",
-      data: [val],
+      data: [21],
       backgroundColor: ["rgba(54, 162, 235, 0.2)"],
       borderColor: ["rgba(54, 162, 235, 1)"],
       borderWidth: 2,
       circumference: (ctx: { dataset: { data: number[] } }) => {
-        // console.log({ ctx });
+        // console.log({ctx})
         return (ctx.dataset.data[0] / val) * 270;
       },
     },
@@ -423,7 +423,7 @@ const data = {
       borderColor: ["rgba(255, 159, 64, 1)"],
       borderWidth: 2,
       circumference: (ctx: { dataset: { data: number[] } }) => {
-        // console.log({ ctx });
+        // console.log({ctx})
         return (ctx.dataset.data[0] / val) * 270;
       },
     },
@@ -460,20 +460,39 @@ const labelsRadialBar = {
 
 const radialScale = {
   id: "radialScale",
-  afterDatasetsDraw(chart: { data: any }) {
-    const { data } = chart;
+  afterDatasetsDraw(chart: { getDatasetMeta?: any; ctx?: any; data?: any }) {
+    const { ctx, data } = chart;
+    const xCenter = chart.getDatasetMeta(0).data[0].x;
+    const yCenter = chart.getDatasetMeta(0).data[0].y;
+    const outerRadius = chart.getDatasetMeta(0).data[0].outerRadius + 20;
 
-    const dataPoints = data.datasets.map((dataset: { data: number[] }) => {
+    const dataPoints = data.datasets.map((dataset: { data: any[] }) => {
       return dataset.data[0];
     });
     const max = Math.max(...dataPoints);
-    // console.log({ max });
     const increment = max / 6;
     const labelArray = Array.from({ length: 7 }, (_, index) => {
       // console.log(_, index);
       return increment * index;
     });
-    console.log({ labelArray });
+    // console.log({ labelArray });
+
+    const startAngle = -90;
+    const anglePosition = [-90, -45, 0, 45, 90, 135, 180];
+    const labelPosition = anglePosition.map((angle) => {
+      const angleRad = (angle * Math.PI) / 180;
+      const x = xCenter + outerRadius * Math.cos(angleRad);
+      const y = yCenter + outerRadius * Math.sin(angleRad);
+      return { x, y };
+    });
+
+    ctx.save();
+
+    labelArray.forEach((label, index) => {
+      ctx.fillStyle = "black";
+      ctx.textAlign = "center";
+      ctx.fillText(label, labelPosition[index].x, labelPosition[index].y);
+    });
   },
 };
 
