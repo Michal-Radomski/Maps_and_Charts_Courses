@@ -239,16 +239,23 @@ const noData = {
 
     ctx.save();
     const segment = width / data.labels.length;
-    console.log({ segment });
+    // console.log({ segment });
 
     data.datasets[0].data.forEach((datapoint: null | number, index: number) => {
+      const angle = Math.PI / 180;
+      ctx.translate(0, 0);
+
       if (datapoint === null) {
         ctx.fillStyle = "rgba(102, 102, 102, 0.2)";
         ctx.fillRect(x.getPixelForValue(index) - segment / 2, top, segment, height);
 
+        // ctx.rotate(90 * angle);
         ctx.font = "bold 20px sans-serif";
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "dimgray";
         ctx.fillText("No Data", x.getPixelForValue(index), height / 2);
+
+        // ctx.rotate(-90 * angle);
+        ctx.restore();
       }
     });
   },
