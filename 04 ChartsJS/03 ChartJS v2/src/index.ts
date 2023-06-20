@@ -122,7 +122,7 @@ new Chart(ctx!, {
         backgroundColor: "rgb(0, 99, 132)",
         borderColor: "rgb(0, 0, 132)",
         borderWidth: 10,
-        //borderDash: [5, 15, 2, 15],
+        borderDash: [5, 15, 2, 15],
         borderDashOffset: 10,
         borderCapStyle: "square",
         borderJoinStyle: "round",
