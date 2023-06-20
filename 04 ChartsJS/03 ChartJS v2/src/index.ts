@@ -144,31 +144,63 @@ const { Chart } = window;
 //   options: {} as ChartConfiguration,
 // });
 
-//* Doughnut / Pie Chart
+//* Doughnut / Pie Chart v1
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// new Chart(ctx!, {
+//   type: "doughnut",
+
+//   data: {
+//     labels: ["January", "February", "March", "April", "May", "June", "July"],
+//     datasets: [
+//       {
+//         label: "My First dataset",
+//         backgroundColor: ["blue", "red", "orange", "green", "yellow", "teal", "purple"],
+//         borderColor: "black",
+//         hoverBackgroundColor: "black",
+//         hoverBorderColor: ["blue", "red", "orange", "green", "yellow", "teal", "purple"],
+//         borderWidth: 0,
+//         hoverBorderWidth: 2,
+//         data: [10, 10, 5, 2, 20, 30, 45],
+//       },
+//     ],
+//   },
+
+//   options: {
+//     cutoutPercentage: 60,
+//     // rotation: 0, //* Default -0.5*Math.PI
+//     circumference: 6.25,
+//     animation: {
+//       animateRotate: true,
+//       animateScale: true,
+//     },
+//   } as ChartConfiguration,
+// });
+
+//* Doughnut / Pie Chart v2
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
 new Chart(ctx!, {
-  type: "doughnut",
+  type: "pie",
 
   data: {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: ["January", "February", "March"],
     datasets: [
       {
         label: "My First dataset",
-        backgroundColor: ["blue", "red", "orange", "green", "yellow", "teal", "purple"],
+        backgroundColor: ["grey", "red", "grey"],
         borderColor: "black",
         hoverBackgroundColor: "black",
-        hoverBorderColor: ["blue", "red", "orange", "green", "yellow", "teal", "purple"],
+        hoverBorderColor: ["grey", "red", "grey"],
         borderWidth: 0,
         hoverBorderWidth: 2,
-        data: [10, 10, 5, 2, 20, 30, 45],
+        data: [45, 1, 10],
       },
     ],
   },
 
   options: {
-    cutoutPercentage: 60,
-    // rotation: 0, //* Default -0.5*Math.PI
-    circumference: 6.25,
+    cutoutPercentage: 80,
+    rotation: 0.8 * Math.PI,
+    circumference: 1.4 * Math.PI,
     animation: {
       animateRotate: true,
       animateScale: true,
