@@ -15,8 +15,14 @@ new Chart(ctx!, {
         label: "My sales",
         backgroundColor: "rgba(255, 99, 132, 1)",
         borderColor: "blue",
-
+        borderWidth: 2,
         data: [0, 20, 5, 2, 20, 30, 40, 20],
+      },
+      {
+        label: "My Profits",
+        backgroundColor: "rgba(0, 99, 132, 1)",
+        borderColor: "blue",
+        data: [0, 40, 5, 2, 20, 30, 40, 20],
       },
     ],
   },
