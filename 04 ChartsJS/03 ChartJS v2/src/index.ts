@@ -330,7 +330,7 @@ new Chart(ctx!, {
       fontSize: 20,
       fontFamily: "Arial",
       fontColor: "green",
-      fontStyle: "bold",
+      fontStyle: "bold italic",
       padding: 5,
       lineHeight: 1.2,
     },
