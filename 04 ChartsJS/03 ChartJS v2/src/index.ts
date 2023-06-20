@@ -306,9 +306,41 @@ const { Chart } = window;
 
 //- Semi-Intermediate
 //* Line Chart
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// new Chart(ctx!, {
+//   type: "line",
+
+//   data: {
+//     labels: ["January", "February", "March", "April", "May", "June", "July"],
+//     datasets: [
+//       {
+//         label: "My First dataset",
+//         backgroundColor: "rgb(255, 99, 132)",
+//         borderColor: "rgb(255, 99, 132)",
+//         data: [0, 10, 5, 2, 20, 30, 45],
+//       },
+//     ],
+//   },
+
+//   options: {
+//     title: {
+//       text: ["Chart Title Section", "Made by ..."],
+//       display: true,
+//       position: "top",
+//       fontSize: 20,
+//       fontFamily: "Arial",
+//       fontColor: "green",
+//       fontStyle: "bold italic",
+//       padding: 5,
+//       lineHeight: 1.2,
+//     },
+//   } as ChartConfiguration,
+// });
+
+//* Combo Bar-Line Chart
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
 new Chart(ctx!, {
-  type: "line",
+  type: "bar",
 
   data: {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -318,21 +350,24 @@ new Chart(ctx!, {
         backgroundColor: "rgb(255, 99, 132)",
         borderColor: "rgb(255, 99, 132)",
         data: [0, 10, 5, 2, 20, 30, 45],
+        pointStyle: "rect",
+      },
+      {
+        label: "My Second dataset",
+        //backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: "rgb(0, 99, 132)",
+        data: [0, 10, 5, 2, 20, 30, 45],
+        type: "line",
+        pointStyle: "line",
       },
     ],
   },
 
   options: {
-    title: {
-      text: ["Chart Title Section", "Made by ..."],
-      display: true,
-      position: "top",
-      fontSize: 20,
-      fontFamily: "Arial",
-      fontColor: "green",
-      fontStyle: "bold italic",
-      padding: 5,
-      lineHeight: 1.2,
+    legend: {
+      labels: {
+        usePointStyle: true,
+      },
     },
   } as ChartConfiguration,
 });
