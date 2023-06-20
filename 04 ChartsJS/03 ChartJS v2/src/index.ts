@@ -219,31 +219,62 @@ const { Chart } = window;
 // });
 
 //* Polar Chart
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// new Chart(ctx!, {
+//   type: "polarArea",
+
+//   data: {
+//     labels: ["January", "February", "March", "April", "May", "June", "July"],
+//     datasets: [
+//       {
+//         label: "My First dataset",
+//         backgroundColor: ["green", "yellow", "teal", "tomato", "red", "purple", "blue"],
+//         borderColor: "grey",
+//         borderWidth: 1,
+//         hoverBackgroundColor: "#0f0",
+//         hoverBorderColor: "red",
+//         hoverBorderWidth: 2,
+//         data: [20, 10, 5, 2, 20, 30, 45],
+//       },
+//     ],
+//   },
+
+//   options: {
+//     startAngle: 6.28 - 3.14 / 2,
+//     animation: {
+//       animateRotate: false,
+//       animateScale: false,
+//     },
+//   } as ChartConfiguration,
+// });
+
+//* Bubble Chart
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
 new Chart(ctx!, {
-  type: "polarArea",
+  type: "bubble",
 
   data: {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
       {
         label: "My First dataset",
-        backgroundColor: ["green", "yellow", "teal", "tomato", "red", "purple", "blue"],
+        backgroundColor: ["rgb(255, 99, 132)", "green", "blue"],
         borderColor: "grey",
-        borderWidth: 1,
-        hoverBackgroundColor: "#0f0",
-        hoverBorderColor: "red",
-        hoverBorderWidth: 2,
-        data: [20, 10, 5, 2, 20, 30, 45],
+        borderWidth: 5,
+        hoverBackgroundColor: "#98F",
+        hoverBorderColor: "#0AF",
+        hoverBorderWidth: 5,
+        hoverRadius: 0,
+        hitRadius: 10,
+        //pointStyle: "line",
+        radius: 50,
+        data: [
+          { x: 5, y: 10, r: 10 },
+          { x: 15, y: 3, r: 15 },
+          { x: 7, y: 15, r: 30 },
+        ],
       },
     ],
   },
 
-  options: {
-    startAngle: 6.28 - 3.14 / 2,
-    animation: {
-      animateRotate: false,
-      animateScale: false,
-    },
-  } as ChartConfiguration,
+  options: {} as ChartConfiguration,
 });
