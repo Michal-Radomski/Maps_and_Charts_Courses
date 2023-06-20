@@ -33,6 +33,9 @@ new Chart(ctx!, {
         pointHoverBorderColor: "black",
         pointHoverBorderWidth: 5,
         pointHoverRadius: 10,
+        showLine: true,
+        spanGaps: true,
+        steppedLine: false,
         data: [0, 20, 5, 2, 20, 30, 40, 20],
       },
       {
