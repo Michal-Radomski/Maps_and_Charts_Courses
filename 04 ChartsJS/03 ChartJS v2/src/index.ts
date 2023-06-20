@@ -338,36 +338,82 @@ const { Chart } = window;
 // });
 
 //* Combo Bar-Line Chart
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// new Chart(ctx!, {
+//   type: "bar",
+
+//   data: {
+//     labels: ["January", "February", "March", "April", "May", "June", "July"],
+//     datasets: [
+//       {
+//         label: "My First dataset",
+//         backgroundColor: "rgb(255, 99, 132)",
+//         borderColor: "rgb(255, 99, 132)",
+//         data: [0, 10, 5, 2, 20, 30, 45],
+//         pointStyle: "rect",
+//       },
+//       {
+//         label: "My Second dataset",
+//         //backgroundColor: 'rgb(255, 99, 132)',
+//         borderColor: "rgb(0, 99, 132)",
+//         data: [0, 10, 5, 2, 20, 30, 45],
+//         type: "line",
+//         pointStyle: "line",
+//       },
+//     ],
+//   },
+
+//   options: {
+//     legend: {
+//       labels: {
+//         usePointStyle: true,
+//       },
+//     },
+//   } as ChartConfiguration,
+// });
+
+//- Intermediate
+//* Line Chart
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
 new Chart(ctx!, {
-  type: "bar",
-
+  type: "line",
   data: {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
     datasets: [
       {
-        label: "My First dataset",
-        backgroundColor: "rgb(255, 99, 132)",
-        borderColor: "rgb(255, 99, 132)",
-        data: [0, 10, 5, 2, 20, 30, 45],
-        pointStyle: "rect",
-      },
-      {
-        label: "My Second dataset",
-        //backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: "rgb(0, 99, 132)",
-        data: [0, 10, 5, 2, 20, 30, 45],
-        type: "line",
-        pointStyle: "line",
+        label: "My sales",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "blue",
+        borderWidth: 4,
+        data: [0, 20, 5, 2, 20, 30, 40, 20],
       },
     ],
   },
 
   options: {
-    legend: {
-      labels: {
-        usePointStyle: true,
-      },
-    },
+    scales: {},
   } as ChartConfiguration,
 });
+
+//+ -------------------------------------
+//* Default Code
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// new Chart(ctx!, {
+//   type: "line",
+//   data: {
+//     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
+//     datasets: [
+//       {
+//         label: "My sales",
+//         backgroundColor: "rgba(255, 99, 132, 0.5)",
+//         borderColor: "blue",
+//         borderWidth: 4,
+//         data: [0, 20, 5, 2, 20, 30, 40, 20],
+//       },
+//     ],
+//   },
+
+//   options: {
+//     scales: {},
+//   } as ChartConfiguration,
+// });
