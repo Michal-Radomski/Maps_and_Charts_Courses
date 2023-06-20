@@ -111,35 +111,67 @@ const { Chart } = window;
 // });
 
 //* Radar Chart
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// new Chart(ctx!, {
+//   type: "radar",
+//   data: {
+//     labels: ["January", "February", "March", "April", "May", "June", "July"],
+//     datasets: [
+//       {
+//         label: "Radar Chart Values",
+//         backgroundColor: "rgb(0, 99, 132)",
+//         borderColor: "rgb(0, 0, 132)",
+//         borderWidth: 10,
+//         borderDash: [5, 15, 2, 15],
+//         borderDashOffset: 10,
+//         borderCapStyle: "square",
+//         borderJoinStyle: "round",
+//         lineTension: 0,
+//         pointBackgroundColor: ["green", "blue", "red", "yellow", "green", "blue", "red"],
+//         pointBorderColor: "white",
+//         pointBorderWidth: 2,
+//         pointRadius: 5,
+//         //pointStyle: "triangle",
+//         pointHitRadius: 10,
+//         pointHoverBackgroundColor: "#fff",
+//         pointHoverBorderColor: ["green", "blue", "red", "yellow", "green", "blue", "red"],
+//         pointHoverBorderWidth: 5,
+//         pointHoverRadius: 10,
+//         data: [0, 10, 5, 2, 20, 30, 45],
+//       },
+//     ],
+//   },
+//   options: {} as ChartConfiguration,
+// });
+
+//* Doughnut / Pie Chart
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
 new Chart(ctx!, {
-  type: "radar",
+  type: "doughnut",
+
   data: {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
       {
-        label: "Radar Chart Values",
-        backgroundColor: "rgb(0, 99, 132)",
-        borderColor: "rgb(0, 0, 132)",
-        borderWidth: 10,
-        borderDash: [5, 15, 2, 15],
-        borderDashOffset: 10,
-        borderCapStyle: "square",
-        borderJoinStyle: "round",
-        lineTension: 0,
-        pointBackgroundColor: ["green", "blue", "red", "yellow", "green", "blue", "red"],
-        pointBorderColor: "white",
-        pointBorderWidth: 2,
-        pointRadius: 5,
-        //pointStyle: "triangle",
-        pointHitRadius: 10,
-        pointHoverBackgroundColor: "#fff",
-        pointHoverBorderColor: ["green", "blue", "red", "yellow", "green", "blue", "red"],
-        pointHoverBorderWidth: 5,
-        pointHoverRadius: 10,
-        data: [0, 10, 5, 2, 20, 30, 45],
+        label: "My First dataset",
+        backgroundColor: ["blue", "red", "orange", "green", "yellow", "teal", "purple"],
+        borderColor: "black",
+        hoverBackgroundColor: "black",
+        hoverBorderColor: ["blue", "red", "orange", "green", "yellow", "teal", "purple"],
+        borderWidth: 0,
+        hoverBorderWidth: 2,
+        data: [10, 10, 5, 2, 20, 30, 45],
       },
     ],
   },
-  options: {} as ChartConfiguration,
+
+  options: {
+    cutoutPercentage: 60,
+    // rotation: 0, //* Default -0.5*Math.PI
+    circumference: 6.25,
+    animation: {
+      animateRotate: true,
+      animateScale: true,
+    },
+  } as ChartConfiguration,
 });
