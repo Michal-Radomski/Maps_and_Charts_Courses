@@ -51,7 +51,7 @@ new Chart(ctx!, {
     scales: {
       yAxes: [
         {
-          stacked: true,
+          stacked: true, //* If true -> one chart over second one!
         },
       ],
     },
