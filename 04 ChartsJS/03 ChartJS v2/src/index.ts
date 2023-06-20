@@ -61,8 +61,8 @@ const { Chart } = window;
 //* Bar Chart
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
 new Chart(ctx!, {
-  // type: "bar",
-  type: "horizontalBar",
+  type: "bar",
+  // type: "horizontalBar",
 
   data: {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -74,6 +74,9 @@ new Chart(ctx!, {
         borderWidth: 2,
         // borderSkipped: "right",
         // hoverBackgroundColor: "#000",
+        hoverBorderColor: ["red", "yellow", "green", "blue", "purple", "orange", "grey"],
+        hoverBorderWidth: 5,
+        data: [20, 10, 5, 2, 20, 30, 45],
       },
       {
         label: "Monthly Profits",
@@ -88,8 +91,8 @@ new Chart(ctx!, {
     scales: {
       xAxes: [
         {
-          //barPercentage: 1,
-          //categoryPercentage: 1,
+          // barPercentage: 1,
+          // categoryPercentage: 1,
           barThickness: 40,
           maxBarThickness: 30,
           gridLines: {
