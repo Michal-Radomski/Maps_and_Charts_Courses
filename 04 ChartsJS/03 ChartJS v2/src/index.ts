@@ -20,8 +20,10 @@ new Chart(ctx!, {
         borderDashOffset: 10,
         borderCapStyle: "square",
         borderJoinStyle: "bevel",
-
-        data: [0, 20, 5, 2, 20, 30, 40, 20],
+        //cubicInterpolationMode: "monotone",
+        fill: "start",
+        //lineTension: 0.4,
+        pointBackgroundColor: ["red", "green", "blue", "yellow", "pink", "purple"],
       },
       {
         label: "My Profits",
