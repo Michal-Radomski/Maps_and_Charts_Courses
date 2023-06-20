@@ -24,6 +24,9 @@ new Chart(ctx!, {
         fill: "start",
         //lineTension: 0.4,
         pointBackgroundColor: ["red", "green", "blue", "yellow", "pink", "purple"],
+        pointBorderColor: "pink",
+        pointBorderWidth: 5,
+        pointRadius: 0,
       },
       {
         label: "My Profits",
