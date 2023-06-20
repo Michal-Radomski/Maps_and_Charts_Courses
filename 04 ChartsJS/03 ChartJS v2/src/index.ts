@@ -16,6 +16,11 @@ new Chart(ctx!, {
         backgroundColor: "rgba(255, 99, 132, 1)",
         borderColor: "blue",
         borderWidth: 2,
+        borderDash: [10],
+        borderDashOffset: 10,
+        borderCapStyle: "square",
+        borderJoinStyle: "bevel",
+
         data: [0, 20, 5, 2, 20, 30, 40, 20],
       },
       {
