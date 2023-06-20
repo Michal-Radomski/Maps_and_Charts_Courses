@@ -27,6 +27,13 @@ new Chart(ctx!, {
         pointBorderColor: "pink",
         pointBorderWidth: 5,
         pointRadius: 0,
+        //pointStyle: image,
+        pointHitRadius: 20,
+        pointHoverBackgroundColor: "purple",
+        pointHoverBorderColor: "black",
+        pointHoverBorderWidth: 5,
+        pointHoverRadius: 10,
+        data: [0, 20, 5, 2, 20, 30, 40, 20],
       },
       {
         label: "My Profits",
