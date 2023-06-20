@@ -59,99 +59,87 @@ const { Chart } = window;
 // });
 
 //* Bar Chart
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// new Chart(ctx!, {
+//   type: "bar",
+//   // type: "horizontalBar",
+
+//   data: {
+//     labels: ["January", "February", "March", "April", "May", "June", "July"],
+//     datasets: [
+//       {
+//         label: "Monthly Sales",
+//         backgroundColor: "red",
+//         borderColor: "black",
+//         borderWidth: 2,
+//         // borderSkipped: "right",
+//         // hoverBackgroundColor: "#000",
+//         hoverBorderColor: ["red", "yellow", "green", "blue", "purple", "orange", "grey"],
+//         hoverBorderWidth: 5,
+//         data: [20, 10, 5, 2, 20, 30, 45],
+//       },
+//       {
+//         label: "Monthly Profits",
+//         backgroundColor: "green",
+//         borderColor: "black",
+//         data: [20, 10, 5, 2, 20, 30, 45],
+//       },
+//     ],
+//   },
+
+//   options: {
+//     scales: {
+//       xAxes: [
+//         {
+//           // barPercentage: 1,
+//           // categoryPercentage: 1,
+//           barThickness: 40,
+//           // maxBarThickness: 30,
+//           gridLines: {
+//             offsetGridLines: false,
+//           },
+//           stacked: true,
+//         },
+//       ],
+//       yAxes: [
+//         {
+//           stacked: true,
+//         },
+//       ],
+//     },
+//   } as ChartConfiguration,
+// });
+
+//* Radar Chart
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
 new Chart(ctx!, {
-  type: "bar",
-  // type: "horizontalBar",
-
+  type: "radar",
   data: {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
       {
-        label: "Monthly Sales",
-        backgroundColor: "red",
-        borderColor: "black",
-        borderWidth: 2,
-        // borderSkipped: "right",
-        // hoverBackgroundColor: "#000",
-        hoverBorderColor: ["red", "yellow", "green", "blue", "purple", "orange", "grey"],
-        hoverBorderWidth: 5,
-        data: [20, 10, 5, 2, 20, 30, 45],
-      },
-      {
-        label: "Monthly Profits",
-        backgroundColor: "green",
-        borderColor: "black",
-        data: [20, 10, 5, 2, 20, 30, 45],
+        label: "Radar Chart Values",
+        backgroundColor: "rgb(0, 99, 132)",
+        borderColor: "rgb(0, 0, 132)",
+        borderWidth: 10,
+        //borderDash: [5, 15, 2, 15],
+        borderDashOffset: 10,
+        borderCapStyle: "square",
+        borderJoinStyle: "round",
+        lineTension: 0,
+        pointBackgroundColor: ["green", "blue", "red", "yellow", "green", "blue", "red"],
+        pointBorderColor: "white",
+        pointBorderWidth: 2,
+        pointRadius: 5,
+        //pointStyle: "triangle",
+        pointHitRadius: 10,
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: ["green", "blue", "red", "yellow", "green", "blue", "red"],
+        pointHoverBorderWidth: 5,
+        pointHoverRadius: 10,
+        data: [0, 10, 5, 2, 20, 30, 45],
       },
     ],
   },
-
-  options: {
-    scales: {
-      xAxes: [
-        {
-          // barPercentage: 1,
-          // categoryPercentage: 1,
-          barThickness: 40,
-          // maxBarThickness: 30,
-          gridLines: {
-            offsetGridLines: false,
-          },
-          stacked: true,
-        },
-      ],
-      yAxes: [
-        {
-          stacked: true,
-        },
-      ],
-    },
-  } as ChartConfiguration,
+  options: {} as ChartConfiguration,
 });
-
-//- ----------------------------------------------
-
-//* Default Code
-// const labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-
-// const data = {
-//   labels: labels,
-//   datasets: [
-//     {
-//       label: "# of Votes",
-//       data: [12, 19, 3, 5, 2, 3],
-//       backgroundColor: [
-//         "rgba(255, 99, 132, 0.2)",
-//         "rgba(54, 162, 235, 0.2)",
-//         "rgba(255, 206, 86, 0.2)",
-//         "rgba(75, 192, 192, 0.2)",
-//         "rgba(153, 102, 255, 0.2)",
-//         "rgba(255, 159, 64, 0.2)",
-//       ],
-//       borderColor: [
-//         "rgba(255, 99, 132, 1)",
-//         "rgba(54, 162, 235, 1)",
-//         "rgba(255, 206, 86, 1)",
-//         "rgba(75, 192, 192, 1)",
-//         "rgba(153, 102, 255, 1)",
-//         "rgba(255, 159, 64, 1)",
-//       ],
-//       borderWidth: 3,
-//     },
-//   ],
-// };
-
-// const config = {
-//   type: "bar",
-//   data: data,
-//   options: {
-//     scales: {
-//       y: {
-//         beginAtZero: true,
-//       },
-//     },
-//   },
-// };
-
-// new Chart(document.getElementById("myChart") as HTMLCanvasElement, config as ChartConfiguration);
