@@ -249,28 +249,52 @@ const { Chart } = window;
 // });
 
 //* Bubble Chart
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// new Chart(ctx!, {
+//   type: "bubble",
+
+//   data: {
+//     datasets: [
+//       {
+//         label: "My First dataset",
+//         backgroundColor: ["rgb(255, 99, 132)", "green", "blue"],
+//         borderColor: "grey",
+//         borderWidth: 5,
+//         hoverBackgroundColor: "#98F",
+//         hoverBorderColor: "#0AF",
+//         hoverBorderWidth: 5,
+//         hoverRadius: 0,
+//         hitRadius: 10,
+//         //pointStyle: "line",
+//         radius: 50,
+//         data: [
+//           { x: 5, y: 10, r: 10 },
+//           { x: 15, y: 3, r: 15 },
+//           { x: 7, y: 15, r: 30 },
+//         ],
+//       },
+//     ],
+//   },
+
+//   options: {} as ChartConfiguration,
+// });
+
+//* Scatter Chart
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
 new Chart(ctx!, {
-  type: "bubble",
+  type: "scatter",
 
   data: {
     datasets: [
       {
         label: "My First dataset",
-        backgroundColor: ["rgb(255, 99, 132)", "green", "blue"],
-        borderColor: "grey",
-        borderWidth: 5,
-        hoverBackgroundColor: "#98F",
-        hoverBorderColor: "#0AF",
-        hoverBorderWidth: 5,
-        hoverRadius: 0,
-        hitRadius: 10,
-        //pointStyle: "line",
-        radius: 50,
+        backgroundColor: "rgb(255, 99, 132)",
+        borderColor: "rgb(255, 99, 132)",
         data: [
-          { x: 5, y: 10, r: 10 },
-          { x: 15, y: 3, r: 15 },
-          { x: 7, y: 15, r: 30 },
+          { x: 10, y: 20 },
+          { x: 15, y: 10 },
+          { x: -10, y: -10 },
+          { x: 25, y: -5 },
         ],
       },
     ],
