@@ -94,7 +94,7 @@ new Chart(ctx!, {
           // barPercentage: 1,
           // categoryPercentage: 1,
           barThickness: 40,
-          maxBarThickness: 30,
+          // maxBarThickness: 30,
           gridLines: {
             offsetGridLines: false,
           },
