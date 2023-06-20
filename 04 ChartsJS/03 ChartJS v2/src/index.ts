@@ -176,44 +176,74 @@ const { Chart } = window;
 //   } as ChartConfiguration,
 // });
 
-//* Doughnut / Pie Chart v2
+//* Doughnut / Pie Chart v2 (Gauge Chart)
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// new Chart(ctx!, {
+//   type: "pie",
+
+//   data: {
+//     labels: ["January", "February", "March"],
+//     datasets: [
+//       {
+//         label: "My First dataset",
+//         backgroundColor: ["grey", "red", "grey"],
+//         borderColor: "white",
+//         hoverBackgroundColor: "white",
+//         hoverBorderColor: ["grey", "red", "grey"],
+//         borderWidth: 3,
+//         hoverBorderWidth: 3,
+//         data: [45, 1, 10],
+//       },
+//       {
+//         label: "My Second dataset",
+//         backgroundColor: ["yellow"],
+//         borderColor: "white",
+//         hoverBackgroundColor: "white",
+//         hoverBorderColor: ["yellow"],
+//         borderWidth: 3,
+//         hoverBorderWidth: 3,
+//         data: [15, 10, 20],
+//       },
+//     ],
+//   },
+
+//   options: {
+//     cutoutPercentage: 80,
+//     rotation: 0.8 * Math.PI,
+//     circumference: 1.4 * Math.PI,
+//     animation: {
+//       animateRotate: true,
+//       animateScale: true,
+//     },
+//   } as ChartConfiguration,
+// });
+
+//* Polar Chart
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
 new Chart(ctx!, {
-  type: "pie",
+  type: "polarArea",
 
   data: {
-    labels: ["January", "February", "March"],
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
       {
         label: "My First dataset",
-        backgroundColor: ["grey", "red", "grey"],
-        borderColor: "white",
-        hoverBackgroundColor: "white",
-        hoverBorderColor: ["grey", "red", "grey"],
-        borderWidth: 3,
-        hoverBorderWidth: 3,
-        data: [45, 1, 10],
-      },
-      {
-        label: "My Second dataset",
-        backgroundColor: ["yellow"],
-        borderColor: "white",
-        hoverBackgroundColor: "white",
-        hoverBorderColor: ["yellow"],
-        borderWidth: 3,
-        hoverBorderWidth: 3,
-        data: [15, 10, 20],
+        backgroundColor: ["green", "yellow", "teal", "tomato", "red", "purple", "blue"],
+        borderColor: "grey",
+        borderWidth: 1,
+        hoverBackgroundColor: "#0f0",
+        hoverBorderColor: "red",
+        hoverBorderWidth: 2,
+        data: [20, 10, 5, 2, 20, 30, 45],
       },
     ],
   },
 
   options: {
-    cutoutPercentage: 80,
-    rotation: 0.8 * Math.PI,
-    circumference: 1.4 * Math.PI,
+    startAngle: 6.28 - 3.14 / 2,
     animation: {
-      animateRotate: true,
-      animateScale: true,
+      animateRotate: false,
+      animateScale: false,
     },
   } as ChartConfiguration,
 });
