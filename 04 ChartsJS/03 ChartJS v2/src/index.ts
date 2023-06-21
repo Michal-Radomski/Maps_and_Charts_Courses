@@ -402,6 +402,15 @@ new Chart(ctx!, {
       display: true,
       position: "top",
       reverse: false,
+      labels: {
+        boxWidth: 25,
+        fontSize: 15,
+        fontStyle: "bold",
+        fontColor: "#000",
+        fontFamily: "Arial",
+        padding: 25,
+        usePointStyle: true,
+      },
     },
   } as ChartConfiguration,
 });
