@@ -402,6 +402,8 @@ new Chart(ctx!, {
       display: true,
       position: "top",
       reverse: false,
+      onClick: () => console.log(this),
+      onHover: onHover,
       labels: {
         boxWidth: 25,
         fontSize: 15,
@@ -414,6 +416,10 @@ new Chart(ctx!, {
     },
   } as ChartConfiguration,
 });
+
+function onHover(this: typeof Object): void {
+  console.log(this);
+}
 
 //+ -------------------------------------
 //* Default Code
