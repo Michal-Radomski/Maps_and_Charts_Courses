@@ -391,7 +391,10 @@ new Chart(ctx!, {
   },
 
   options: {
-    scales: {},
+    legend: {
+      display: true,
+      position: "bottom",
+    },
   } as ChartConfiguration,
 });
 
