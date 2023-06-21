@@ -381,11 +381,18 @@ new Chart(ctx!, {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
     datasets: [
       {
-        label: "My sales",
+        label: "My sales 1",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
-        borderColor: "blue",
-        borderWidth: 4,
+        borderColor: "red",
+        borderWidth: 3,
         data: [0, 20, 5, 2, 20, 30, 40, 20],
+      },
+      {
+        label: "My sales 2",
+        backgroundColor: "rgba(12, 99, 255, 0.5)",
+        borderColor: "blue",
+        borderWidth: 3,
+        data: [10, 10, 15, 24, 10, 10, 20, 10],
       },
     ],
   },
@@ -393,7 +400,8 @@ new Chart(ctx!, {
   options: {
     legend: {
       display: true,
-      position: "bottom",
+      position: "top",
+      reverse: false,
     },
   } as ChartConfiguration,
 });
