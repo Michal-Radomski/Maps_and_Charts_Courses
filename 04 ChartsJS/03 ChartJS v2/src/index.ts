@@ -374,73 +374,96 @@ const { Chart } = window;
 
 //- Intermediate
 //* Line Chart
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// const chart = new Chart(ctx!, {
+//   type: "line",
+//   data: {
+//     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
+//     datasets: [
+//       {
+//         label: "My sales 1",
+//         backgroundColor: "rgba(255, 99, 132, 0.5)",
+//         borderColor: "red",
+//         borderWidth: 3,
+//         data: [0, 20, 5, 2, 20, 30, 40, 20],
+//       },
+//       {
+//         label: "My sales 2",
+//         backgroundColor: "rgba(12, 99, 255, 0.5)",
+//         borderColor: "blue",
+//         borderWidth: 3,
+//         data: [10, 10, 15, 24, 10, 10, 20, 10],
+//       },
+//     ],
+//   },
+
+//   options: {
+//     legendCallback: function (chart: { data: { datasets: any[] } }) {
+//       const text = [];
+//       text.push('<ul class="list-inline">');
+//       for (let i = 0; i < chart.data.datasets.length; i++) {
+//         text.push(
+//           '<li class="text-white list-inline-item btn" style="background: ' + chart.data.datasets[i].backgroundColor + ' ">'
+//         );
+//         text.push(chart.data.datasets[i].label);
+//         text.push("</li>");
+//       }
+//       text.push("</ul>");
+//       return text.join("");
+//     },
+//     legend: {
+//       display: true,
+//       position: "top",
+//       reverse: false,
+//       onClick: () => console.log(this),
+//       onHover: onHover,
+//       labels: {
+//         boxWidth: 25,
+//         fontSize: 15,
+//         fontStyle: "bold",
+//         fontColor: "#000",
+//         fontFamily: "Arial",
+//         padding: 25,
+//         usePointStyle: true,
+//       },
+//     },
+//   } as ChartConfiguration,
+// });
+
+// (document.getElementById("chartjs-legend") as HTMLDivElement).innerHTML = chart.generateLegend() as string;
+
+// // function onHover(this: typeof Object): void {
+// //   console.log(this);
+// // }
+// function onHover() {
+//   // console.log("chart.options.legend!.labels!.fontColor:", chart.options.legend!.labels!.fontColor);
+//   chart.options.legend!.labels!.fontColor = "red";
+// }
+
+//* Tooltips
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
-const chart = new Chart(ctx!, {
+new Chart(ctx!, {
   type: "line",
   data: {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
     datasets: [
       {
-        label: "My sales 1",
+        label: "My sales",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
-        borderColor: "red",
-        borderWidth: 3,
-        data: [0, 20, 5, 2, 20, 30, 40, 20],
-      },
-      {
-        label: "My sales 2",
-        backgroundColor: "rgba(12, 99, 255, 0.5)",
         borderColor: "blue",
-        borderWidth: 3,
-        data: [10, 10, 15, 24, 10, 10, 20, 10],
+        borderWidth: 4,
+        data: [0, 20, 5, 2, 20, 30, 40, 20],
       },
     ],
   },
 
   options: {
-    legendCallback: function (chart: { data: { datasets: any[] } }) {
-      const text = [];
-      text.push('<ul class="list-inline">');
-      for (let i = 0; i < chart.data.datasets.length; i++) {
-        text.push(
-          '<li class="text-white list-inline-item btn" style="background: ' + chart.data.datasets[i].backgroundColor + ' ">'
-        );
-        text.push(chart.data.datasets[i].label);
-        text.push("</li>");
-      }
-      text.push("</ul>");
-      return text.join("");
-    },
-    legend: {
-      display: true,
-      position: "top",
-      reverse: false,
-      onClick: () => console.log(this),
-      onHover: onHover,
-      labels: {
-        boxWidth: 25,
-        fontSize: 15,
-        fontStyle: "bold",
-        fontColor: "#000",
-        fontFamily: "Arial",
-        padding: 25,
-        usePointStyle: true,
-      },
-    },
+    scales: {},
   } as ChartConfiguration,
 });
 
-(document.getElementById("chartjs-legend") as HTMLDivElement).innerHTML = chart.generateLegend() as string;
-
-// function onHover(this: typeof Object): void {
-//   console.log(this);
-// }
-function onHover() {
-  // console.log("chart.options.legend!.labels!.fontColor:", chart.options.legend!.labels!.fontColor);
-  chart.options.legend!.labels!.fontColor = "red";
-}
-
 //+ -------------------------------------
+
 //* Default Code
 // const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
 // new Chart(ctx!, {
