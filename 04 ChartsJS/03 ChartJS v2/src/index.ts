@@ -441,6 +441,58 @@ const { Chart } = window;
 // }
 
 //* Tooltips
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// new Chart(ctx!, {
+//   type: "line",
+//   data: {
+//     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
+//     datasets: [
+//       {
+//         label: "My sales",
+//         backgroundColor: "rgba(255, 99, 132, 0.5)",
+//         borderColor: "blue",
+//         borderWidth: 4,
+//         data: [0, 20, 5, 2, 20, 30, 40, 20],
+//       },
+//       {
+//         label: "My sales 2",
+//         backgroundColor: "rgba(12, 99, 255, 0.5)",
+//         borderColor: "blue",
+//         borderWidth: 3,
+//         data: [10, 10, 15, 24, 10, 10, 20, 10],
+//       },
+//     ],
+//   },
+
+//   options: {
+//     tooltips: {
+//       enabled: true,
+//       mode: "index",
+//       intersect: false,
+//       position: "nearest",
+//       backgroundColor: "rgba(12,155,45, 0.8)",
+//       titleFontFamily: "Arial",
+//       titleFontSize: 20,
+//       titleFontStyle: "italic",
+//       titleFontColor: "yellow",
+//       // titleSpacing: 5, //* Doesn't work
+//       titleMarginBottom: 10,
+//       bodyFontFamily: "Arial",
+//       bodyFontSize: 14,
+//       bodyFontStyle: "italic",
+//       bodyFontColor: "red",
+//       bodySpacing: 5,
+//       xPadding: 20,
+//       yPadding: 20,
+//       caretPadding: 5,
+//       caretSize: 10,
+//       cornerRadius: 15,
+//       displayColors: true,
+//     },
+//   } as ChartConfiguration,
+// });
+
+//* Colors
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
 new Chart(ctx!, {
   type: "line",
@@ -454,42 +506,10 @@ new Chart(ctx!, {
         borderWidth: 4,
         data: [0, 20, 5, 2, 20, 30, 40, 20],
       },
-      {
-        label: "My sales 2",
-        backgroundColor: "rgba(12, 99, 255, 0.5)",
-        borderColor: "blue",
-        borderWidth: 3,
-        data: [10, 10, 15, 24, 10, 10, 20, 10],
-      },
     ],
   },
 
-  options: {
-    tooltips: {
-      enabled: true,
-      mode: "index",
-      intersect: false,
-      position: "nearest",
-      backgroundColor: "rgba(12,155,45, 0.8)",
-      titleFontFamily: "Arial",
-      titleFontSize: 20,
-      titleFontStyle: "italic",
-      titleFontColor: "yellow",
-      // titleSpacing: 5, //* Doesn't work
-      titleMarginBottom: 10,
-      bodyFontFamily: "Arial",
-      bodyFontSize: 14,
-      bodyFontStyle: "italic",
-      bodyFontColor: "red",
-      bodySpacing: 5,
-      xPadding: 20,
-      yPadding: 20,
-      caretPadding: 5,
-      caretSize: 10,
-      cornerRadius: 15,
-      displayColors: true,
-    },
-  } as ChartConfiguration,
+  options: {} as ChartConfiguration,
 });
 
 //+ -------------------------------------
