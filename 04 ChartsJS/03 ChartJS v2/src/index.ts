@@ -494,6 +494,11 @@ const { Chart } = window;
 
 //* Colors
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+const gradient = ctx?.createLinearGradient(0, 600, 0, 0);
+gradient!.addColorStop(0, "red");
+gradient!.addColorStop(1, "green");
+// console.log({ gradient });
+
 new Chart(ctx!, {
   type: "line",
   data: {
@@ -501,7 +506,8 @@ new Chart(ctx!, {
     datasets: [
       {
         label: "My sales",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        // backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: gradient,
         borderColor: "blue",
         borderWidth: 4,
         data: [0, 20, 5, 2, 20, 30, 40, 20],
