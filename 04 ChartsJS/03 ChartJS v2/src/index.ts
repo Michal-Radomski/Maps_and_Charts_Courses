@@ -500,6 +500,9 @@ gradient.addColorStop(0.9, "green");
 const gradient2 = ctx?.createLinearGradient(1200, 0, 0, 0) as CanvasGradient;
 gradient2.addColorStop(0.1, "green");
 gradient2.addColorStop(0.9, "red");
+const gradient3 = ctx?.createLinearGradient(0, 700, 0, 0) as CanvasGradient;
+gradient3.addColorStop(0.1, "pink");
+gradient3.addColorStop(0.9, "maroon");
 // console.log({ gradient });
 
 new Chart(ctx!, {
@@ -515,6 +518,13 @@ new Chart(ctx!, {
         borderColor: gradient2,
         borderWidth: 4,
         data: [0, 20, 5, 2, 20, 30, 40, 20],
+      },
+      {
+        label: "My sales 2",
+        backgroundColor: gradient3,
+        borderColor: gradient3,
+        borderWidth: 3,
+        data: [10, 10, 15, 24, 10, 10, 20, 10],
       },
     ],
   },
