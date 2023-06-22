@@ -375,7 +375,7 @@ const { Chart } = window;
 //- Intermediate
 //* Line Chart
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
-new Chart(ctx!, {
+const chart = new Chart(ctx!, {
   type: "line",
   data: {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
@@ -417,8 +417,12 @@ new Chart(ctx!, {
   } as ChartConfiguration,
 });
 
-function onHover(this: typeof Object): void {
-  console.log(this);
+// function onHover(this: typeof Object): void {
+//   console.log(this);
+// }
+function onHover() {
+  // console.log("chart.options.legend!.labels!.fontColor:", chart.options.legend!.labels!.fontColor);
+  chart.options.legend!.labels!.fontColor = "red";
 }
 
 //+ -------------------------------------
