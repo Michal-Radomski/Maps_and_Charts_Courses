@@ -564,37 +564,58 @@ const { Chart } = window;
 // });
 
 //* Drill Down Chart
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d") as CanvasRenderingContext2D;
+// const labels = ["January", "February", "March", "April", "May", "June", "July", "August"];
+// const data = [10, 10, 5, 2, 20, 30, 45, 6];
+
+// function drillDownChart(_click: MouseEvent, data: { [x: string]: typeof Object }[]) {
+//   // console.log({ _click });
+//   if (data[0]) {
+//     // console.log("data[0]:", data[0]);
+//     let x = data[0]["_index"];
+//     console.log({ x });
+//     // window.location.href = "";
+//   }
+// }
+
+// new Chart(ctx, {
+//   type: "doughnut",
+//   data: {
+//     labels: labels,
+//     datasets: [
+//       {
+//         label: "My First dataset",
+//         backgroundColor: ["red", "yellow", "orange", "green", "blue", "purple", "maroon", "cyan"],
+//         borderColor: ["red", "yellow", "orange", "green", "blue", "purple", "maroon", "cyan"],
+//         data: data,
+//       },
+//     ],
+//   },
+
+//   options: {
+//     onClick: drillDownChart,
+//   },
+// });
+
+//- Advance
+//* Chart Database Connection PHP & MYSQL
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d") as CanvasRenderingContext2D;
-const labels = ["January", "February", "March", "April", "May", "June", "July", "August"];
-const data = [10, 10, 5, 2, 20, 30, 45, 6];
-
-function drillDownChart(_click: MouseEvent, data: { [x: string]: typeof Object }[]) {
-  // console.log({ _click });
-  if (data[0]) {
-    // console.log("data[0]:", data[0]);
-    let x = data[0]["_index"];
-    console.log({ x });
-    // window.location.href = "";
-  }
-}
-
 new Chart(ctx, {
-  type: "doughnut",
+  type: "line",
   data: {
-    labels: labels,
+    labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
     datasets: [
       {
-        label: "My First dataset",
-        backgroundColor: ["red", "yellow", "orange", "green", "blue", "purple", "maroon", "cyan"],
-        borderColor: ["red", "yellow", "orange", "green", "blue", "purple", "maroon", "cyan"],
-        data: data,
+        label: "My sales",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "blue",
+        borderWidth: 4,
+        data: [0, 20, 5, 2, 20, 30, 40, 20],
       },
     ],
   },
 
-  options: {
-    onClick: drillDownChart,
-  },
+  options: {} as ChartConfiguration,
 });
 
 //+ -------------------------------------
