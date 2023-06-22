@@ -482,6 +482,9 @@ new Chart(ctx!, {
       bodyFontStyle: "italic",
       bodyFontColor: "red",
       bodySpacing: 5,
+      xPadding: 20,
+      yPadding: 20,
+      caretPadding: 5,
     },
   } as ChartConfiguration,
 });
