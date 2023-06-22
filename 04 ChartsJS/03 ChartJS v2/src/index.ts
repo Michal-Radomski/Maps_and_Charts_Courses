@@ -477,6 +477,11 @@ new Chart(ctx!, {
       titleFontColor: "yellow",
       // titleSpacing: 5, //* Doesn't work
       titleMarginBottom: 10,
+      bodyFontFamily: "Arial",
+      bodyFontSize: 14,
+      bodyFontStyle: "italic",
+      bodyFontColor: "red",
+      bodySpacing: 5,
     },
   } as ChartConfiguration,
 });
