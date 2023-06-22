@@ -492,39 +492,71 @@ const { Chart } = window;
 //   } as ChartConfiguration,
 // });
 
-//* Colors
+//* Colors -> 1
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// const gradient = ctx?.createLinearGradient(1200, 0, 0, 0) as CanvasGradient;
+// gradient.addColorStop(0.1, "red");
+// gradient.addColorStop(0.9, "green");
+// const gradient2 = ctx?.createLinearGradient(1200, 0, 0, 0) as CanvasGradient;
+// gradient2.addColorStop(0.1, "green");
+// gradient2.addColorStop(0.9, "red");
+// const gradient3 = ctx?.createLinearGradient(0, 700, 0, 0) as CanvasGradient;
+// gradient3.addColorStop(0.1, "pink");
+// gradient3.addColorStop(0.9, "maroon");
+// // console.log({ gradient });
+
+// new Chart(ctx!, {
+//   type: "line",
+//   data: {
+//     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
+//     datasets: [
+//       {
+//         label: "My sales",
+//         // backgroundColor: "rgba(255, 99, 132, 0.5)",
+//         backgroundColor: gradient,
+//         // borderColor: "blue",
+//         borderColor: gradient2,
+//         borderWidth: 4,
+//         data: [0, 20, 5, 2, 20, 30, 40, 20],
+//       },
+//       {
+//         label: "My sales 2",
+//         backgroundColor: gradient3,
+//         borderColor: gradient3,
+//         borderWidth: 3,
+//         data: [10, 10, 15, 24, 10, 10, 20, 10],
+//       },
+//     ],
+//   },
+
+//   options: {} as ChartConfiguration,
+// });
+
+//* Colors -> 2
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
-const gradient = ctx?.createLinearGradient(1200, 0, 0, 0) as CanvasGradient;
-gradient.addColorStop(0.1, "red");
-gradient.addColorStop(0.9, "green");
-const gradient2 = ctx?.createLinearGradient(1200, 0, 0, 0) as CanvasGradient;
-gradient2.addColorStop(0.1, "green");
-gradient2.addColorStop(0.9, "red");
-const gradient3 = ctx?.createLinearGradient(0, 700, 0, 0) as CanvasGradient;
-gradient3.addColorStop(0.1, "pink");
-gradient3.addColorStop(0.9, "maroon");
-// console.log({ gradient });
+
+const data = [0, -10, 5, 12, -20, 30, -45, 6];
+const colors = [];
+
+for (let i = 0; i < data.length; i++) {
+  if (data[i] > 0) {
+    colors[i] = "green";
+  } else {
+    colors[i] = "red";
+  }
+}
 
 new Chart(ctx!, {
-  type: "line",
+  type: "bar",
   data: {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
     datasets: [
       {
         label: "My sales",
-        // backgroundColor: "rgba(255, 99, 132, 0.5)",
-        backgroundColor: gradient,
-        // borderColor: "blue",
-        borderColor: gradient2,
+        backgroundColor: colors,
+        borderColor: colors,
         borderWidth: 4,
-        data: [0, 20, 5, 2, 20, 30, 40, 20],
-      },
-      {
-        label: "My sales 2",
-        backgroundColor: gradient3,
-        borderColor: gradient3,
-        borderWidth: 3,
-        data: [10, 10, 15, 24, 10, 10, 20, 10],
+        data: data,
       },
     ],
   },
