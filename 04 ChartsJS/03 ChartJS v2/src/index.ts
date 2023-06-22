@@ -454,11 +454,21 @@ new Chart(ctx!, {
         borderWidth: 4,
         data: [0, 20, 5, 2, 20, 30, 40, 20],
       },
+      {
+        label: "My sales 2",
+        backgroundColor: "rgba(12, 99, 255, 0.5)",
+        borderColor: "blue",
+        borderWidth: 3,
+        data: [10, 10, 15, 24, 10, 10, 20, 10],
+      },
     ],
   },
 
   options: {
-    scales: {},
+    tooltips: {
+      enabled: true,
+      mode: "index",
+    },
   } as ChartConfiguration,
 });
 
@@ -482,6 +492,5 @@ new Chart(ctx!, {
 //   },
 
 //   options: {
-//     scales: {},
 //   } as ChartConfiguration,
 // });
