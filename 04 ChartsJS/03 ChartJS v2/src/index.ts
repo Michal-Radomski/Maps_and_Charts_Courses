@@ -468,6 +468,15 @@ new Chart(ctx!, {
     tooltips: {
       enabled: true,
       mode: "index",
+      intersect: false,
+      position: "nearest",
+      backgroundColor: "rgba(12,155,45, 0.8)",
+      titleFontFamily: "Arial",
+      titleFontSize: 20,
+      titleFontStyle: "italic",
+      titleFontColor: "yellow",
+      // titleSpacing: 5, //* Doesn't work
+      titleMarginBottom: 10,
     },
   } as ChartConfiguration,
 });
