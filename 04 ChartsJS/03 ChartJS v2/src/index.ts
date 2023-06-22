@@ -533,30 +533,49 @@ const { Chart } = window;
 // });
 
 //* Colors -> 2
+// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
+// const data = [0, -10, 5, 12, -20, 30, -45, 6];
+// const colors = [];
+
+// for (let i = 0; i < data.length; i++) {
+//   if (data[i] > 0) {
+//     colors[i] = "green";
+//   } else {
+//     colors[i] = "red";
+//   }
+// }
+
+// new Chart(ctx!, {
+//   type: "bar",
+//   data: {
+//     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
+//     datasets: [
+//       {
+//         label: "My sales",
+//         backgroundColor: colors,
+//         borderColor: colors,
+//         borderWidth: 4,
+//         data: data,
+//       },
+//     ],
+//   },
+
+//   options: {} as ChartConfiguration,
+// });
+
+//* Drill Down Chart
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d");
-
-const data = [0, -10, 5, 12, -20, 30, -45, 6];
-const colors = [];
-
-for (let i = 0; i < data.length; i++) {
-  if (data[i] > 0) {
-    colors[i] = "green";
-  } else {
-    colors[i] = "red";
-  }
-}
-
 new Chart(ctx!, {
-  type: "bar",
+  type: "line",
   data: {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
     datasets: [
       {
         label: "My sales",
-        backgroundColor: colors,
-        borderColor: colors,
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "blue",
         borderWidth: 4,
-        data: data,
+        data: [0, 20, 5, 2, 20, 30, 40, 20],
       },
     ],
   },
