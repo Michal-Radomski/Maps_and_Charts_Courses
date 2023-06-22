@@ -13,3 +13,17 @@ body {
   box-sizing: border-box;
   background-color: whitesmoke !important;
 }
+
+#chartjs-legend ul {
+  padding: 0;
+  margin: 0;
+}
+#chartjs-legend ul li {
+  list-style-type: none;
+}
+#chartjs-legend ul li span {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-right: 5px;
+}

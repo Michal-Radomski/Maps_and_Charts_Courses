@@ -398,6 +398,19 @@ const chart = new Chart(ctx!, {
   },
 
   options: {
+    legendCallback: function (chart: { data: { datasets: any[] } }) {
+      const text = [];
+      text.push('<ul class="list-inline">');
+      for (let i = 0; i < chart.data.datasets.length; i++) {
+        text.push(
+          '<li class="text-white list-inline-item btn" style="background: ' + chart.data.datasets[i].backgroundColor + ' ">'
+        );
+        text.push(chart.data.datasets[i].label);
+        text.push("</li>");
+      }
+      text.push("</ul>");
+      return text.join("");
+    },
     legend: {
       display: true,
       position: "top",
@@ -416,6 +429,8 @@ const chart = new Chart(ctx!, {
     },
   } as ChartConfiguration,
 });
+
+(document.getElementById("chartjs-legend") as HTMLDivElement).innerHTML = chart.generateLegend() as string;
 
 // function onHover(this: typeof Object): void {
 //   console.log(this);
