@@ -485,6 +485,9 @@ new Chart(ctx!, {
       xPadding: 20,
       yPadding: 20,
       caretPadding: 5,
+      caretSize: 10,
+      cornerRadius: 15,
+      displayColors: true,
     },
   } as ChartConfiguration,
 });
