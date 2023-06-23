@@ -598,9 +598,9 @@ const { Chart } = window;
 // });
 
 //- Advance
-//* Chart Database Connection PHP & MYSQL
+//* Update Function
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d") as CanvasRenderingContext2D;
-new Chart(ctx, {
+const chart = new Chart(ctx, {
   type: "line",
   data: {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
@@ -618,27 +618,29 @@ new Chart(ctx, {
   options: {} as ChartConfiguration,
 });
 
-//+ -------------------------------------
+function addData() {
+  chart.data.labels?.push("September");
+  chart.data.datasets![0].data!.push(10);
+  chart.update();
+}
 
-//* Default Code
-// const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d") as CanvasRenderingContext2D;
-// new Chart(ctx, {
-//   type: "line",
-//   data: {
-//     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
-//     datasets: [
-//       {
-//         label: "My sales",
-//         backgroundColor: "rgba(255, 99, 132, 0.5)",
-//         borderColor: "blue",
-//         borderWidth: 4,
-//         data: [0, 20, 5, 2, 20, 30, 40, 20],
-//       },
-//     ],
-//   },
+function removeData() {
+  chart.data.labels?.pop();
+  chart.data.datasets![0].data!.pop();
+  chart.update();
+}
 
-//   options: {} as ChartConfiguration,
-// });
+function addData2() {
+  chart.data.labels?.unshift("September");
+  chart.data.datasets![0].data!.unshift(15);
+  chart.update();
+}
+
+function removeData2() {
+  chart.data.labels?.shift();
+  chart.data.datasets![0].data!.shift();
+  chart.update();
+}
 
 //- Pro
 //* Folder: 00 Addons
