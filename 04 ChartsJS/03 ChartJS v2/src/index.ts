@@ -681,5 +681,10 @@ function changeData2() {
   chart.update();
 }
 
+function changeData3() {
+  chart.data.labels = ["01", "02", "03", "04", "05", "06", "07", "08"];
+  chart.update();
+}
+
 //- Pro
 //* Folder: 00 Addons
