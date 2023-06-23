@@ -666,9 +666,11 @@ const chart = new Chart(ctx, {
 
 function changeData() {
   chart.data.labels?.push("September");
-  chart.data.datasets!.forEach((dataSet) => {
-    dataSet.data!.push(Math.floor(Math.random() * 30 + 1));
-  });
+  // chart.data.datasets!.forEach((dataSet) => {
+  //   dataSet.data!.push(Math.floor(Math.random() * 30 + 1));
+  // });
+  chart.data.datasets![0].data!.push(Math.floor(Math.random() * 30 + 1));
+  chart.data.datasets![1].data!.push(Math.floor(Math.random() * 30 + 1));
   chart.update();
 }
 
