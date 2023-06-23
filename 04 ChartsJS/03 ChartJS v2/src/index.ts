@@ -639,3 +639,6 @@ new Chart(ctx, {
 
 //   options: {} as ChartConfiguration,
 // });
+
+//- Pro
+//* Folder: 00 Addons

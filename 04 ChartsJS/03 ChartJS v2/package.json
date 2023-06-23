@@ -9,8 +9,8 @@
   "author": "MichRad",
   "license": "ISC",
   "devDependencies": {
-    "@types/chart.js": "^2.9.37",
     "@types/browser-sync": "^2.27.0",
+    "@types/chart.js": "^2.9.37",
     "@types/gulp": "^4.0.10",
     "@types/gulp-copy": "^0.0.4",
     "@types/gulp-postcss": "^8.0.2",
