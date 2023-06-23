@@ -601,6 +601,8 @@ const { Chart } = window;
 //* Update Function
 const data1 = [0, 20, 5, 2, 20, 30, 40, 20];
 const data2 = [10, 10, 15, 24, 10, 10, 20, 10];
+const data2_new = [14, 1, 1, 14, 10, 20, 10, 5];
+
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d") as CanvasRenderingContext2D;
 const chart = new Chart(ctx, {
   type: "line",
@@ -671,6 +673,11 @@ function changeData() {
   // });
   chart.data.datasets![0].data!.push(Math.floor(Math.random() * 30 + 1));
   chart.data.datasets![1].data!.push(Math.floor(Math.random() * 30 + 1));
+  chart.update();
+}
+
+function changeData2() {
+  chart.data.datasets![1].data = data2_new;
   chart.update();
 }
 
