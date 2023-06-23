@@ -599,6 +599,8 @@ const { Chart } = window;
 
 //- Advance
 //* Update Function
+const data1 = [0, 20, 5, 2, 20, 30, 40, 20];
+const data2 = [10, 10, 15, 24, 10, 10, 20, 10];
 const ctx = (document.getElementById("myChart")! as HTMLCanvasElement).getContext("2d") as CanvasRenderingContext2D;
 const chart = new Chart(ctx, {
   type: "line",
@@ -606,11 +608,18 @@ const chart = new Chart(ctx, {
     labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
     datasets: [
       {
-        label: "My sales",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        label: "My sales 1",
+        backgroundColor: "rgba(255, 99, 132, 0.3)",
+        borderColor: "red",
+        borderWidth: 3,
+        data: data1,
+      },
+      {
+        label: "My sales 2",
+        backgroundColor: "rgba(12, 99, 255, 0.3)",
         borderColor: "blue",
-        borderWidth: 4,
-        data: [0, 20, 5, 2, 20, 30, 40, 20],
+        borderWidth: 3,
+        data: data2,
       },
     ],
   },
@@ -642,11 +651,24 @@ const chart = new Chart(ctx, {
 //   chart.update();
 // }
 
-function rotateData() {
+// function rotateData() {
+//   chart.data.labels?.push("September");
+//   chart.data.datasets![0].data!.push(Math.floor(Math.random() * 30 + 1));
+//   chart.data.labels?.shift();
+//   chart.data.datasets![0].data!.shift();
+//   chart.update();
+// }
+
+// function rotateData2() {
+//   chart.data.labels?.fill("2023");
+//   chart.update();
+// }
+
+function changeData() {
   chart.data.labels?.push("September");
-  chart.data.datasets![0].data!.push(Math.floor(Math.random() * 30 + 1));
-  chart.data.labels?.shift();
-  chart.data.datasets![0].data!.shift();
+  chart.data.datasets!.forEach((dataSet) => {
+    dataSet.data!.push(Math.floor(Math.random() * 30 + 1));
+  });
   chart.update();
 }
 
