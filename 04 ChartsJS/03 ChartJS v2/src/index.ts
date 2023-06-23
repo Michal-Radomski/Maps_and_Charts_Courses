@@ -618,25 +618,33 @@ const chart = new Chart(ctx, {
   options: {} as ChartConfiguration,
 });
 
-function addData() {
+// function addData() {
+//   chart.data.labels?.push("September");
+//   chart.data.datasets![0].data!.push(10);
+//   chart.update();
+// }
+
+// function removeData() {
+//   chart.data.labels?.pop();
+//   chart.data.datasets![0].data!.pop();
+//   chart.update();
+// }
+
+// function addData2() {
+//   chart.data.labels?.unshift("September");
+//   chart.data.datasets![0].data!.unshift(Math.floor(Math.random() * 10 + 1));
+//   chart.update();
+// }
+
+// function removeData2() {
+//   chart.data.labels?.shift();
+//   chart.data.datasets![0].data!.shift();
+//   chart.update();
+// }
+
+function rotateData() {
   chart.data.labels?.push("September");
-  chart.data.datasets![0].data!.push(10);
-  chart.update();
-}
-
-function removeData() {
-  chart.data.labels?.pop();
-  chart.data.datasets![0].data!.pop();
-  chart.update();
-}
-
-function addData2() {
-  chart.data.labels?.unshift("September");
-  chart.data.datasets![0].data!.unshift(15);
-  chart.update();
-}
-
-function removeData2() {
+  chart.data.datasets![0].data!.push(Math.floor(Math.random() * 30 + 1));
   chart.data.labels?.shift();
   chart.data.datasets![0].data!.shift();
   chart.update();
