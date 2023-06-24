@@ -43,6 +43,10 @@
         box-sizing: border-box;
         background-color: whitesmoke !important;
       }
+      canvas {
+        max-width:600px;
+        max-height:auto;
+      }
     </style>
   </head>
 
@@ -67,7 +71,22 @@ $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-echo "Connected successfully";
+// echo "Connected successfully <br/>";
+$sql = "SELECT * FROM chartjs";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+
+    // output data of each row
+    while($row = $result->fetch_assoc()) {   
+     echo $row["chartdata"];
+
+    }
+} else {
+    echo "0 results";
+}
+$conn->close();
+
 ?> 
 
 <?php
