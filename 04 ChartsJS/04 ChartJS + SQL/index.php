@@ -1,4 +1,4 @@
-<!-- //! Run PHP server: php -S localhost:5500 -t ./ -->
+<!-- //! Run PHP server: "php -S localhost:5500 -t ./" -->
 
 <!-- //- Advance -->
 <!-- //* Chart Database Connection PHP & MYSQL -->
@@ -54,42 +54,40 @@
       </div>
     </div>
 
-    <!-- //* Test only -->
-    <!-- <?php
-  $i = 1;
-  echo"the first 10 natural numbers are:";
-  for($i = 1; $i <= 10; $i++) {
-    echo $i;
-  }
-?> -->
+ <?php
+$jan = 0;
+$feb= 20;
+$mar= 5;
+$apr= 5;
+$may= 20;
+$jun= 30;
+$jul= 40;
+$aug= 20;
+$lineChartValue = array($jan, $feb,$mar,$apr, $may, $jun, $jul, $aug, 49);
+  // echo $lineChartValue[0];
+  $jsonReady = json_encode($lineChartValue);
+  // echo $jsonReady;
+?>
 
     <script>
-      const data1 = [0, 20, 5, 2, 20, 30, 40, 20];
-      const data2 = [10, 10, 15, 24, 10, 10, 20, 10];
-
+      // const data = [0, 20, 5, 2, 20, 30, 40, 20];
+      // const data = <?php echo $jsonReady;?>;
+      const data = <?= $jsonReady;?>;
       const ctx = document.getElementById("myChart").getContext("2d");
       new Chart(ctx, {
         type: "line",
         data: {
-          labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
+          labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Additional"],
           datasets: [
             {
               label: "My sales 1",
               backgroundColor: "rgba(255, 99, 132, 0.3)",
               borderColor: "red",
               borderWidth: 3,
-              data: data1,
-            },
-            {
-              label: "My sales 2",
-              backgroundColor: "rgba(12, 99, 255, 0.3)",
-              borderColor: "blue",
-              borderWidth: 3,
-              data: data2,
+              data: data,
             },
           ],
         },
-
         options: {},
       });
     </script>
