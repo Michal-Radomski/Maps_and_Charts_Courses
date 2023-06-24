@@ -18,3 +18,4 @@ plugins/
 Temp/
 NaturalEarth2/
 *.pdf
+dbconfig.php

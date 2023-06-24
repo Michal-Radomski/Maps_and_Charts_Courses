@@ -2,7 +2,6 @@
 
 <!-- //- Advance -->
 <!-- //* Chart Database Connection PHP & MYSQL -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -54,7 +53,24 @@
       </div>
     </div>
 
- <?php
+<?php
+include 'dbconfig.php';
+// Create connection
+// echo $dbservername;
+// echo $dbusername;
+// echo $dbpassword;
+// echo $dbname;
+
+$conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully";
+?> 
+
+<?php
 $jan = 0;
 $feb= 20;
 $mar= 5;
@@ -64,9 +80,9 @@ $jun= 30;
 $jul= 40;
 $aug= 20;
 $lineChartValue = array($jan, $feb,$mar,$apr, $may, $jun, $jul, $aug, 49);
-  // echo $lineChartValue[0];
-  $jsonReady = json_encode($lineChartValue);
-  // echo $jsonReady;
+// echo $lineChartValue[0];
+$jsonReady = json_encode($lineChartValue);
+// echo $jsonReady;
 ?>
 
     <script>
