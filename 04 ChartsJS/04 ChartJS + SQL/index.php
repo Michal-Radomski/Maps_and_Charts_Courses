@@ -1,3 +1,8 @@
+<!-- //! Run PHP server: php -S localhost:5500 -t ./ -->
+
+<!-- //- Advance -->
+<!-- //* Chart Database Connection PHP & MYSQL -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -49,9 +54,16 @@
       </div>
     </div>
 
+    <!-- //* Test only -->
+    <!-- <?php
+  $i = 1;
+  echo"the first 10 natural numbers are:";
+  for($i = 1; $i <= 10; $i++) {
+    echo $i;
+  }
+?> -->
+
     <script>
-      // Advance
-      // Chart Database Connection PHP & MYSQL
       const data1 = [0, 20, 5, 2, 20, 30, 40, 20];
       const data2 = [10, 10, 15, 24, 10, 10, 20, 10];
 
