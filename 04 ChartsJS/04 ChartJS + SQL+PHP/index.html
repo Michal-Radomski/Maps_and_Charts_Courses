@@ -53,13 +53,14 @@
   <body>
     <div class="container">
       <div class="m-5">
-        <!-- <button class="btn btn-success" onclick="updateChart()">Update Chart</button> -->
+        <!-- <button class="btn btn-success" onclick="updateChart()2">Update Chart</button> -->
         <div class="card-body">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chartData">
-            Launch Modal
+            Add Data Modal
           </button>
         </div>
         <div class="card-body">
+          <div id="updateSuccess">Test</div>
           <canvas id="myChart"></canvas>
         </div>
       </div>
@@ -80,7 +81,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-primary" onclick="updateChart()">Update Chart</button>
             </div>
           </div>
         </div>
@@ -126,12 +127,29 @@
         },
       });
 
-      // function updateChart() {
+      // function updateChart2() {
       //   chart.data.labels.push("Additional label");
       //   chart.data.datasets[0].data.push(Math.floor(Math.random() * 30 + 1));
       //   chart.data.datasets[1].data.push(Math.floor(Math.random() * 30 + 1));
       //   chart.update();
       // }
+
+      function updateChart() {
+        const xhttp = new XMLHttpRequest();
+        // console.log({ xhttp });
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("updateSuccess").innerHTML = this.responseText;
+          }
+        };
+
+        sendChartValue = document.getElementById("numberInput").value;
+        // console.log({ sendChartValue });
+
+        xhttp.open("POST", "/chart-modal-inc.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(sendChartValue);
+      }
     </script>
   </body>
 </html>
