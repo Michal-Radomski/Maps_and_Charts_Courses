@@ -72,7 +72,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 // echo "Connected successfully <br/>";
-$sql = "SELECT * FROM chartjs";
+$sql = "SELECT * FROM chartjs WHERE chartid=2";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -134,7 +134,15 @@ $jsonReady = json_encode($lineChartValue);
             },
           ],
         },
-        options: {},
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+                     }
+                   }]
+                 }
+              }
       });
     </script>
   </body>
