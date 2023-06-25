@@ -76,20 +76,23 @@ $sql = "SELECT * FROM chartjs";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-
     // output data of each row
     while($row = $result->fetch_assoc()) {   
-     echo $row["chartdata"];
-
+    // echo $row["chartdata"];
+    $charttype=$row["charttype"];
+    $chartdata=$row["chartdata"];
+    $chartlabel=$row["chartlabel"];
+    $chartbackgroundcolor=$row["chartbackgroundcolor"];
+    $chartbordercolor=$row["chartbordercolor"];
     }
 } else {
     echo "0 results";
 }
 $conn->close();
-
 ?> 
 
-<?php
+<!-- //* Test only -->
+<!-- <?php
 $jan = 0;
 $feb= 20;
 $mar= 5;
@@ -102,22 +105,29 @@ $lineChartValue = array($jan, $feb,$mar,$apr, $may, $jun, $jul, $aug, 49);
 // echo $lineChartValue[0];
 $jsonReady = json_encode($lineChartValue);
 // echo $jsonReady;
-?>
+?> -->
 
     <script>
       // const data = [0, 20, 5, 2, 20, 30, 40, 20];
       // const data = <?php echo $jsonReady;?>;
-      const data = <?= $jsonReady;?>;
+      // const data = <?= $jsonReady;?>;
+      const data = <?= json_encode(explode(",", $chartdata));?>
+  
       const ctx = document.getElementById("myChart").getContext("2d");
       new Chart(ctx, {
-        type: "line",
+        // type: "line",
+        type: "<?= $charttype;?>",
         data: {
-          labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Additional"],
+          // labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Additional"],
+          labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August",],
           datasets: [
             {
-              label: "My sales 1",
-              backgroundColor: "rgba(255, 99, 132, 0.3)",
-              borderColor: "red",
+              // label: "My sales 1",
+              label: "<?= $chartlabel;?>",
+              // backgroundColor: "rgba(255, 99, 132, 0.3)",
+              backgroundColor: "<?= $chartbackgroundcolor;?>",
+              // borderColor: "red",
+              borderColor: "<?= $chartbordercolor;?>",
               borderWidth: 3,
               data: data,
             },
