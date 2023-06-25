@@ -84,12 +84,14 @@ if ($result->num_rows > 0) {
     $chartlabel=$row["chartlabel"];
     $chartbackgroundcolor=$row["chartbackgroundcolor"];
     $chartbordercolor=$row["chartbordercolor"];
+    $chartlabels=$row["chartlabels"];
     }
 } else {
     echo "0 results";
 }
 $conn->close();
 // echo json_encode(explode(",", $chartdata));
+// echo json_encode(explode(",",$chartbackgroundcolor));
 ?> 
 
 <!-- //* Test only -->
@@ -120,13 +122,14 @@ $jsonReady = json_encode($lineChartValue);
         type: "<?= $charttype;?>",
         data: {
           // labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August", "Additional"],
-          labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August",],
+          // labels: ["Jan", "Feb", "March", "April", "May", "June", "July", "August"],
+          labels: <?= json_encode(explode(",", $chartlabels));?>,
           datasets: [
             {
               // label: "My sales 1",
               label: "<?= $chartlabel;?>",
               // backgroundColor: "rgba(255, 99, 132, 0.3)",
-              backgroundColor: "<?= $chartbackgroundcolor;?>",
+              backgroundColor: <?= json_encode(explode(",",$chartbackgroundcolor));?>,
               // borderColor: "red",
               borderColor: "<?= $chartbordercolor;?>",
               borderWidth: 3,
