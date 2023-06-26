@@ -115,6 +115,13 @@
               borderWidth: 3,
               data: data2,
             },
+            {
+              label: "My sales 3",
+              backgroundColor: "maroon",
+              borderColor: "maroon",
+              borderWidth: 3,
+              data:<?= json_encode(explode(",", $data_sum_json));?> || 0
+            },
           ],
         },
 
@@ -157,6 +164,9 @@
         xhttp.open("POST", "chart-modal-inc.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(send_value);
+        setTimeout(() => {
+          chart.update();
+        }, 500);
       }
     </script>
   </body>

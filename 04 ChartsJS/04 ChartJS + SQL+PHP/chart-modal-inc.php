@@ -21,7 +21,7 @@ $sql = "INSERT INTO chartjs (charttype, chartdata, chartlabel, chartbackgroundco
 VALUES ('line', '$value', 'Additional', 'maroon', 'maroon', 'Chart_3')";
 
 if ($conn->query($sql) === TRUE) {
-   echo "New record created successfully";
+   echo "New record created successfully". "<br>";
 
 
 
@@ -42,8 +42,14 @@ if ($conn->query($sql) === TRUE) {
    if ($result->num_rows > 0) {
     
      while($row = $result->fetch_assoc()) {
-       echo "id: " . $row["chartid"]. " - ChartData: " . $row["chartdata"]."<br>";
+      //  echo "id: " . $row["chartid"]. " - ChartData: " . $row["chartdata"]."<br>";
+          $data=array();
+$data[] = $row["chartdata"];
+// echo json_encode($data);
      }
+
+
+
    } else {
      echo "0 results";
    }
@@ -53,9 +59,10 @@ if ($conn->query($sql) === TRUE) {
 
 
 
+  //  echo array_sum($data);
 
-
-
+$data_sum = array_sum($data);
+$data_sum_json = json_encode($data_sum);
 
 
 
