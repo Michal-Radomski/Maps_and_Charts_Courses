@@ -47,6 +47,9 @@
         max-width: 600px;
         max-height: auto;
       }
+      .hidden {
+        display: none;
+      }
     </style>
   </head>
 
@@ -60,7 +63,8 @@
           </button>
         </div>
         <div class="card-body">
-          <div id="updateSuccess">Test</div>
+          <div id="updateSuccess">empty...</div>
+          <div class="alert alert-success hidden" id="alert_success">Update Success</div>
           <canvas id="myChart"></canvas>
         </div>
       </div>
@@ -138,17 +142,21 @@
         const xhttp = new XMLHttpRequest();
         // console.log({ xhttp });
         xhttp.onreadystatechange = function () {
-          if (this.readyState == 4 && this.status == 200) {
+          if (this.readyState === 4 && this.status === 200) {
             document.getElementById("updateSuccess").innerHTML = this.responseText;
+   // console.log("this.responseText:", this.responseText);
+            const alert_success=document.getElementById("alert_success")
+            // console.log({alert_success});
+            alert_success.classList.remove("hidden")
           }
         };
 
-        sendChartValue = document.getElementById("numberInput").value;
-        // console.log({ sendChartValue });
+        let send_value = 'number=' + document.getElementById("numberInput").value;
+        console.log({ send_value });
 
-        xhttp.open("POST", "/chart-modal-inc.php", true);
+        xhttp.open("POST", "chart-modal-inc.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(sendChartValue);
+        xhttp.send(send_value);
       }
     </script>
   </body>
