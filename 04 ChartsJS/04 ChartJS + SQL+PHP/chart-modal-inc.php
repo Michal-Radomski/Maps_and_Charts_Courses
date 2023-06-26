@@ -9,10 +9,8 @@ $value = $_POST["number"];
 //   echo $value;
 // }
 
-// Create connection
 $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
@@ -23,16 +21,8 @@ VALUES ('line', '$value', 'Additional', 'maroon', 'maroon', 'Chart_3')";
 if ($conn->query($sql) === TRUE) {
    echo "New record created successfully". "<br>";
 
-
-
-
-
-
-
-
-
    $conn = new mysqli($dbservername, $dbusername, $dbpassword, $dbname);
-   // Check connection
+
    if ($conn->connect_error) {
      die("Connection failed: " . $conn->connect_error);
    }
@@ -44,42 +34,23 @@ if ($conn->query($sql) === TRUE) {
      while($row = $result->fetch_assoc()) {
       //  echo "id: " . $row["chartid"]. " - ChartData: " . $row["chartdata"]."<br>";
           $data=array();
-$data[] = $row["chartdata"];
-// echo json_encode($data);
+          $data[] = $row["chartdata"];
+          // echo json_encode($data);
      }
-
-
-
    } else {
      echo "0 results";
    }
    $conn->close();
-
-
-
-
-
   //  echo array_sum($data);
 
-$data_sum = array_sum($data);
-$data_sum_json = json_encode($data_sum);
-
-
-
-
-
-
+   $data_sum = array_sum($data);
+   $data_sum_json = json_encode($data_sum);
+  //  echo $data_sum_json
   ?> 
- 
   <div class="alert alert-success" id="alert_success">Update Success</div>
   <?php
 } else {
   echo "Error: " . $sql . "<br>" . $conn->error;
 }
-
 $conn->close();
-
-
-
-
 ?> 

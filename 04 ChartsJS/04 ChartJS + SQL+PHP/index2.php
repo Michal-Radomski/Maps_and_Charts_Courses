@@ -85,7 +85,9 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger" onclick="updateChart()" data-bs-dismiss="modal" >Update Chart</button>
+              <button type="button" class="btn btn-danger" onclick="updateChart()" data-bs-dismiss="modal">
+                Update Chart
+              </button>
             </div>
           </div>
         </div>
@@ -120,7 +122,7 @@
               backgroundColor: "maroon",
               borderColor: "maroon",
               borderWidth: 3,
-              data:<?= json_encode(explode(",", $data_sum_json));?> || 0
+              data: <?= json_encode(explode(",", $data_sum_json));?>, //* ??????????????????
             },
           ],
         },
@@ -151,14 +153,14 @@
         xhttp.onreadystatechange = function () {
           if (this.readyState === 4 && this.status === 200) {
             document.getElementById("updateSuccess").innerHTML = this.responseText;
-   // console.log("this.responseText:", this.responseText);
-            const alert_info=document.getElementById("alert_info")
+            // console.log("this.responseText:", this.responseText);
+            const alert_info = document.getElementById("alert_info");
             // console.log({alert_info});
-            alert_info.classList.remove("hidden")
+            alert_info.classList.remove("hidden");
           }
         };
 
-        let send_value = 'number=' + document.getElementById("numberInput").value;
+        let send_value = "number=" + document.getElementById("numberInput").value;
         console.log({ send_value });
 
         xhttp.open("POST", "chart-modal-inc.php", true);
