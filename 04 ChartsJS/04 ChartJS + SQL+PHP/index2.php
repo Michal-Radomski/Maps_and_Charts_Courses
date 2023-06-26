@@ -58,13 +58,13 @@
       <div class="m-5">
         <!-- <button class="btn btn-success" onclick="updateChart()2">Update Chart</button> -->
         <div class="card-body">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#chartData">
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#chartData">
             Add Data Modal
           </button>
         </div>
         <div class="card-body">
           <div id="updateSuccess">empty...</div>
-          <div class="alert alert-success hidden" id="alert_success">Update Success</div>
+          <div class="alert alert-info hidden" id="alert_info">Update Info</div>
           <canvas id="myChart"></canvas>
         </div>
       </div>
@@ -84,8 +84,8 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" onclick="updateChart()">Update Chart</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger" onclick="updateChart()" data-bs-dismiss="modal" >Update Chart</button>
             </div>
           </div>
         </div>
@@ -145,9 +145,9 @@
           if (this.readyState === 4 && this.status === 200) {
             document.getElementById("updateSuccess").innerHTML = this.responseText;
    // console.log("this.responseText:", this.responseText);
-            const alert_success=document.getElementById("alert_success")
-            // console.log({alert_success});
-            alert_success.classList.remove("hidden")
+            const alert_info=document.getElementById("alert_info")
+            // console.log({alert_info});
+            alert_info.classList.remove("hidden")
           }
         };
 
