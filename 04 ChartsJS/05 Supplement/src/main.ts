@@ -58,6 +58,7 @@ const hoverLine = {
       tooltip,
       chartArea: { left, top, bottom, width, height },
     } = chart;
+    // console.log("tooltip?._active:", tooltip?._active);
 
     if (tooltip._active.length > 0) {
       const radius = 9;
@@ -70,18 +71,21 @@ const hoverLine = {
       ctx.save();
 
       // Overlay
+      // console.log({ left, top, width, height });
       ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
       ctx.fillRect(left, top, width, height);
 
       // Circular point with stronger color;
       ctx.beginPath();
       ctx.fillStyle = data.datasets[datasetIndex].hoverBackgroundColor[datapointIndex];
+      // console.log("ctx.fillStyle:", ctx.fillStyle);
       ctx.arc(xCoor, yCoor, 3, 0, angle * 360, false);
       ctx.fill();
 
       ctx.lineWidth = 3;
       ctx.strokeStyle = "rgba(0, 0, 0, 1)";
       ctx.setLineDash([6, 9]);
+
       // Left Line
       ctx.beginPath();
       ctx.moveTo(left, yCoor);
@@ -95,6 +99,7 @@ const hoverLine = {
       ctx.stroke();
 
       ctx.setLineDash([]);
+      // ctx.setLineDash([2, 5]);
 
       // Circular shape
       ctx.beginPath();
@@ -102,7 +107,7 @@ const hoverLine = {
       ctx.stroke();
 
       // Rect X
-      ctx.fillStyle = "black";
+      ctx.fillStyle = "dimgray";
       ctx.beginPath();
       ctx.roundRect(left - 15, yCoor - 10, 30, 20, radius);
       ctx.fill();
