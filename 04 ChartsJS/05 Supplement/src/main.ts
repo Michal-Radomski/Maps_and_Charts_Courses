@@ -135,9 +135,12 @@ const config = {
 } as ChartConfiguration;
 
 // Init render block
-const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config);
-console.log("myChart:", myChart);
+// const myChart = new Chart(document.getElementById("myChart") as HTMLCanvasElement, config);
+// console.log("myChart:", myChart);
+new Chart(document.getElementById("myChart") as HTMLCanvasElement, config);
 
 // Instantly assign Chart.js version
 const chartVersion = document.getElementById("chartVersion") as HTMLSpanElement;
+
 chartVersion.innerText = Chart.version;
+// console.log("Chart?.version:", Chart?.version);
