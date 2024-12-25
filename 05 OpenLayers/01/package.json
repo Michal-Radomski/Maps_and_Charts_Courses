@@ -1,0 +1,19 @@
+{
+  "name": "01_openlayers",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "clear && vite",
+    "build": "clear && tsc && vite build",
+    "preview": "clear && vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.83.0",
+    "typescript": "^5.2.2",
+    "vite": "^6.0.5"
+  },
+  "dependencies": {
+    "ol": "^10.3.1"
+  }
+}
