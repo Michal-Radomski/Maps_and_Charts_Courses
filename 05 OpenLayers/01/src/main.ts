@@ -5,7 +5,10 @@ import View from "ol/View";
 
 import "./style.scss";
 
-const map = new Map({
+// const init = (): void => console.log("init");
+// window.onload = init;
+
+const map: Map = new Map({
   target: "map",
   layers: [
     new TileLayer({
@@ -17,5 +20,4 @@ const map = new Map({
     zoom: 3,
   }),
 });
-
 console.log("map:", map);
