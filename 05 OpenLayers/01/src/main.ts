@@ -8,7 +8,8 @@ import MapBrowserEvent from "ol/MapBrowserEvent";
 // import DragRotate from "ol/interaction/DragRotate";
 // import { altKeyOnly } from "ol/events/condition";
 import Draw, { DrawEvent } from "ol/interaction/Draw";
-import GeoJSON from "ol/format/GeoJSON.js";
+import GeoJSON from "ol/format/GeoJSON";
+import { FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent, defaults } from "ol/control";
 
 import "./style.scss";
 
@@ -18,6 +19,20 @@ import "./style.scss";
 const gdanskCoordinates = [18.645278, 54.3475]; // Longitude first
 const gdanskWebMercator = fromLonLat(gdanskCoordinates); // Convert to Web Mercator
 // console.log("gdanskWebMercator:", gdanskWebMercator);
+
+const fullScreenControl = new FullScreen();
+const mousePositionControl = new MousePosition();
+const overViewMapControl = new OverviewMap({
+  collapsed: false,
+  layers: [
+    new TileLayer({
+      source: new OSM(),
+    }),
+  ],
+});
+const scaleLineControl = new ScaleLine();
+const zoomSliderControl = new ZoomSlider();
+const zoomToExtentControl = new ZoomToExtent();
 
 const map: Map = new Map({
   target: "map",
@@ -35,6 +50,14 @@ const map: Map = new Map({
     minZoom: 2,
   }),
   keyboardEventTarget: document,
+  controls: defaults().extend([
+    fullScreenControl,
+    mousePositionControl,
+    overViewMapControl,
+    scaleLineControl,
+    zoomSliderControl,
+    zoomToExtentControl,
+  ]),
 });
 // console.log("map:", map);
 
