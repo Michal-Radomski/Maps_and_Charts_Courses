@@ -5,6 +5,10 @@ import View from "ol/View";
 import { fromLonLat } from "ol/proj";
 import Overlay from "ol/Overlay";
 import MapBrowserEvent from "ol/MapBrowserEvent";
+// import DragRotate from "ol/interaction/DragRotate";
+// import { altKeyOnly } from "ol/events/condition";
+import Draw, { DrawEvent } from "ol/interaction/Draw";
+import GeoJSON from "ol/format/GeoJSON.js";
 
 import "./style.scss";
 
@@ -30,6 +34,7 @@ const map: Map = new Map({
     maxZoom: 16,
     minZoom: 2,
   }),
+  keyboardEventTarget: document,
 });
 // console.log("map:", map);
 
@@ -42,10 +47,29 @@ const popup = new Overlay({
 map.addOverlay(popup);
 
 map.on("click", function (event: MapBrowserEvent<UIEvent>): void {
-  console.log("event:", event);
+  // console.log("event:", event);
   const clickedCoordinate = event.coordinate;
   popup.setPosition(undefined);
   popup.setPosition(clickedCoordinate);
-  console.log("clickedCoordinate:", clickedCoordinate);
+  // console.log("clickedCoordinate:", clickedCoordinate);
   popupContainerElement.innerText = String(clickedCoordinate);
+});
+
+// DragRotate Interaction
+// const dragRotateInteraction = new DragRotate({
+//   condition: altKeyOnly,
+// });
+// map.addInteraction(dragRotateInteraction);
+
+// Draw Interaction
+const drawInteraction = new Draw({
+  type: "Polygon",
+  freehand: true,
+});
+map.addInteraction(drawInteraction);
+
+drawInteraction.on("drawend", function (event: DrawEvent) {
+  let parser = new GeoJSON();
+  let drawnFeatures = parser.writeFeatures([event.feature]);
+  console.log("drawnFeatures:", drawnFeatures);
 });
