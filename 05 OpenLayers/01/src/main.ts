@@ -20,7 +20,7 @@ const gdanskCoordinates = [18.645278, 54.3475]; // Longitude first
 const gdanskWebMercator = fromLonLat(gdanskCoordinates); // Convert to Web Mercator
 // console.log("gdanskWebMercator:", gdanskWebMercator);
 
-const fullScreenControl = new FullScreen();
+const fullScreenControl = new FullScreen({ source: undefined });
 const mousePositionControl = new MousePosition();
 const overViewMapControl = new OverviewMap({
   collapsed: false,
@@ -45,18 +45,18 @@ const map: Map = new Map({
     // center: [0, 0],
     center: gdanskWebMercator,
     zoom: 10,
-    // rotation: 3.14 / 2, //* 90deg
+    // rotation: Math.PI / 2, //* 90deg
     maxZoom: 16,
     minZoom: 2,
   }),
   keyboardEventTarget: document,
   controls: defaults().extend([
-    fullScreenControl,
     mousePositionControl,
     overViewMapControl,
     scaleLineControl,
     zoomSliderControl,
     zoomToExtentControl,
+    fullScreenControl,
   ]),
 });
 // console.log("map:", map);
