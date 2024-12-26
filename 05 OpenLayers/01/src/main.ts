@@ -31,7 +31,7 @@ const map: Map = new Map({
     minZoom: 2,
   }),
 });
-console.log("map:", map);
+// console.log("map:", map);
 
 const popupContainerElement = document.getElementById("popup-coordinates") as HTMLDivElement;
 const popup = new Overlay({
@@ -41,11 +41,11 @@ const popup = new Overlay({
 
 map.addOverlay(popup);
 
-map.on("click", function (e: MapBrowserEvent<UIEvent>) {
-  console.log("e:", e);
-  const clickedCoordinate = e.coordinate;
+map.on("click", function (event: MapBrowserEvent<UIEvent>): void {
+  console.log("event:", event);
+  const clickedCoordinate = event.coordinate;
   popup.setPosition(undefined);
   popup.setPosition(clickedCoordinate);
   console.log("clickedCoordinate:", clickedCoordinate);
-  popupContainerElement.innerHTML = String(clickedCoordinate);
+  popupContainerElement.innerText = String(clickedCoordinate);
 });
