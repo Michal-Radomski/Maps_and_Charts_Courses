@@ -3,6 +3,8 @@ import OSM from "ol/source/OSM";
 import TileLayer from "ol/layer/Tile";
 import View from "ol/View";
 import { fromLonLat } from "ol/proj";
+import Overlay from "ol/Overlay";
+import MapBrowserEvent from "ol/MapBrowserEvent";
 
 import "./style.scss";
 
@@ -22,12 +24,28 @@ const map: Map = new Map({
   ],
   view: new View({
     // center: [0, 0],
-
     center: gdanskWebMercator,
     zoom: 10,
-    // rotation: 3.14 / 2, // 90deg
+    // rotation: 3.14 / 2, //* 90deg
     maxZoom: 16,
     minZoom: 2,
   }),
 });
 console.log("map:", map);
+
+const popupContainerElement = document.getElementById("popup-coordinates") as HTMLDivElement;
+const popup = new Overlay({
+  element: popupContainerElement,
+  positioning: "top-right",
+});
+
+map.addOverlay(popup);
+
+map.on("click", function (e: MapBrowserEvent<UIEvent>) {
+  console.log("e:", e);
+  const clickedCoordinate = e.coordinate;
+  popup.setPosition(undefined);
+  popup.setPosition(clickedCoordinate);
+  console.log("clickedCoordinate:", clickedCoordinate);
+  popupContainerElement.innerHTML = String(clickedCoordinate);
+});
