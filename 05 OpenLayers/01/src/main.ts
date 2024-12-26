@@ -10,15 +10,33 @@ import MapBrowserEvent from "ol/MapBrowserEvent";
 import Draw, { DrawEvent } from "ol/interaction/Draw";
 import GeoJSON from "ol/format/GeoJSON";
 import { FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent, defaults } from "ol/control";
+import VectorLayer from "ol/layer/Vector.js";
+import VectorSource from "ol/source/Vector.js";
 
 import "./style.scss";
+import { geoJsonData } from "./geoData/data";
 
 // const init = (): void => console.log("init");
 // window.onload = init;
 
+//* Initial Center
 const gdanskCoordinates = [18.645278, 54.3475]; // Longitude first
 const gdanskWebMercator = fromLonLat(gdanskCoordinates); // Convert to Web Mercator
 // console.log("gdanskWebMercator:", gdanskWebMercator);
+
+//* GeoJSON Data
+const format = new GeoJSON();
+const features = format.readFeatures(geoJsonData, {
+  featureProjection: "EPSG:3857",
+});
+
+const vectorSource = new VectorSource({
+  features: features,
+});
+
+const vectorLayer = new VectorLayer({
+  source: vectorSource,
+});
 
 const fullScreenControl = new FullScreen({ source: undefined });
 const mousePositionControl = new MousePosition();
@@ -40,6 +58,7 @@ const map: Map = new Map({
     new TileLayer({
       source: new OSM(),
     }),
+    vectorLayer, //* GeoJSON Data
   ],
   view: new View({
     // center: [0, 0],
