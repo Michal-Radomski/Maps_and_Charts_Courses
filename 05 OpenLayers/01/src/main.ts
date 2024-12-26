@@ -10,8 +10,8 @@ import MapBrowserEvent from "ol/MapBrowserEvent";
 import Draw, { DrawEvent } from "ol/interaction/Draw";
 import GeoJSON from "ol/format/GeoJSON";
 import { FullScreen, MousePosition, OverviewMap, ScaleLine, ZoomSlider, ZoomToExtent, defaults } from "ol/control";
-import VectorLayer from "ol/layer/Vector.js";
-import VectorSource from "ol/source/Vector.js";
+import VectorLayer from "ol/layer/Vector";
+import VectorSource from "ol/source/Vector";
 
 import "./style.scss";
 import { geoJsonData } from "./geoData/data";
