@@ -4,9 +4,9 @@ import TileLayer from "ol/layer/Tile";
 import View from "ol/View";
 import LayerGroup from "ol/layer/Group";
 // import BingMaps from "ol/source/BingMaps";
-import XYZ from "ol/source/XYZ";
 import TileDebug from "ol/source/TileDebug";
 import StadiaMaps from "ol/source/StadiaMaps";
+import CartoDB from "ol/source/CartoDB";
 
 import "./style.scss";
 
@@ -60,12 +60,29 @@ function init(): void {
   // });
 
   //* CartoDB BaseMap Layer
+  const mapConfig = {
+    layers: [
+      {
+        type: "cartodb",
+        options: {
+          cartocss_version: "2.1.1",
+          cartocss: "#layer { polygon-fill: #F00; }",
+          sql: "select * from european_countries_e",
+        },
+      },
+    ],
+  };
+
+  const cartoDBSource = new CartoDB({
+    account: "documentation",
+    config: mapConfig,
+  });
+
   const cartoDBBaseLayer = new TileLayer({
-    source: new XYZ({
-      url: "http://{1-4}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png",
-      attributions: "© CARTO",
-    }),
-    visible: false,
+    source: cartoDBSource,
+    visible: true,
+    zIndex: 2,
+    opacity: 0.25,
   });
   map.addLayer(cartoDBBaseLayer);
 
@@ -85,6 +102,7 @@ function init(): void {
           // apiKey: 'Not needed for localhost'
         }),
         visible: true,
+        opacity: 0.5,
       }),
       new TileLayer({
         source: new StadiaMaps({
@@ -92,6 +110,7 @@ function init(): void {
           // apiKey: 'Not needed for localhost'
         }),
         visible: true,
+        opacity: 0.5,
       }),
     ],
   });
