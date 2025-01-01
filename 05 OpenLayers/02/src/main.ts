@@ -5,6 +5,7 @@ import View from "ol/View";
 import LayerGroup from "ol/layer/Group";
 
 import "./style.scss";
+import BingMaps from "ol/source/BingMaps";
 
 function init(): void {
   const map = new Map({
@@ -20,6 +21,16 @@ function init(): void {
         visible: true,
         // extent: [12400753.576694038, -5658730.000549673, 17174426.336716905, -980228.5067132516],
         opacity: 0.6,
+      }),
+
+      // Bing Maps Basemap Layer
+      new TileLayer({
+        visible: false,
+        preload: Infinity,
+        source: new BingMaps({
+          key: "Your Bing Maps Key from here: https://www.bingmapsportal.com",
+          imagerySet: "CanvasGray", // Road, CanvasDark, CanvasGray
+        }),
       }),
     ],
     target: "map",
