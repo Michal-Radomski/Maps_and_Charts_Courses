@@ -8,6 +8,7 @@ import TileDebug from "ol/source/TileDebug";
 import StadiaMaps from "ol/source/StadiaMaps";
 import CartoDB from "ol/source/CartoDB";
 import TileArcGISRest from "ol/source/TileArcGISRest";
+import TileWMS from "ol/source/TileWMS";
 
 import "./style.scss";
 
@@ -126,6 +127,17 @@ function init(): void {
     visible: true,
   });
   map.addLayer(tileArcGISLayer);
+
+  //* WMS Layer
+  const wMSLayer = new TileLayer({
+    source: new TileWMS({
+      url: "https://ahocevar.com/geoserver/wms",
+      params: { LAYERS: "topp:states", TILED: true },
+      serverType: "geoserver",
+      transition: 0,
+    }),
+  });
+  map.addLayer(wMSLayer);
 }
 
 window.onload = init;
