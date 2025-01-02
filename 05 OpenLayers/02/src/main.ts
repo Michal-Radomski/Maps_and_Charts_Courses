@@ -7,6 +7,7 @@ import LayerGroup from "ol/layer/Group";
 import TileDebug from "ol/source/TileDebug";
 import StadiaMaps from "ol/source/StadiaMaps";
 import CartoDB from "ol/source/CartoDB";
+import TileArcGISRest from "ol/source/TileArcGISRest";
 
 import "./style.scss";
 
@@ -115,6 +116,16 @@ function init(): void {
     ],
   });
   map.addLayer(stamenLayerGroup);
+
+  //* tile ArcGIS REST API Layer
+  const urlArcGIS = "https://sampleserver6.arcgisonline.com/ArcGIS/rest/services/USA/MapServer";
+  const tileArcGISLayer = new TileLayer({
+    source: new TileArcGISRest({
+      url: urlArcGIS,
+    }),
+    visible: true,
+  });
+  map.addLayer(tileArcGISLayer);
 }
 
 window.onload = init;
