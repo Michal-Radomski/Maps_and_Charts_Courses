@@ -43,7 +43,7 @@ function init(): void {
       // }),
     ],
     target: "map",
-    controls: defaultControls({ attribution: true }).extend([attribution]),
+    controls: defaultControls({ attribution: false }).extend([attribution]),
   });
 
   // Layer Group
@@ -144,6 +144,9 @@ function init(): void {
     }),
   });
   map.addLayer(wMSLayer);
+
+  wMSLayer?.getSource()?.setAttributions("<a href='https://ahocevar.com'>© Ahocevar Geospatial</a>");
+  // console.log("wMSLayer?.getKeys():", wMSLayer?.getKeys());
 }
 
 window.onload = init;
