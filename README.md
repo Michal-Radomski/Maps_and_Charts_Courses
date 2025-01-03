@@ -10,4 +10,4 @@ Files created during Udemy.com maps and charts courses:
 
 4. [Chart JS, the complete guide](https://www.udemy.com/course/chart-js)
 
-5. [Openlayers 6](https://www.udemy.com/course/openlayers-6-from-scratch-with-a-project)
+5. [Openlayers](https://www.udemy.com/course/openlayers-6-from-scratch-with-a-project)

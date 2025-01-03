@@ -9,10 +9,15 @@ import StadiaMaps from "ol/source/StadiaMaps";
 import CartoDB from "ol/source/CartoDB";
 import TileArcGISRest from "ol/source/TileArcGISRest";
 import TileWMS from "ol/source/TileWMS";
+import { Attribution, defaults as defaultControls } from "ol/control.js";
 
 import "./style.scss";
 
 function init(): void {
+  const attribution = new Attribution({
+    collapsible: true,
+  });
+
   const map = new Map({
     view: new View({
       center: [0, 0],
@@ -38,6 +43,7 @@ function init(): void {
       // }),
     ],
     target: "map",
+    controls: defaultControls({ attribution: true }).extend([attribution]),
   });
 
   // Layer Group
