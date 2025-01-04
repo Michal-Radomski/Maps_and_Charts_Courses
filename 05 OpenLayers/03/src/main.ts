@@ -2,16 +2,16 @@ import Map from "ol/Map";
 import OSM from "ol/source/OSM";
 import TileLayer from "ol/layer/Tile";
 import View from "ol/View";
-import { Attribution, defaults as defaultControls } from "ol/control.js";
-import GeoJSON from "ol/format/GeoJSON.js";
-import VectorLayer from "ol/layer/Vector.js";
-import VectorSource from "ol/source/Vector.js";
-import VectorImageLayer from "ol/layer/VectorImage.js";
-import MVT from "ol/format/MVT.js";
-import OGCVectorTile from "ol/source/OGCVectorTile.js";
-import VectorTileLayer from "ol/layer/VectorTile.js";
-// import VectorTileSource from "ol/source/VectorTile.js";
-// import { Fill, Icon, Stroke, Style, Text } from "ol/style.js";
+import { Attribution, defaults as defaultControls } from "ol/control";
+import GeoJSON from "ol/format/GeoJSON";
+import VectorLayer from "ol/layer/Vector";
+import VectorSource from "ol/source/Vector";
+import VectorImageLayer from "ol/layer/VectorImage";
+import MVT from "ol/format/MVT";
+import OGCVectorTile from "ol/source/OGCVectorTile";
+import VectorTileLayer from "ol/layer/VectorTile";
+// import VectorTileSource from "ol/source/VectorTile";
+// import { Fill, Icon, Stroke, Style, Text } from "ol/style";
 
 // const { createMapboxStreetsV6Style } = window;
 
