@@ -10,8 +10,13 @@ import VectorImageLayer from "ol/layer/VectorImage.js";
 import MVT from "ol/format/MVT.js";
 import OGCVectorTile from "ol/source/OGCVectorTile.js";
 import VectorTileLayer from "ol/layer/VectorTile.js";
+// import VectorTileSource from "ol/source/VectorTile.js";
+// import { Fill, Icon, Stroke, Style, Text } from "ol/style.js";
+
+// const { createMapboxStreetsV6Style } = window;
 
 import "./style.scss";
+// import { mapBoxKey } from "./keys";
 
 function init(): void {
   const attribution = new Attribution({
@@ -31,8 +36,9 @@ function init(): void {
         opacity: 0.1,
       }),
 
-      //* Vector Tile Example
+      //* OGC Vector Tile  Example
       new VectorTileLayer({
+        opacity: 0.6,
         source: new OGCVectorTile({
           url: "https://maps.gnosis.earth/ogcapi/collections/NaturalEarth:cultural:ne_10m_admin_0_countries/tiles/WorldCRS84Quad",
           format: new MVT(),
@@ -51,9 +57,25 @@ function init(): void {
     controls: defaultControls({ attribution: false }).extend([attribution]),
   });
 
+  //* Vector Tile Layer MapBox Example
+  // const openstreetMapVectorTile = new VectorTileLayer({
+  //   declutter: true,
+  //   source: new VectorTileSource({
+  //     attributions:
+  //       '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> ' +
+  //       '© <a href="https://www.openstreetmap.org/copyright">' +
+  //       "OpenStreetMap contributors</a>",
+  //     format: new MVT(),
+  //     url:
+  //       "https://{a-d}.tiles.mapbox.com/v4/mapbox.mapbox-streets-v6/" + "{z}/{x}/{y}.vector.pbf?access_token=" + mapBoxKey,
+  //   }),
+  //   style: createMapboxStreetsV6Style(Style, Fill, Stroke, Icon, Text),
+  // });
+  // map.addLayer(openstreetMapVectorTile);
+
   //* Vector Layer Example
   const vectorLayer = new VectorLayer({
-    opacity: 0.5,
+    opacity: 0.4,
     source: new VectorSource({
       url: "https://openlayers.org/data/vector/ecoregions.json",
       format: new GeoJSON(),
@@ -62,12 +84,11 @@ function init(): void {
       "fill-color": ["string", ["get", "COLOR"], "#eee"],
     },
   });
-
   map.addLayer(vectorLayer);
 
   //* Vector Image Layer Example
   const vectorImageLayer = new VectorImageLayer({
-    opacity: 0.5,
+    opacity: 0.4,
     source: new VectorSource({
       url: "https://openlayers.org/data/vector/ecoregions.json",
       format: new GeoJSON(),
@@ -76,7 +97,6 @@ function init(): void {
       "fill-color": ["string", ["get", "COLOR"], "#eee"],
     },
   });
-
   map.addLayer(vectorImageLayer);
 }
 
