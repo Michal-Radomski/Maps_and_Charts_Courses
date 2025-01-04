@@ -10,6 +10,8 @@ import CartoDB from "ol/source/CartoDB";
 import TileArcGISRest from "ol/source/TileArcGISRest";
 import TileWMS from "ol/source/TileWMS";
 import { Attribution, defaults as defaultControls } from "ol/control.js";
+import ImageLayer from "ol/layer/Image";
+import ImageStatic from "ol/source/ImageStatic";
 
 import "./style.scss";
 
@@ -124,7 +126,7 @@ function init(): void {
   });
   map.addLayer(stamenLayerGroup);
 
-  //* tile ArcGIS REST API Layer
+  //* Tile ArcGIS REST API Layer
   const urlArcGIS = "https://sampleserver6.arcgisonline.com/ArcGIS/rest/services/USA/MapServer";
   const tileArcGISLayer = new TileLayer({
     source: new TileArcGISRest({
@@ -147,6 +149,16 @@ function init(): void {
 
   wMSLayer?.getSource()?.setAttributions("<a href='https://ahocevar.com'>© Ahocevar Geospatial</a>");
   // console.log("wMSLayer?.getKeys():", wMSLayer?.getKeys());
+
+  //* Static Image OpenstreetMap
+  const openstreetMapFragmentStatic = new ImageLayer({
+    source: new ImageStatic({
+      url: "./src/data/static_images/openlayers_static_humanitarian.PNG",
+      imageExtent: [4991698.9328313675, 5050292.393744084, 10008191.828130603, 10013417.911357462],
+      attributions: "<a href=https://www.openstreetmap.org/copyright/>© OpenStreetMap contributors<a/>",
+    }),
+  });
+  map.addLayer(openstreetMapFragmentStatic);
 }
 
 window.onload = init;
