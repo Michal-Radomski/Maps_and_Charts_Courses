@@ -5,6 +5,7 @@ import View from "ol/View";
 import { Attribution, defaults as defaultControls } from "ol/control";
 import GeoJSON from "ol/format/GeoJSON";
 import VectorLayer from "ol/layer/Vector";
+import KML from "ol/format/KML";
 import VectorSource from "ol/source/Vector";
 import VectorImageLayer from "ol/layer/VectorImage";
 import MVT from "ol/format/MVT";
@@ -98,6 +99,27 @@ function init(): void {
     },
   });
   map.addLayer(vectorImageLayer);
+
+  //* Vector Layers
+  //* Central EU Countries GeoJSON VectorImage Layer
+  const EUCountriesGeoJSONVectorImage = new VectorImageLayer({
+    source: new VectorSource({
+      url: "./src/vector_data/Central_EU_countries_GEOJSON.geojson",
+      format: new GeoJSON(),
+    }),
+    visible: true,
+  });
+  map.addLayer(EUCountriesGeoJSONVectorImage);
+
+  //* Central EU Countries KML
+  const EUCountriesKML = new VectorLayer({
+    source: new VectorSource({
+      url: "./src/vector_data/Central_EU_countries_KML.kml",
+      format: new KML(),
+    }),
+    visible: true,
+  });
+  map.addLayer(EUCountriesKML);
 }
 
 window.onload = init;
