@@ -13,6 +13,7 @@ import OGCVectorTile from "ol/source/OGCVectorTile";
 import VectorTileLayer from "ol/layer/VectorTile";
 // import VectorTileSource from "ol/source/VectorTile";
 // import { Fill, Icon, Stroke, Style, Text } from "ol/style";
+import { Heatmap } from "ol/layer.js";
 
 // const { createMapboxStreetsV6Style } = window;
 
@@ -111,7 +112,7 @@ function init(): void {
   });
   map.addLayer(EUCountriesGeoJSONVectorImage);
 
-  //* Central EU Countries KML
+  //* Central EU Countries KML Vector Layer
   const EUCountriesKML = new VectorLayer({
     source: new VectorSource({
       url: "./src/vector_data/Central_EU_countries_KML.kml",
@@ -120,6 +121,19 @@ function init(): void {
     visible: true,
   });
   map.addLayer(EUCountriesKML);
+
+  //* HeatMap
+  const heatMapOnlineFBUsers = new Heatmap({
+    source: new VectorSource({
+      url: "./src/vector_data/onlineFBUsers.geojson",
+      format: new GeoJSON(),
+    }),
+    radius: 20,
+    blur: 12,
+    gradient: ["#DC143C", "#DC143C", "#000000", "#000000", "#000000"],
+    visible: true,
+  });
+  map.addLayer(heatMapOnlineFBUsers);
 }
 
 window.onload = init;
