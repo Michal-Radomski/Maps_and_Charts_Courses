@@ -14,6 +14,7 @@ import VectorTileLayer from "ol/layer/VectorTile";
 // import VectorTileSource from "ol/source/VectorTile";
 // import { Fill, Icon, Stroke, Style, Text } from "ol/style";
 import { Heatmap } from "ol/layer.js";
+import { Fill, Stroke, Style } from "ol/style";
 
 // const { createMapboxStreetsV6Style } = window;
 
@@ -134,6 +135,70 @@ function init(): void {
     visible: true,
   });
   map.addLayer(heatMapOnlineFBUsers);
+
+  //* Styling Polygons and Lines
+  // Create a vector source with GeoJSON data
+  const geojsonObject = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: {
+          type: "Polygon",
+          coordinates: [
+            [
+              [-5, 6],
+              [-5, 8],
+              [-3, 8],
+              [-3, 6],
+              [-5, 6],
+            ],
+          ],
+        },
+      },
+      {
+        type: "Feature",
+        geometry: {
+          type: "LineString",
+          coordinates: [
+            [-5, 7],
+            [-3, 7],
+          ],
+        },
+      },
+    ],
+  };
+
+  // Define styles for polygons and lines
+  const polygonStyle = new Style({
+    stroke: new Stroke({
+      color: "blue",
+      width: 5,
+    }),
+    fill: new Fill({
+      color: "rgba(0, 0, 255, 0.1)",
+    }),
+  });
+
+  const lineStyle = new Style({
+    stroke: new Stroke({
+      color: "green",
+      width: 7,
+    }),
+  });
+
+  // Create a vector source and layer for the features
+  const vectorSource = new VectorSource({
+    features: new GeoJSON().readFeatures(geojsonObject, { dataProjection: "EPSG:4326", featureProjection: "EPSG:4326" }),
+  });
+
+  const styledLayer = new VectorLayer({
+    source: vectorSource,
+    style: function (feature) {
+      return feature.getGeometry()?.getType() === "Polygon" ? polygonStyle : lineStyle;
+    },
+  });
+  map.addLayer(styledLayer);
 }
 
 window.onload = init;
