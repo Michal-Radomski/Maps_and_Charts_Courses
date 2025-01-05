@@ -14,7 +14,9 @@ import VectorTileLayer from "ol/layer/VectorTile";
 // import VectorTileSource from "ol/source/VectorTile";
 // import { Fill, Icon, Stroke, Style, Text } from "ol/style";
 import { Heatmap } from "ol/layer.js";
-import { Fill, Stroke, Style } from "ol/style";
+import { Fill, Stroke, Style, Circle as CircleStyle } from "ol/style";
+import Point from "ol/geom/Point";
+import Feature from "ol/Feature";
 
 // const { createMapboxStreetsV6Style } = window;
 
@@ -174,6 +176,8 @@ function init(): void {
     stroke: new Stroke({
       color: "blue",
       width: 5,
+      lineCap: "square",
+      lineJoin: "bevel",
     }),
     fill: new Fill({
       color: "rgba(0, 0, 255, 0.1)",
@@ -184,6 +188,7 @@ function init(): void {
     stroke: new Stroke({
       color: "green",
       width: 7,
+      lineCap: "butt",
     }),
   });
 
@@ -199,6 +204,38 @@ function init(): void {
     },
   });
   map.addLayer(styledLayer);
+
+  //* Styling a Point
+  // Create a vector source with point features
+  const pointSource = new VectorSource({
+    features: [
+      // Example point feature
+      new Feature({
+        geometry: new Point([0, 0]), // Coordinates in EPSG:3857 or EPSG:4326
+      }),
+    ],
+  });
+
+  // Define a style for the points
+  const pointStyle = new Style({
+    image: new CircleStyle({
+      radius: 10, // Radius of the circle
+      fill: new Fill({
+        color: "rgba(255, 0, 0, 1)", // Fill color (red)
+      }),
+      stroke: new Stroke({
+        color: "blue", // Stroke color (blue)
+        width: 2, // Stroke width
+      }),
+    }),
+  });
+
+  // Create a vector layer to hold the points
+  const pointLayer = new VectorLayer({
+    source: pointSource,
+    style: pointStyle,
+  });
+  map.addLayer(pointLayer);
 }
 
 window.onload = init;
