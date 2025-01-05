@@ -1,0 +1,32 @@
+The **difference between EPSG:4326 and EPSG:3857** lies in their coordinate systems and how they represent locations on the Earth's surface.
+
+### EPSG:4326 (WGS 84)
+- **Type**: Geographic Coordinate System
+- **Representation**: Uses latitude and longitude in degrees.
+- **Range**: Coordinates are expressed within the range of -180 to 180 for longitude and -90 to 90 for latitude.
+- **Surface**: Represents the Earth as a three-dimensional ellipsoid.
+- **Usage**: Commonly used in GPS, mapping applications, and data storage, especially for global datasets. It is the default for many GIS applications and standards like GeoJSON[1][2][5].
+
+### EPSG:3857 (Web Mercator)
+- **Type**: Projected Coordinate System
+- **Representation**: Uses meters as units, resulting in large numerical values that exceed the range of geographic coordinates.
+- **Surface**: Projects the Earth's surface onto a two-dimensional plane using a spherical model, which can introduce distortions, particularly at high latitudes.
+- **Usage**: Widely used in web mapping services (e.g., Google Maps, OpenStreetMap) because it allows for efficient tile-based rendering of maps. This projection is optimized for visual representation rather than precise geographic accuracy[2][3][4].
+
+### Key Differences
+- **Coordinate Format**:
+  - EPSG:4326 uses small decimal numbers (e.g., latitude 48.8589, longitude 2.2944).
+  - EPSG:3857 uses large numbers (e.g., x = 6250962.06, y = 253457.62) since it converts geographic coordinates into a flat map representation[1][2].
+
+- **Projection Type**:
+  - EPSG:4326 is suitable for applications needing accurate geographic data over large areas without distortion.
+  - EPSG:3857 is preferred for web mapping due to its compatibility with tile-based systems but may distort shapes and distances, especially away from the equator[3][4][5].
+
+In summary, EPSG:4326 is ideal for accurate geographic representation, while EPSG:3857 is optimized for web mapping applications where visual presentation is prioritized.
+
+Citations:
+[1] https://developers.auravant.com/en/blog/2022/09/09/post-3/
+[2] https://transparentgov.net/cleargov1/758/epsg-4326-vs-3857
+[3] https://gis.stackexchange.com/questions/48949/epsg-3857-or-4326-for-web-mapping
+[4] https://gist.github.com/Rub21/49ed3e8fea3ae5527ea913bf80fbb8d7
+[5] https://8thlight.com/insights/geographic-coordinate-systems-101
