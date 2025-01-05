@@ -15,8 +15,8 @@ import VectorTileLayer from "ol/layer/VectorTile";
 // import { Fill, Icon, Stroke, Style, Text } from "ol/style";
 import { Heatmap } from "ol/layer.js";
 import { Fill, Stroke, Style, Circle as CircleStyle, Icon } from "ol/style";
-import Point from "ol/geom/Point";
 import Feature from "ol/Feature";
+import { LineString, Polygon, Point } from "ol/geom";
 
 // const { createMapboxStreetsV6Style } = window;
 
@@ -268,6 +268,64 @@ function init(): void {
     zIndex: 5,
   });
   map.addLayer(iconLayer);
+
+  //* Styling a Feature
+  const pointStyle2 = new Style({
+    image: new CircleStyle({
+      radius: 5,
+      fill: new Fill({ color: "red" }),
+      stroke: new Stroke({ color: "black", width: 1 }),
+    }),
+  });
+
+  const lineStyle2 = new Style({
+    stroke: new Stroke({
+      color: "blue",
+      width: 2,
+    }),
+  });
+
+  const polygonStyle2 = new Style({
+    fill: new Fill({
+      color: "rgba(0, 255, 0, 0.5)",
+    }),
+    stroke: new Stroke({
+      color: "green",
+      width: 1,
+    }),
+  });
+
+  const pointFeature = new Feature(new Point([-73.935242, 40.73061])); // Example coordinates
+  pointFeature.setStyle(pointStyle2);
+
+  const lineFeature = new Feature(
+    new LineString([
+      [-73.935242, 40.73061],
+      [-74.935242, 41.73061],
+    ])
+  );
+  lineFeature.setStyle(lineStyle2);
+
+  const polygonFeature = new Feature(
+    new Polygon([
+      [
+        [-74.0, 40.7],
+        [-74.0, 41.7],
+        [-73.0, 41.7],
+        [-73.0, 40.7],
+        [-74.0, 40.7],
+      ],
+    ])
+  );
+  polygonFeature.setStyle(polygonStyle2);
+
+  const vectorStyledSource = new VectorSource({
+    features: [pointFeature, lineFeature, polygonFeature],
+  });
+  const vectorStyledLayer = new VectorLayer({
+    source: vectorStyledSource,
+  });
+  map.addLayer(vectorStyledLayer);
 }
 
 window.onload = init;
