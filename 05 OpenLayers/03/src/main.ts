@@ -178,6 +178,7 @@ function init(): void {
       width: 5,
       lineCap: "square",
       lineJoin: "bevel",
+      lineDash: [10, 10],
     }),
     fill: new Fill({
       color: "rgba(0, 0, 255, 0.1)",
