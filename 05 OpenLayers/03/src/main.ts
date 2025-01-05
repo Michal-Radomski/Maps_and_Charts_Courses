@@ -14,7 +14,7 @@ import VectorTileLayer from "ol/layer/VectorTile";
 // import VectorTileSource from "ol/source/VectorTile";
 // import { Fill, Icon, Stroke, Style, Text } from "ol/style";
 import { Heatmap } from "ol/layer.js";
-import { Fill, Stroke, Style, Circle as CircleStyle } from "ol/style";
+import { Fill, Stroke, Style, Circle as CircleStyle, Icon } from "ol/style";
 import Point from "ol/geom/Point";
 import Feature from "ol/Feature";
 
@@ -237,6 +237,37 @@ function init(): void {
     style: pointStyle,
   });
   map.addLayer(pointLayer);
+
+  //* Point styled with Icon
+  // Create a point feature with coordinates
+  const iconFeature = new Feature({
+    geometry: new Point([0, 0]), // Coordinates in EPSG:3857 or EPSG:4326
+    name: "Custom SVG Icon",
+  });
+
+  // Define the style for the point feature using an image
+  const iconStyle = new Style({
+    image: new Icon({
+      anchor: [0.5, 50], // Anchor point of the icon
+      anchorXUnits: "fraction",
+      anchorYUnits: "pixels",
+      src: "./src/vector_data/op.png", // Path to your icon image
+    }),
+  });
+
+  // Apply the style to the feature
+  iconFeature.setStyle(iconStyle);
+
+  // Create a vector source and layer for the point feature
+  const iconSource = new VectorSource({
+    features: [iconFeature],
+  });
+
+  const iconLayer = new VectorLayer({
+    source: iconSource,
+    zIndex: 5,
+  });
+  map.addLayer(iconLayer);
 }
 
 window.onload = init;
