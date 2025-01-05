@@ -130,7 +130,7 @@ function init(): void {
     }),
     radius: 20,
     blur: 12,
-    gradient: ["#DC143C", "#DC143C", "#000000", "#000000", "#000000"],
+    gradient: ["red", "orange", "yellow", "green", "blue"],
     visible: true,
   });
   map.addLayer(heatMapOnlineFBUsers);
