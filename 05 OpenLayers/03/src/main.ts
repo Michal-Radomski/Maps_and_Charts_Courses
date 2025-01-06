@@ -18,6 +18,8 @@ import { Fill, Stroke, Style, Circle as CircleStyle, Icon } from "ol/style";
 import Feature from "ol/Feature";
 import { LineString, Polygon, Point } from "ol/geom";
 import MapBrowserEvent from "ol/MapBrowserEvent";
+import { register } from "ol/proj/proj4";
+import proj4 from "proj4";
 
 // const { createMapboxStreetsV6Style } = window;
 
@@ -28,6 +30,20 @@ function init(): void {
   const attribution = new Attribution({
     collapsible: true,
   });
+
+  //* EPSG:4326 and EPSG:3857 out of box
+  //* http://proj4js.org
+  // EPSG:3416  for Austria
+  proj4.defs(
+    "EPSG:3416",
+    "+proj=lcc +lat_1=49 +lat_2=46 +lat_0=47.5 +lon_0=13.33333333333333 +x_0=400000 +y_0=400000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+  );
+  // EPSG:27700 for the UK
+  proj4.defs(
+    "EPSG:27700",
+    "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"
+  );
+  register(proj4);
 
   const map = new Map({
     view: new View({

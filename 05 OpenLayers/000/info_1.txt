@@ -1,13 +1,13 @@
 The **difference between EPSG:4326 and EPSG:3857** lies in their coordinate systems and how they represent locations on the Earth's surface.
 
-### EPSG:4326 (WGS 84)
+### EPSG:4326 (WGS 84) -> Lan, Lon
 - **Type**: Geographic Coordinate System
 - **Representation**: Uses latitude and longitude in degrees.
 - **Range**: Coordinates are expressed within the range of -180 to 180 for longitude and -90 to 90 for latitude.
 - **Surface**: Represents the Earth as a three-dimensional ellipsoid.
 - **Usage**: Commonly used in GPS, mapping applications, and data storage, especially for global datasets. It is the default for many GIS applications and standards like GeoJSON[1][2][5].
 
-### EPSG:3857 (Web Mercator)
+### EPSG:3857 (Web Mercator) - Default!
 - **Type**: Projected Coordinate System
 - **Representation**: Uses meters as units, resulting in large numerical values that exceed the range of geographic coordinates.
 - **Surface**: Projects the Earth's surface onto a two-dimensional plane using a spherical model, which can introduce distortions, particularly at high latitudes.

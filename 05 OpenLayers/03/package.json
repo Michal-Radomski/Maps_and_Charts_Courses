@@ -9,11 +9,13 @@
     "preview": "clear && vite preview"
   },
   "devDependencies": {
+    "@types/proj4": "^2.5.6",
     "sass": "^1.83.0",
     "typescript": "^5.2.2",
     "vite": "^6.0.5"
   },
   "dependencies": {
-    "ol": "^10.3.1"
+    "ol": "^10.3.1",
+    "proj4": "^2.15.0"
   }
 }
