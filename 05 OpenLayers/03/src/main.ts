@@ -17,11 +17,12 @@ import { Heatmap } from "ol/layer.js";
 import { Fill, Stroke, Style, Circle as CircleStyle, Icon } from "ol/style";
 import Feature from "ol/Feature";
 import { LineString, Polygon, Point } from "ol/geom";
+import MapBrowserEvent from "ol/MapBrowserEvent";
 
 // const { createMapboxStreetsV6Style } = window;
 
-import "./style.scss";
 // import { mapBoxKey } from "./keys";
+import "./style.scss";
 
 function init(): void {
   const attribution = new Attribution({
@@ -326,6 +327,43 @@ function init(): void {
     source: vectorStyledSource,
   });
   map.addLayer(vectorStyledLayer);
+
+  //* Adding an Additional Data
+  // Create a point feature with coordinates
+  const countryFeature = new Feature({
+    geometry: new Point([50, 50]), // Replace with actual coordinates
+  });
+
+  // Using setProperties to add multiple attributes
+  countryFeature.setProperties({
+    name: "Country Name",
+    income: 50000, // Example income value
+    population: 1000000, // Example population value
+  });
+
+  // Alternatively, using set for individual properties
+  // countryFeature.set("income", 50000);
+
+  // Create a vector source and layer
+  const vectorSource2 = new VectorSource();
+  const vectorLayer2 = new VectorLayer({
+    source: vectorSource2,
+  });
+
+  // Add the feature to the vector source
+  vectorSource2.addFeature(countryFeature);
+  map.addLayer(vectorLayer2);
+
+  map.on("singleclick", function (evt: MapBrowserEvent<any>): void {
+    map.forEachFeatureAtPixel(evt.pixel, function (feature) {
+      const income = feature.get("income"); // Retrieve income property
+      console.log("Income:", income);
+      // You can also retrieve other properties similarly
+      const name = feature.get("name");
+      console.log("Country Name:", name);
+      console.log('feature.get("population"):', feature.get("population"));
+    });
+  });
 }
 
 window.onload = init;
