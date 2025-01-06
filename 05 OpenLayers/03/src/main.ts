@@ -19,6 +19,8 @@ import Feature from "ol/Feature";
 import { LineString, Polygon, Point } from "ol/geom";
 import MapBrowserEvent from "ol/MapBrowserEvent";
 import { register } from "ol/proj/proj4";
+import { transform } from "ol/proj";
+import { transformExtent } from "ol/proj";
 import proj4 from "proj4";
 
 // const { createMapboxStreetsV6Style } = window;
@@ -379,6 +381,28 @@ function init(): void {
       console.log("Country Name:", name);
       console.log('feature.get("population"):', feature.get("population"));
     });
+  });
+
+  //* Coordinate Transformations
+  const coordinate = [-73.935242, 40.73061]; // Longitude, Latitude
+  const transformedCoordinate = transform(coordinate, "EPSG:4326", "EPSG:3857");
+  console.log("transformedCoordinate:", transformedCoordinate);
+
+  // Create a point feature
+  const pointFeature2 = new Point([-73.935242, 40.73061]);
+
+  // Transform the feature's geometry
+  pointFeature2.transform("EPSG:4326", "EPSG:3857");
+  console.log("pointFeature.getCoordinates():", pointFeature2.getCoordinates());
+
+  const extent = [-73.935242, 40.73061, -73.935, 40.731]; // [minX, minY, maxX, maxY]
+  const transformedExtent = transformExtent(extent, "EPSG:4326", "EPSG:3857");
+  console.log("transformedExtent:", transformedExtent);
+
+  map.on("moveend", function () {
+    const bbox = map.getView().calculateExtent(map.getSize());
+    const transformedBbox = transform(bbox, "EPSG:3857", "EPSG:27700"); // Example of transforming to another projection
+    console.log("transformedBbox:", transformedBbox);
   });
 }
 
