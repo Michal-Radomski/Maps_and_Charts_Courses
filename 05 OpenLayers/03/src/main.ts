@@ -383,6 +383,30 @@ function init(): void {
     });
   });
 
+  //* Austrian Cities EPSG:27700
+  const AustrianCities = new VectorLayer({
+    source: new VectorSource({
+      url: "./src/vector_data/austrian_cities_EPSG_27700.geojson",
+      format: new GeoJSON({
+        dataProjection: "EPSG:27700",
+      }),
+    }),
+    visible: true,
+    style: new Style({
+      image: new CircleStyle({
+        fill: new Fill({
+          color: "rgba(150,150,150,1)",
+        }),
+        radius: 10,
+        stroke: new Stroke({
+          color: "rgba(150,150,150,1)",
+          width: 2,
+        }),
+      }),
+    }),
+  });
+  map.addLayer(AustrianCities);
+
   //* Coordinate Transformations
   const coordinate = [-73.935242, 40.73061]; // Longitude, Latitude
   const transformedCoordinate = transform(coordinate, "EPSG:4326", "EPSG:3857");
