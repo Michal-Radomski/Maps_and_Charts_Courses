@@ -21,6 +21,10 @@ import MapBrowserEvent from "ol/MapBrowserEvent";
 import { register } from "ol/proj/proj4";
 import { transform } from "ol/proj";
 import { transformExtent } from "ol/proj";
+import { defaults as defaultInteractions, Select } from "ol/interaction";
+import DragBox from "ol/interaction/DragBox.js";
+import { altKeyOnly, click } from "ol/events/condition";
+import { SelectEvent } from "ol/interaction/Select";
 import proj4 from "proj4";
 
 // const { createMapboxStreetsV6Style } = window;
@@ -48,6 +52,7 @@ function init(): void {
   register(proj4);
 
   const map = new Map({
+    interactions: defaultInteractions(), // Add default interactions like DragPan
     view: new View({
       center: [0, 0],
       zoom: 1,
@@ -427,6 +432,48 @@ function init(): void {
     const bbox = map.getView().calculateExtent(map.getSize());
     const transformedBbox = transform(bbox, "EPSG:3857", "EPSG:27700"); // Example of transforming to another projection
     console.log("transformedBbox:", transformedBbox);
+  });
+
+  //* DragBox Interaction
+  const dragBoxInteraction = new DragBox({
+    condition: altKeyOnly,
+  });
+  map.addInteraction(dragBoxInteraction);
+
+  dragBoxInteraction.on("boxend", () => {
+    const extent = dragBoxInteraction.getGeometry().getExtent();
+    map.getView().fit(extent, { duration: 500 });
+  });
+
+  //* Draw Interaction
+  // const draw = new Draw({
+  //   type: "Polygon", // Can be Point, LineString, or Polygon
+  // });
+  // map.addInteraction(draw);
+
+  //* Select Interaction
+  // Define a style for selected features
+  const selectedStyle = new Style({
+    fill: new Fill({
+      color: "rgba(255, 255, 0, 0.6)",
+    }),
+    stroke: new Stroke({
+      color: "#ffcc33",
+      width: 2,
+    }),
+  });
+
+  // Create a select interaction for click events
+  const selectClick = new Select({
+    condition: click,
+    style: selectedStyle,
+  });
+  // Add the select interaction to the map
+  map.addInteraction(selectClick);
+
+  // Listen for the select event to handle selected features
+  selectClick.on("select", function (event: SelectEvent) {
+    console.log("Selected features:", event.selected);
   });
 }
 
