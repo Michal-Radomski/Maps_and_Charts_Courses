@@ -2,7 +2,7 @@ import Map from "ol/Map";
 import OSM from "ol/source/OSM";
 import TileLayer from "ol/layer/Tile";
 import View from "ol/View";
-import { Attribution, defaults as defaultControls } from "ol/control";
+import { Attribution, Control, defaults as defaultControls, OverviewMap, ScaleLine, Zoom } from "ol/control";
 import GeoJSON from "ol/format/GeoJSON";
 import VectorLayer from "ol/layer/Vector";
 import KML from "ol/format/KML";
@@ -33,8 +33,36 @@ import proj4 from "proj4";
 import "./style.scss";
 
 function init(): void {
-  const attribution = new Attribution({
+  const attributionControl = new Attribution({
     collapsible: true,
+  });
+
+  //* Controls
+  const scaleLineControl = new ScaleLine({
+    units: "metric",
+    minWidth: 200,
+    bar: true,
+    steps: 4,
+    text: true,
+  });
+
+  const overViewMapControl = new OverviewMap({
+    tipLabel: "Custom Overview Map",
+    layers: [
+      new TileLayer({
+        source: new OSM(),
+      }),
+    ],
+  });
+
+  const zoomControl = new Zoom();
+  const mapControls = [attributionControl, scaleLineControl, overViewMapControl, zoomControl];
+
+  console.log("mapControls:", mapControls);
+  mapControls.forEach(function (controlElement) {
+    if (controlElement instanceof Control) {
+      console.log("controlElement:", controlElement);
+    }
   });
 
   //* EPSG:4326 and EPSG:3857 out of box
@@ -83,7 +111,7 @@ function init(): void {
       }),
     ],
     target: "map",
-    controls: defaultControls({ attribution: false }).extend([attribution]),
+    controls: defaultControls({ attribution: false }).extend(mapControls),
   });
 
   //* Vector Tile Layer MapBox Example
