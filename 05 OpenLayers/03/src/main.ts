@@ -13,7 +13,7 @@ import OGCVectorTile from "ol/source/OGCVectorTile";
 import VectorTileLayer from "ol/layer/VectorTile";
 // import VectorTileSource from "ol/source/VectorTile";
 // import { Fill, Icon, Stroke, Style, Text } from "ol/style";
-import { Heatmap } from "ol/layer.js";
+import { Heatmap } from "ol/layer";
 import { Fill, Stroke, Style, Circle as CircleStyle, Icon } from "ol/style";
 import Feature from "ol/Feature";
 import { LineString, Polygon, Point } from "ol/geom";
@@ -22,9 +22,11 @@ import { register } from "ol/proj/proj4";
 import { transform } from "ol/proj";
 import { transformExtent } from "ol/proj";
 import { defaults as defaultInteractions, Select } from "ol/interaction";
-import DragBox from "ol/interaction/DragBox.js";
+import DragBox from "ol/interaction/DragBox";
 import { altKeyOnly, click } from "ol/events/condition";
 import { SelectEvent } from "ol/interaction/Select";
+import Geolocation, { GeolocationError } from "ol/Geolocation";
+import { Coordinate } from "ol/coordinate";
 import proj4 from "proj4";
 
 // const { createMapboxStreetsV6Style } = window;
@@ -502,6 +504,47 @@ function init(): void {
   // Listen for the select event to handle selected features
   selectClick.on("select", function (event: SelectEvent) {
     console.log("Selected features:", event.selected);
+  });
+
+  //* Geolocation API
+  const viewProjection = map.getView().getProjection();
+  console.log("viewProjection:", viewProjection);
+
+  const geolocation = new Geolocation({
+    tracking: true,
+    trackingOptions: {
+      maximumAge: 30000,
+      timeout: 27000,
+      enableHighAccuracy: true,
+    },
+    projection: viewProjection,
+  });
+  console.log("geolocation:", geolocation);
+
+  geolocation.on("error", (error: GeolocationError) => {
+    console.error("Geolocation error:", error);
+  });
+
+  geolocation.on("change:position", () => {
+    const coordinates = geolocation.getPosition() as Coordinate;
+    console.log("coordinates:", coordinates);
+
+    // Create a feature for the user's location
+    const userLocationFeature = new Feature(new Point(coordinates));
+
+    // Style for user location point
+    userLocationFeature.setStyle(
+      new Style({
+        image: new CircleStyle({
+          radius: 7,
+          fill: new Fill({ color: "rgba(255, 0, 0, 0.6)" }),
+          stroke: new Stroke({ color: "red", width: 2 }),
+        }),
+      })
+    );
+    vectorSource2.addFeature(userLocationFeature);
+
+    geolocation.setTracking(true);
   });
 }
 
