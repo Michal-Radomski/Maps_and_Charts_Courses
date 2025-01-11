@@ -15,10 +15,39 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+    <!-- Font-Awesome5.9 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/js/all.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
   </head>
+
   <body>
     <main>
-      <div id="map"></div>
+      <div class="grid-container">
+        <div class="grid-1">
+          <div class="column-navigation">
+            <a title="Home" id="Home" class="active"><i class="fas fa-home" id="Home"></i></a>
+            <a title="Perth" id="Perth"><i class="far fa-circle" id="Perth"></i></a>
+            <a title="Adelaide" id="Adelaide"><i class="far fa-circle" id="Adelaide"></i></a>
+            <a title="Melbourne" id="Melbourne"><i class="far fa-circle" id="Melbourne"></i></a>
+            <a title="Sydney" id="Sydney"><i class="far fa-circle" id="Sydney"></i></a>
+            <a title="Brisbane" id="Brisbane"><i class="far fa-circle" id="Brisbane"></i></a>
+            <a title="Darwin" id="Darwin"><i class="far fa-circle" id="Darwin"></i></a>
+            <a title="Hobart" id="Hobart"><i class="far fa-circle" id="Hobart"></i></a>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="column-map" id="openlayers-map"></div>
+        </div>
+
+        <div class="grid-3">
+          <div class="column-menu" id="menu-information">
+            <p id="cityname">Welcome to Australian Capital Cities Tour Map</p>
+            <img id="cityimage" src="./data/City_images/Australian_Flag.jpg" alt="Australian_Flag" />
+          </div>
+        </div>
+      </div>
     </main>
 
     <script type="module" src="/src/main.ts"></script>
