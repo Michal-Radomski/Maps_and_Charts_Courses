@@ -31,8 +31,9 @@ function init(): void {
 
   // Australian Cities GeoJSON
   const aussieCitiesStyle = function (feature: FeatureLike): Style[] {
-    let cityID = feature.get("ID") as string;
-    let cityIDString = cityID.toString() as string;
+    const cityID = feature.get("ID") as number;
+    const cityIDString = cityID.toString() as string;
+    // console.log({ cityID, cityIDString });
 
     const styles = [
       new Style({
