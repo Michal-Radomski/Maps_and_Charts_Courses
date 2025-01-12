@@ -18,7 +18,7 @@ window.onload = init;
 function init(): void {
   const austrCenterCoordinate = [15091875.539375868, -2890099.0297847847];
 
-  const map = new Map({
+  const map: Map = new Map({
     view: new View({
       center: austrCenterCoordinate,
       zoom: 4,
@@ -177,7 +177,7 @@ function init(): void {
 
   // Features Hover Logic
   const popoverTextElement = document.getElementById("popover-text") as HTMLParagraphElement;
-  const popoverTextLayer = new Overlay({
+  const popoverTextLayer: Overlay = new Overlay({
     element: popoverTextElement,
     positioning: "bottom-center",
     stopEvent: false,
@@ -185,10 +185,10 @@ function init(): void {
   map.addOverlay(popoverTextLayer);
 
   map.on("pointermove", function (evt: MapBrowserEvent<any>) {
-    const isFeatureAtPixel = map.hasFeatureAtPixel(evt.pixel);
+    const isFeatureAtPixel: boolean = map.hasFeatureAtPixel(evt.pixel);
     if (isFeatureAtPixel) {
-      const featureAtPixel = map.getFeaturesAtPixel(evt.pixel);
-      const featureName = featureAtPixel[0].get("Cityname");
+      const featureAtPixel: FeatureLike[] = map.getFeaturesAtPixel(evt.pixel);
+      const featureName = featureAtPixel[0].get("Cityname") as string;
       popoverTextLayer.setPosition(evt.coordinate);
       popoverTextElement.innerHTML = featureName;
       map.getViewport().style.cursor = "pointer";
