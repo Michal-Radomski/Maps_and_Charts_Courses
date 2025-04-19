@@ -11,3 +11,5 @@ Files created during Udemy.com maps and charts courses:
 4. [Chart JS, the complete guide](https://www.udemy.com/course/chart-js)
 
 5. [Openlayers](https://www.udemy.com/course/openlayers-6-from-scratch-with-a-project)
+
+6. [Mobile GIS data collection apps with Leaflet and PostGIS](https://www.udemy.com/course/mobile-gis-data-collection-apps-with-leaflet-and-postgis)
